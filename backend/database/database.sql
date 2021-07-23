@@ -34,6 +34,9 @@ CREATE TABLE `pelicula` (
   `activo` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `pelicula` (`idPelicula`, `nombre`, `img`, `activo`) VALUES
+(1, 'First', 'Image', 1);
+
 --
 -- Índices para tablas volcadas
 --
