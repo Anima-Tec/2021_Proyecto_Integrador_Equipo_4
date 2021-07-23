@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('/pelicula', App\Http\Controllers\PeliculaController::class);
+Route::apiResource('/olla', App\Http\Controllers\ControllerO::class);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

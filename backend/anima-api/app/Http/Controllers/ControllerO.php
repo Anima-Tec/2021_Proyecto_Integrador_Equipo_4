@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pelicula;
-class PeliculaController extends Controller
+use App\Models\Olla;
+use App\Http\Controllers\ApiController;
+
+class ControllerO extends ApiController
 {
     public function index()
     {
-        $Peliculas = Pelicula::where('activo', '=', 1)
-            ->select('idPelicula', 'nombre', 'img')
+        $Ollas = Olla::where('state', '=', 1)
+            ->select('name', 'schedule', 'lat', 'long' ,'id', 'desc')
             ->get();
 
-        return $Peliculas;
+        return $this->sendResponse($Ollas, '');
     }
 
     /**
@@ -34,11 +36,11 @@ class PeliculaController extends Controller
     public function store(Request $request)
     {
         try {
-            $Pelicula = new Pelicula();
-            $Pelicula->nombre = $request->input('img');
-            $Pelicula->img = $request->input('nombre');
-            $Pelicula->activo = 1;
-            $Pelicula->save();
+            $newOlla = new Olla();
+            $newOlla->nombre = $request->input('img');
+            $newOlla->img = $request->input('nombre');
+            $newOlla->activo = 1;
+            $newOlla->save();
             return "Pelicula ingresada correctamente";
         } catch (Exception $e) {
             return "Error";
@@ -53,7 +55,7 @@ class PeliculaController extends Controller
      */
     public function show($id)
     {
-        $Pelicula = Pelicula::where('idPelicula', $id)
+        $Pelicula = Olla::where('idPelicula', $id)
             ->select('idPelicula', 'nombre', 'img')
             ->get();
         return $this->sendResponse($Pelicula, "Pelicula obtenida correctamente");
