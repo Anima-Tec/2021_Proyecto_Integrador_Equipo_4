@@ -49,8 +49,8 @@ class ControllerD extends ApiController
             $newDonation->date = date("Y/m/d");
             $newDonation->save();
             return "Donation stored successfully";
-        } catch (Exception $e) {
-            return "Error";
+        } catch (\Illuminate\Database\QueryException $e) {
+            return "Error $e";
         }
     }
 

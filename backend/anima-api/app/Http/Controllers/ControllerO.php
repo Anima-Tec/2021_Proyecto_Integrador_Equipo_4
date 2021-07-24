@@ -44,8 +44,8 @@ class ControllerO extends ApiController
             $newOlla->desc = $request->input('desc');
             $newOlla->save();
             return "Data stored successfully";
-        } catch (Exception $e) {
-            return "Error";
+        } catch (\Illuminate\Database\QueryException $e) {
+            return "Error $e";
         }
     }
 
