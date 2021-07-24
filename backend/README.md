@@ -2,7 +2,7 @@
 
 ######1. Install composer (https://getcomposer.org/download/)
 
-######2. Install laravel with composer by running composer "global require laravel/installer"
+######2. Install laravel with composer by running "composer global require laravel/installer"
 
 ######3.  Clone repository (https://github.com/Katherine-Damires/2021_Proyecto_Integrador_Equipo_-4-) into C:/xampp/htdocs
 
