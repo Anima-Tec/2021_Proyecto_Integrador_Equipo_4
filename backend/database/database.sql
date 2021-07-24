@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2021 a las 00:58:16
--- Versión del servidor: 10.4.18-MariaDB
--- Versión de PHP: 8.0.3
+-- Host: 127.0.0.1
+-- Generation Time: Jul 24, 2021 at 02:49 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,44 +18,70 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `peliculas`
+-- Database: `databasepe`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pelicula`
+-- Table structure for table `ollas`
 --
 
-CREATE TABLE `pelicula` (
-  `idPelicula` int(11) NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `img` varchar(255) DEFAULT NULL,
-  `activo` tinyint(4) DEFAULT NULL
+CREATE TABLE `ollas` (
+  `name` varchar(50) NOT NULL,
+  `schedule` varchar(50) NOT NULL,
+  `lat` float NOT NULL,
+  `long` float NOT NULL,
+  `id` int(11) NOT NULL,
+  `desc` varchar(50) NOT NULL DEFAULT 'No description provided.',
+  `state` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `pelicula` (`idPelicula`, `nombre`, `img`, `activo`) VALUES
-(1, 'First', 'Image', 1);
+-- --------------------------------------------------------
 
 --
--- Índices para tablas volcadas
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `email` varchar(50) NOT NULL,
+  `fullName` varchar(255) NOT NULL,
+  `passwd` varchar(255) NOT NULL,
+  `type` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`email`, `fullName`, `passwd`, `type`) VALUES
+('email@email.com', 'Kevin Mora Pais', 'passwd', 'Donor');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `pelicula`
+-- Indexes for table `ollas`
 --
-ALTER TABLE `pelicula`
-  ADD PRIMARY KEY (`idPelicula`);
+ALTER TABLE `ollas`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `pelicula`
+-- AUTO_INCREMENT for table `ollas`
 --
-ALTER TABLE `pelicula`
-  MODIFY `idPelicula` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `ollas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
