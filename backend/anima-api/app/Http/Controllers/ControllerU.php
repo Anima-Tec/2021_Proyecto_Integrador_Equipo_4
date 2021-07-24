@@ -3,18 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Olla;
+use App\Models\User;
 use App\Http\Controllers\ApiController;
 
-class ControllerO extends ApiController
+class ControllerU extends ApiController
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
     {
-        $Ollas = Olla::where('state', '=', 1)
-            ->select('name', 'schedule', 'lat', 'long' ,'id', 'desc')
+        $email = $request->input('email');
+        $passwd = $request->input('passwd');
+        $user = User::where('email', $email)
+            ->where('passwd', $passwd)
+            ->select('email', 'fullName', 'passwd', 'type')
             ->get();
-
-        return $this->sendResponse($Ollas, '');
+        return $this->sendResponse($user, "");
     }
 
     /**
@@ -36,14 +43,13 @@ class ControllerO extends ApiController
     public function store(Request $request)
     {
         try {
-            $newOlla = new Olla();
-            $newOlla->name = $request->input('name');
-            $newOlla->schedule = $request->input('schedule');
-            $newOlla->lat = $request->input('lat');
-            $newOlla->long = $request->input('long');
-            $newOlla->desc = $request->input('desc');
-            $newOlla->save();
-            return "Data stored successfully";
+            $newUser = new User();
+            $newUser->email = $request->input('email');
+            $newUser->fullName = $request->input('fullName');
+            $newUser->passwd = $request->input('passwd');
+            $newUser->type = $request->input('type');
+            $newUser->save();
+            return "User stored successfully";
         } catch (Exception $e) {
             return "Error";
         }
@@ -55,13 +61,6 @@ class ControllerO extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $Pelicula = Olla::where('idPelicula', $id)
-            ->select('idPelicula', 'nombre', 'img')
-            ->get();
-        return $this->sendResponse($Pelicula, "Pelicula obtenida correctamente");
-    }
 
     /**
      * Show the form for editing the specified resource.

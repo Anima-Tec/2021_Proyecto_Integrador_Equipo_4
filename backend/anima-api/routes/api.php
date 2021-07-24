@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::apiResource('/olla', App\Http\Controllers\ControllerO::class);
+Route::apiResource('/user', App\Http\Controllers\ControllerU::class);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
