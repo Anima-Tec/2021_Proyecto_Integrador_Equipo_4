@@ -50,8 +50,8 @@ class ControllerU extends ApiController
             $newUser->type = $request->input('type');
             $newUser->save();
             return "User stored successfully";
-        } catch (Exception $e) {
-            return "Error";
+        } catch (\Illuminate\Database\QueryException $e) {
+            return "Error $e";
         }
     }
 
