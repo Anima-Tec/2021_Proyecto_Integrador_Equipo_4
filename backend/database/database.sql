@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2021 at 02:49 AM
+-- Generation Time: Jul 24, 2021 at 04:00 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -24,6 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `donations`
+--
+
+CREATE TABLE `donations` (
+  `idOlla` int(11) NOT NULL,
+  `userEmail` varchar(255) NOT NULL,
+  `donationType` varchar(50) DEFAULT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `donations`
+--
+
+INSERT INTO `donations` (`idOlla`, `userEmail`, `donationType`, `date`) VALUES
+(1, 'email@email.com', 'type', '2021-07-24 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ollas`
 --
 
@@ -36,6 +56,14 @@ CREATE TABLE `ollas` (
   `desc` varchar(50) NOT NULL DEFAULT 'No description provided.',
   `state` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ollas`
+--
+
+INSERT INTO `ollas` (`name`, `schedule`, `lat`, `long`, `id`, `desc`, `state`) VALUES
+('olla1', '13:00 - 17:00', -37.9877, 29.1123, 1, 'Olla prueba', 1),
+('olla1', '13:00 - 17:00', -37.9877, 29.1123, 2, 'Olla prueba', 1);
 
 -- --------------------------------------------------------
 
@@ -62,6 +90,13 @@ INSERT INTO `users` (`email`, `fullName`, `passwd`, `type`) VALUES
 --
 
 --
+-- Indexes for table `donations`
+--
+ALTER TABLE `donations`
+  ADD PRIMARY KEY (`idOlla`,`userEmail`,`date`),
+  ADD KEY `userEmail` (`userEmail`);
+
+--
 -- Indexes for table `ollas`
 --
 ALTER TABLE `ollas`
@@ -81,7 +116,18 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `ollas`
 --
 ALTER TABLE `ollas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `donations`
+--
+ALTER TABLE `donations`
+  ADD CONSTRAINT `donations_ibfk_1` FOREIGN KEY (`idOlla`) REFERENCES `ollas` (`id`),
+  ADD CONSTRAINT `donations_ibfk_2` FOREIGN KEY (`userEmail`) REFERENCES `users` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
