@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('/pelicula', App\Http\Controllers\PeliculaController::class);
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::apiResource('/olla', App\Http\Controllers\ControllerO::class);
+Route::apiResource('/user', App\Http\Controllers\ControllerU::class);
+Route::apiResource('/donation', App\Http\Controllers\ControllerD::class);
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

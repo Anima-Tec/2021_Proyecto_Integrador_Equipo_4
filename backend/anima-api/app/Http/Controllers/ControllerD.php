@@ -3,16 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Pelicula;
-class PeliculaController extends Controller
+use App\Models\Donation;
+use App\Http\Controllers\ApiController;
+
+class ControllerD extends ApiController
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $Peliculas = Pelicula::where('activo', '=', 1)
-            ->select('idPelicula', 'nombre', 'img')
+        $donations = Donation::where('idOlla', '>=', 1)
+            ->join('ollas', 'idOlla', '=', 'ollas.id')
+            ->select('name', 'userEmail', 'date', 'donationType')
             ->get();
 
-        return $Peliculas;
+        return $this->sendResponse($donations, '');
     }
 
     /**
@@ -34,14 +42,15 @@ class PeliculaController extends Controller
     public function store(Request $request)
     {
         try {
-            $Pelicula = new Pelicula();
-            $Pelicula->nombre = $request->input('img');
-            $Pelicula->img = $request->input('nombre');
-            $Pelicula->activo = 1;
-            $Pelicula->save();
-            return "Pelicula ingresada correctamente";
-        } catch (Exception $e) {
-            return "Error";
+            $newDonation = new Donation();
+            $newDonation->idOlla = $request->input('idOlla');
+            $newDonation->userEmail = $request->input('userEmail');
+            $newDonation->donationType = $request->input('type');
+            $newDonation->date = date("Y/m/d");
+            $newDonation->save();
+            return "Donation stored successfully";
+        } catch (\Illuminate\Database\QueryException $e) {
+            return "Error $e";
         }
     }
 
@@ -53,10 +62,7 @@ class PeliculaController extends Controller
      */
     public function show($id)
     {
-        $Pelicula = Pelicula::where('idPelicula', $id)
-            ->select('idPelicula', 'nombre', 'img')
-            ->get();
-        return $this->sendResponse($Pelicula, "Pelicula obtenida correctamente");
+        //
     }
 
     /**
