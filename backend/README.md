@@ -6,7 +6,7 @@
 
 ######3.  Clone repository (https://github.com/Katherine-Damires/2021_Proyecto_Integrador_Equipo_-4-) into C:/xampp/htdocs
 
-######4. Create a database named "peliculas" and import the databse.sql file in backend/database
+######4. Create a database named "databasepe" and import the databse.sql file in backend/database
 
 ######5. Go to "htdocs/2021_Proyecto_Integrador_Equipo_-4-/backend/anima-api"
 
@@ -16,4 +16,4 @@
 
 ######8.  Run php artisan serv
 
-######9. Try it out
+######9. Try it out by making a GET request at http://127.0.0.1:8000/api/olla
