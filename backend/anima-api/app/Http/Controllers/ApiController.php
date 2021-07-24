@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class ApiController extends Controller
+class ApiController
 {
     public function sendResponse($result, $message)
     {
