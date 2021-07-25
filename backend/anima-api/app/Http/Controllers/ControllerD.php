@@ -13,15 +13,22 @@ class ControllerD extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $donations = Donation::where('idOlla', '>=', 1)
-            ->join('ollas', 'idOlla', '=', 'ollas.id')
-            ->select('name', 'userEmail', 'date', 'donationType')
+        $email = $request->input('email');
+        $donations = Donation::where('userEmail', $email)
+        ->select('*')
             ->get();
-
-        return $this->sendResponse($donations, '');
+        return $this->sendResponse($donations, "");
     }
+    // {
+    //     $donations = Donation::where('idOlla', '>=', 1)
+    //         ->join('ollas', 'idOlla', '=', 'ollas.id')
+    //         -->join('ollas', 'idOlla', '=', 'ollas.id')
+    //         ->get();
+
+    //     return $this->sendResponse($donations, '');
+    // }
 
     /**
      * Show the form for creating a new resource.
