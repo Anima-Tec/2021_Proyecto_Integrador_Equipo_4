@@ -18,3 +18,7 @@ systemctl start sshd
 ```bash
 ssh user@192.168.1.4 -p 22
 ```
+##### If you get an error along the lines of "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED", then run this:
+```bash
+ssh-keygen -R "192.168.1.4"
+```
