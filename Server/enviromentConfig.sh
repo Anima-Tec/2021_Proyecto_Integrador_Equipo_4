@@ -46,6 +46,11 @@ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 sudo adduser user
 sudo passwd user
 
+sudo adduser admin
+sudo passwd admin
+
+sudo usermod -aG wheel admin
+
 sed -i '/PermitRootLogin yes/c\PermitRootLogin no' /etc/ssh/sshd_config
 sed -i '/PasswordAuthentication no/c\PasswordAuthentication yes' /etc/ssh/sshd_config
 
