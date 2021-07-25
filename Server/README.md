@@ -16,5 +16,5 @@ systemctl start sshd
 ```
 ##### Connect to ssh server from cmd on windows:
 ```bash
-ssh ssh user@192.168.1.4 -p 24
+ssh user@192.168.1.4 -p 22
 ```
