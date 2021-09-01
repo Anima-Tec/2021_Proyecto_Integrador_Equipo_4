@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.module.scss';
 import App from './App';
-import Registro from './Registro';
+import Registro from './components/UI/Registro';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,0 +1,73 @@
+.registroButton {
+  display: flex;
+  border: 1px solid #ab74c6;
+  color: #72bbdb;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: white;
+  box-shadow: 0px 5px 10px rgba(114, 187, 219, 0.26), 0px 20px 40px rgba(114, 187, 219, 0.29);
+  border-radius: 8px;
+  padding: 14px 24px;
+}
+
+.modal {
+  .registroHeader {
+    display: flex;
+    background: #72bbdb;
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    flex-direction: row;
+
+    p {
+      width: 709px;
+      margin: 24px, 24px;
+    }
+  }
+
+  .registroBody {
+    display: flex;
+    padding: 24px;
+    flex-direction: column;
+    background-color: white;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    input {
+      width: 709;
+      height: 40px;
+      margin: 10px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      width: 709;
+      height: 40px;
+      margin: 10px;
+      background-color: #72bbdb;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      border-radius: 8px;
+      border: none;
+    }
+  }
+}
+
+@media (min-width: 1920px) {
+  .modal {
+    .registroHeader {
+      padding-left: 125px; 
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .registroHeader {
+    font-size: ;
+  }
+}
