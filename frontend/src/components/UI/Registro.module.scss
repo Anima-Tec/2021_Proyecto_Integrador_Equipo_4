@@ -36,24 +36,29 @@
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
 
-    input {
-      width: 709;
-      height: 40px;
-      margin: 10px;
-      background-color: #f5f5f5;
-      border-radius: 8px;
-      border: none;
-    }
-    button {
-      width: 709;
-      height: 40px;
-      margin: 10px;
-      background-color: #72bbdb;
-      color: white;
-      font-weight: bold;
-      font-size: 24px;
-      border-radius: 8px;
-      border: none;
+    form {
+      flex-direction: column;
+      display: flex;
+
+      input {
+        width: 709;
+        height: 40px;
+        margin: 10px;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        border: none;
+      }
+      button {
+        width: 709;
+        height: 40px;
+        margin: 10px;
+        background-color: #72bbdb;
+        color: white;
+        font-weight: bold;
+        font-size: 24px;
+        border-radius: 8px;
+        border: none;
+      }
     }
   }
 }
@@ -61,13 +66,31 @@
 @media (min-width: 1920px) {
   .modal {
     .registroHeader {
-      padding-left: 125px; 
+      padding-left: 130px;
+      font-size: 40px;
+    }
+    .registroBody {
+      form {
+        input{
+          font-size: 15px;
+        }
+        button {
+          font-size: 30px;
+        }
+      }
     }
   }
 }
 
 @media (max-width: 425px) {
   .registroHeader {
-    font-size: ;
+    font-size: 20px;
+  }
+  .registroBody {
+    form {
+      button {
+        font-size: 15;
+      }
+    }
   }
 }
