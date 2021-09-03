@@ -16,7 +16,7 @@ const Login = () => (
       <div className={classes["welcome-container"]}>
         <h4>Bienvenido</h4>
       </div>
-      <form onSumbit={(LoginHandler)} className={classes["info-container"]}>
+      <form onSumbit={LoginHandler} className={classes["info-container"]}>
         <input type='email' placeholder="Email"></input>
         <input type='password' placeholder="Contraseña"></input>
         <a
