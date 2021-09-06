@@ -20,7 +20,7 @@ const Login = () => (
         <input type="email" placeholder="Email" required></input>
         <input type="password" placeholder="Contraseña" minLength="8" required></input>
         <a
-          href="https://www.google.com/?hl=es" //Lo dejé como Google porque no se exactamente que irá ahi
+          href="http://localhost:3000/"
           target="_blank"
           rel="noreferrer"
           className={classes["reset-passw"]}
