@@ -17,8 +17,8 @@ const Login = () => (
         <h4>Bienvenido</h4>
       </div>
       <form onSumbit={LoginHandler} className={classes["info-container"]}>
-        <input type='email' placeholder="Email"></input>
-        <input type='password' placeholder="Contraseña"></input>
+        <input type='email' placeholder="Email" required='required'></input>
+        <input type='password' placeholder="Contraseña" minLength='8' required='required'></input>
         <a
           href="https://www.google.com/?hl=es"
           target="_blank"

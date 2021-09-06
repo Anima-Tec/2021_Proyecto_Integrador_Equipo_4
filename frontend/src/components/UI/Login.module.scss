@@ -45,6 +45,10 @@
     border-radius: 0.5rem;
   }
 
+  input:invalid {
+    border: 0.125rem solid #ff0000;
+  }
+
   a {
     font-size: 0.625rem;
     text-decoration: none;
