@@ -4,13 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.module.scss';
 import App from './App';
-import Registro from './components/login/Registro';
+import Register from './components/login/Register';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <Registro />
+      <Register />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
