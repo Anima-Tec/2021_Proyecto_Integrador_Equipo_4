@@ -1,7 +1,6 @@
 import classes from "./Login.module.scss";
 import React from "react";
 import Popup from "reactjs-popup";
-import "../../../../node_modules/reactjs-popup/dist/index.css";
 
 const LoginHandler = (event) => {
   event.preventDefault();
@@ -11,6 +10,7 @@ const Login = () => (
   <Popup
     trigger={<button className={classes["login-btn"]}>Acceder</button>}
     modal
+    className={classes["popup-content"]}
   >
     <div className={["login-container"]}>
       <div className={classes["welcome-container"]}>
