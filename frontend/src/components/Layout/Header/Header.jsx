@@ -1,11 +1,13 @@
 import classes from './Header.module.scss';
-import logo from '../../../assets/logo.png';
+import logo from '../../../assets/images/logo.png';
 import {
-  ArrowDropDownCircleOutlined as ArrowDropDownIcon,
   Map as MapIcon,
   Person as PersonIcon,
   PersonAdd as PersonAddIcon,
 } from '@material-ui/icons';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { useState } from 'react';
 
@@ -51,13 +53,16 @@ const Header = () => {
                 : defaultToggleClasses
             }
           >
-            <ArrowDropDownIcon className={classes['toggler-icon']} />
+            <FontAwesomeIcon
+              icon={faBars}
+              className={classes['toggler-icon']}
+            />
           </li>
         </div>
 
         <div
           className={
-            window.innerWidth <= 769
+            window.innerWidth <= 1023
               ? !isToggled
                 ? `${classes['display-none']}`
                 : classes['nav-content']
