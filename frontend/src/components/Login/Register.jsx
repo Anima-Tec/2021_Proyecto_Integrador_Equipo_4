@@ -11,7 +11,7 @@ const Register = () => {
   return (
     <Popup className={classes.content} trigger={<button>Registrarse</button>}
       modal
-    >
+    > 
       {close => (
       <div className={classes.modal}>
 
