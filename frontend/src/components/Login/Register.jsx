@@ -3,43 +3,62 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
 import classes from './Register.module.scss';
-import '../../../node_modules/reactjs-popup/dist/index.css';
 
 const Register = () => {
 
-  const submitHandler = () => {
-    
+  const submitHandler = (event) => {
+    event.preventDefault();
   };
 
   return (
-    <Popup trigger={<button className={classes.registerButton}>Registrarse</button>}
+    <Popup trigger={<button>Registrarse</button>}
       modal
     >
       {close => (
       <div className={classes.modal}>
+
         <button className={classes.close} onClick={close}>
           &times;
         </button>
-        <div className={classes.registerHeader}>
-          <p>¡Registrate!</p>
+
+        <div className={classes['register-header']}>
+          <p className={classes.tittle}>¡Registrate!</p>
         </div>
-        <div className={classes.registerBody}>
-          <form onSubmit={(submitHandler)}>
-            <label htmlFor="name">Nombre<span> (requerido)</span></label>
-            <input type="text" placeholder="Nombre" id="name" required/>
 
-            <label htmlFor="surname">Apellido<span> (requerido)</span></label>
-            <input type="text" placeholder="Apellido" id="surname" required/>
+        <div className={classes['register-body']}>
+          <form className={classes['register-form']}onSubmit={(submitHandler)}>
 
-            <label htmlFor="email">Email<span> (requerido)</span></label>
-            <input type="email" placeholder="Email" id="email" required/>
+            <label className={classes['register-label']} htmlFor="name">
+              Nombre
+              <span className={classes['register-required']}> (requerido)</span>
+            </label>
+            <input className={classes['register-input']} type="text" placeholder="Nombre" id="name" required/>
 
-            <label htmlFor="password">Contraseña<span> (requerido)</span></label>
-            <input type="password" placeholder="Contraseña" id="password" minLength="8"/>
-            <input type="password" placeholder="Confirmar Contraseña" id="confmirmPassword" minLength="8"/>
+            <label className={classes['register-label']} htmlFor="surname">
+              Apellido
+              <span className={classes['register-required']}> (requerido)</span>
+            </label>
+            <input className={classes['register-input']} type="text" placeholder="Apellido" id="surname" required/>
 
-            <a href="http://">Ya tienes cuenta? Inicia sesión</a>
-            <button type="submit">Registrarse</button>
+            <label className={classes['register-label']} htmlFor="email">
+              Email
+              <span className={classes['register-required']}> (requerido)</span>
+            </label>
+            <input className={classes['register-input']} type="email" placeholder="Email" id="email" required/>
+
+            <label className={classes['register-label']} htmlFor="password">
+              Contraseña
+              <span className={classes['register-required']}> (requerido)</span>
+            </label>
+            <input className={classes['register-input']} type="password" placeholder="Contraseña" id="password" minLength="8" required/>
+            <input className={classes['register-input']} type="password" placeholder="Confirmar Contraseña" id="confmirmPassword" minLength="8" required/>
+
+            <span className={classes['register-question']}>
+              ¿Ya tienes cuenta? 
+              <a className={classes['link-to-login']} href="(insertar ruta del login)"> Inicia sesión</a>
+            </span>
+
+            <button className={classes['register-button']} type="submit">Registrarse</button>
           </form>
         </div>
       </div>
