@@ -1,5 +1,5 @@
 :global(.popup-overlay) {
-    background: rgba(0, 0, 0, .5)
+    background: rgba(0, 0, 0, 0.5)
 }
 
 .close {
@@ -17,7 +17,7 @@ border: 1px solid #97ABA3;
 
 .register-header {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
     justify-content: center;    
     background: #72bbdb;
     font-size: 1.875rem;
@@ -126,12 +126,13 @@ border: 1px solid #97ABA3;
 
 @media (max-width: 425px) {
     .close{
-        right: -10px;
+        right: 5px;
     }
-    .modal{
-        width: 110%;
-        margin-left: -5%;
+
+    :global(.popup-content){
+        width: 90%;
     }
+
     .register-header {
         font-size: 1.5rem;
     }

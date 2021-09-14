@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import React from 'react';
 import Popup from 'reactjs-popup';
 import classes from './Register.module.scss';
@@ -11,7 +9,7 @@ const Register = () => {
   };
 
   return (
-    <Popup trigger={<button>Registrarse</button>}
+    <Popup className={classes.content} trigger={<button>Registrarse</button>}
       modal
     >
       {close => (
