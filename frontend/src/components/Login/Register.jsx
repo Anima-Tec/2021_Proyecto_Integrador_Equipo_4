@@ -20,7 +20,7 @@ const Register = () => {
         </button>
 
         <div className={classes['register-header']}>
-          <p className={classes.tittle}>¡Registrate!</p>
+          <p className={classes.title}>¡Registrate!</p>
         </div>
 
         <div className={classes['register-body']}>
