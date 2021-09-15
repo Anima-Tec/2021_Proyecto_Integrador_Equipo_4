@@ -13,11 +13,11 @@ class ControllerU extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function tempLogin(Request $request)
     {
         $email = $request->input('email');
         $passwd = $request->input('passwd');
-        $user = User::where('email', $email)
+        $user = User::where('correo', $email)
             ->where('passwd', $passwd)
             ->select('fullName', 'type')
             ->get();
@@ -40,14 +40,15 @@ class ControllerU extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function tempRegister(Request $request)
     {
         try {
             $newUser = new User();
-            $newUser->email = $request->input('email');
-            $newUser->fullName = $request->input('fullName');
+            $newUser->correo = $request->input('email');
+            $newUser->nombre = $request->input('name');
+            $newUser->apellido = $request->input('surname');
             $newUser->passwd = $request->input('passwd');
-            $newUser->type = $request->input('type');
+            $newUser->state = 0;
             $newUser->save();
             return "User stored successfully";
         } catch (\Illuminate\Database\QueryException $e) {
