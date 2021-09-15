@@ -8,10 +8,10 @@ use App\Http\Controllers\ApiController;
 
 class ControllerO extends ApiController
 {
-    public function index()
+    public function getAll()
     {
-        $Ollas = Olla::where('state', '=', 1)
-            ->select('name', 'schedule', 'lat', 'long' ,'id', 'desc')
+        $Ollas = Olla::where('estado', '=', 1)
+            ->select('*')
             ->get();
 
         return $this->sendResponse($Ollas, '');

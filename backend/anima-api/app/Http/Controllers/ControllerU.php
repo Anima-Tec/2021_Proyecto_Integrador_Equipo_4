@@ -19,7 +19,7 @@ class ControllerU extends ApiController
         $passwd = $request->input('passwd');
         $user = User::where('correo', $email)
             ->where('passwd', $passwd)
-            ->select('fullName', 'type')
+            ->select('nombre', 'apellido')
             ->get();
         return $this->sendResponse($user, "");
     }

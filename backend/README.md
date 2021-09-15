@@ -6,7 +6,7 @@
 
 ###### 3.  Clone repository (https://github.com/Katherine-Damires/2021_Proyecto_Integrador_Equipo_-4-) into C:/xampp/htdocs
 
-###### 4. Create a database named "databasepe" and import the databse.sql file in backend/database
+###### 4. Create a database named "olla_popular" and import the olla_popular.sql file in backend/database
 
 ###### 5. Go to "htdocs/2021_Proyecto_Integrador_Equipo_-4-/backend/anima-api"
 

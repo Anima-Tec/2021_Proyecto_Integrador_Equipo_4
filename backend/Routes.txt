@@ -1,0 +1,35 @@
+Get all donations made by a user:
+    GET http://127.0.0.1:8000/api/donations/<userEmail>
+
+--------------------------------------------------------------------
+
+Store a donation:
+    POST http://127.0.0.1:8000/api/donations/save
+    BODY { 
+            "idOlla" : <value>,
+            "email" : <userEmail>,
+            "type" : <donationType>
+         }
+
+--------------------------------------------------------------------
+
+User login (temporary):
+    POST http://127.0.0.1:8000/api/login
+    BODY { 
+            "email" : <userEmail>,
+            "passwd" : <userPassword>
+         }
+
+--------------------------------------------------------------------
+
+Register a user (also temporary):
+    POST http://127.0.0.1:8000/api/register
+    BODY {
+            "email" : <userEmail>,
+            "name" : <name>,
+            "surname" : <surname>,
+            "passwd" : <passwd>
+        }
+    NOTES: User state is 0 by default.
+
+--------------------------------------------------------------------
