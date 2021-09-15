@@ -14,7 +14,7 @@ class ControllerD extends ApiController
         $donations = Donation::where('email', $userEmail)
         ->select('*')
             ->get();
-        return $this->sendResponse($donations, "");
+        return $this->sendResponse($donations, "", 200);
     }
     
     public function saveDonation(Request $request)

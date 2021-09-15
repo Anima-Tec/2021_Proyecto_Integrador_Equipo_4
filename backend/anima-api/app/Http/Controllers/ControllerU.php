@@ -17,11 +17,16 @@ class ControllerU extends ApiController
     {
         $email = $request->input('email');
         $passwd = $request->input('passwd');
-        $user = User::where('correo', $email)
-            ->where('passwd', $passwd)
-            ->select('nombre', 'apellido')
-            ->get();
-        return $this->sendResponse($user, "");
+        if (User::where('correo', $email)
+            ->where('passwd', $passwd)->exists()
+        ) {
+            $user = User::where('correo', $email)
+                ->where('passwd', $passwd)
+                ->select('nombre', 'apellido')
+                ->get();
+            return $this->sendResponse($user, "", 200);
+        }
+        return $this->sendError("User not found", 404, "Invalid credentials");
     }
 
     /**
@@ -43,6 +48,12 @@ class ControllerU extends ApiController
     public function tempRegister(Request $request)
     {
         try {
+            if (!$request->input('email') || !$request->input('name') || !$request->input('surname') || !$request->input('passwd')){
+                return $this->sendError("Missing parameters", 400, "The request body does not contain all necessary parameters");
+            }
+            if (User::where('correo', $request->input('email'))->exists()) {
+                return $this->sendError("Email is already in use", 409, "Duplicated entry for email");
+            }
             $newUser = new User();
             $newUser->correo = $request->input('email');
             $newUser->nombre = $request->input('name');
@@ -50,7 +61,7 @@ class ControllerU extends ApiController
             $newUser->passwd = $request->input('passwd');
             $newUser->state = 0;
             $newUser->save();
-            return "User stored successfully";
+            return $this->sendResponse("User created successfully", "Account requires activation, a token has been sent via email", 201);
         } catch (\Illuminate\Database\QueryException $e) {
             return "Error $e";
         }
