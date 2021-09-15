@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class donation extends Model
 {
     use HasFactory;
-    protected $connection='databasepe';
-    protected $table='donations';
-    protected $primaryKey = "id";
+    protected $connection='olla_popular';
+    protected $table='donacion';
+    protected $primaryKey = "idDonacion";
     public $timestamps=false;
 }

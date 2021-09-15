@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
-    protected $connection='databasepe';
-    protected $table='users';
-    protected $primaryKey = "email";
+    protected $connection='olla_popular';
+    protected $table='usuario';
+    protected $primaryKey = "correo";
     public $timestamps=false;
 }
