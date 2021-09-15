@@ -10,6 +10,6 @@ class User extends Model
     use HasFactory;
     protected $connection='olla_popular';
     protected $table='usuario';
-    protected $primaryKey = "correo";
+    protected $primaryKey = 'correo';
     public $timestamps=false;
 }

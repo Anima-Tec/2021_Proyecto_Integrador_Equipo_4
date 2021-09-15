@@ -14,7 +14,7 @@ class ControllerD extends ApiController
         $donations = Donation::where('email', $userEmail)
         ->select('*')
             ->get();
-        return $this->sendResponse($donations, "", 200);
+        return $this->sendResponse($donations, '', 200);
     }
     
     public function saveDonation(Request $request)
@@ -24,11 +24,11 @@ class ControllerD extends ApiController
             $newDonation->idOlla = $request->input('idOlla');
             $newDonation->email = $request->input('email');
             $newDonation->tipoDonacion = $request->input('type');
-            $newDonation->fecha = date("Y/m/d");
+            $newDonation->fecha = date('Y/m/d');
             $newDonation->save();
-            return "Donation stored successfully";
+            return 'Donation stored successfully';
         } catch (\Illuminate\Database\QueryException $e) {
-            return "Error $e";
+            return 'Error $e';
         }
     }
 }

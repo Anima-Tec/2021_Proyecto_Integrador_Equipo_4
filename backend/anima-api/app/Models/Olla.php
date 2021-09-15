@@ -10,6 +10,6 @@ class Olla extends Model
     use HasFactory;
     protected $connection='olla_popular';
     protected $table='olla';
-    protected $primaryKey = "idOlla";
+    protected $primaryKey = 'idOlla';
     public $timestamps=false;
 }

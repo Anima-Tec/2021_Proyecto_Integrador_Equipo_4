@@ -10,6 +10,6 @@ class donation extends Model
     use HasFactory;
     protected $connection='olla_popular';
     protected $table='donacion';
-    protected $primaryKey = "idDonacion";
+    protected $primaryKey = 'idDonacion';
     public $timestamps=false;
 }
