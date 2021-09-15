@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2021 at 02:00 AM
+-- Generation Time: Sep 15, 2021 at 02:27 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -31,8 +31,6 @@ CREATE TABLE `donacion` (
   `idDonacion` int(11) NOT NULL,
   `idOlla` int(11) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
-  `longitud` float DEFAULT NULL,
-  `latitud` float DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `tipoDonacion` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -41,8 +39,10 @@ CREATE TABLE `donacion` (
 -- Dumping data for table `donacion`
 --
 
-INSERT INTO `donacion` (`idDonacion`, `idOlla`, `email`, `longitud`, `latitud`, `fecha`, `tipoDonacion`) VALUES
-(1, 1, 'marcoscapo@gmail.com', -34.9087, -56.191, '2021-08-31', 'Dinero');
+INSERT INTO `donacion` (`idDonacion`, `idOlla`, `email`, `fecha`, `tipoDonacion`) VALUES
+(1, 1, 'marcoscapo@gmail.com', '2021-08-31', 'Dinero'),
+(2, 1, 'benitogarcia@gmail.com', '2021-09-15', 'Dinero'),
+(3, 1, 'benitogarcia@gmail.com', '2021-09-15', 'Dinero');
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `donacion`
 --
 ALTER TABLE `donacion`
-  MODIFY `idDonacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idDonacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `olla`
