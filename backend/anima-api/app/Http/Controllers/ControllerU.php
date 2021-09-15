@@ -12,6 +12,9 @@ class ControllerU extends ApiController
     {
         $email = $request->input('email');
         $passwd = $request->input('passwd');
+        if (!$email || !$passwd){
+            return $this->sendError('Missing parameters', 400, 'The request body does not contain all necessary parameters');
+        }
         if (User::where('correo', $email)
             ->where('passwd', $passwd)->exists()
         ) {
