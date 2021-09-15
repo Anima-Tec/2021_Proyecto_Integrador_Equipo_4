@@ -29,7 +29,7 @@ class ControllerO extends ApiController
             $newOlla->save();
             return 'Data stored successfully';
         } catch (\Illuminate\Database\QueryException $e) {
-            return 'Error $e';
+            return "Error $e";
         }
     }
 

@@ -46,7 +46,7 @@ class ControllerU extends ApiController
             $newUser->save();
             return $this->sendResponse('User created successfully', '', 201);
         } catch (\Illuminate\Database\QueryException $e) {
-            return 'Error $e';
+            return "Error $e";
         }
     }
 }

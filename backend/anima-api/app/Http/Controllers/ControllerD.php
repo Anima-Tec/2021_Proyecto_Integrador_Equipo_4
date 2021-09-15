@@ -28,7 +28,7 @@ class ControllerD extends ApiController
             $newDonation->save();
             return 'Donation stored successfully';
         } catch (\Illuminate\Database\QueryException $e) {
-            return 'Error $e';
+            return "Error $e";
         }
     }
 }
