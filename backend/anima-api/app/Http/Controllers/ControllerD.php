@@ -11,7 +11,7 @@ class ControllerD extends ApiController
     
     public function getDonationsFromUser(Request $request, $userEmail)
     {
-        $donations = Donation::where('userEmail', $userEmail)
+        $donations = Donation::where('email', $userEmail)
         ->select('*')
             ->get();
         return $this->sendResponse($donations, "");
