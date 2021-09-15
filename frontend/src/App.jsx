@@ -11,7 +11,6 @@ const App = () => {
       <Layout>
         <Switch>
           <Route path='/' exact>
-            <p>home page</p>
           </Route>
           <Route path='/react'>
             <div className={classes.App}>
