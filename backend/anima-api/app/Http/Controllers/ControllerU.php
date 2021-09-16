@@ -81,10 +81,10 @@ class ControllerU extends ApiController
         }
         Token::where('expiration', '<', date('Y/m/d H:i:s'))->delete();
         if (Token::where('userEmail', $userEmail)->where('value', $token)->doesntExist()){
-            return 404;
+            return $this->sendError('Invalid email-token combination.', 404, 'Token and email values did not match any record.');
         }
         User::where('correo', $userEmail)->update(['state' => 1]);
         Token::where('userEmail', $userEmail)->delete();
-        return 200;
+        return $this->sendResponse('Account activated successfully.', 'Ok.', 201);
     }
 }
