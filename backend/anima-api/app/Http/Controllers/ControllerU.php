@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+date_default_timezone_set("America/Argentina/Buenos_Aires");
+
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Token;
@@ -73,11 +75,15 @@ class ControllerU extends ApiController
 
     function accountActivation($token, $userEmail)
     {
+        $expiredTokens = Token::where('expiration', '<', date('Y/m/d H:i:s'))->get();
+        foreach ($expiredTokens as $token){
+            User::where('correo', $token->userEmail)->where('state', 0)->delete();
+        }
         Token::where('expiration', '<', date('Y/m/d H:i:s'))->delete();
         if (Token::where('userEmail', $userEmail)->where('value', $token)->doesntExist()){
             return 404;
         }
-        User::where('email', $userEmail)->update(['state' => 1]);
+        User::where('correo', $userEmail)->update(['state' => 1]);
         return 200;
     }
 }
