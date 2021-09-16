@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Token;
 use App\Http\Controllers\ApiController;
 
 class ControllerU extends ApiController
@@ -31,11 +32,15 @@ class ControllerU extends ApiController
     public function tempRegister(Request $request)
     {
         try {
+            $this->accountActivation(null, null);
             if (!$request->input('email') || !$request->input('name') || !$request->input('surname') || !$request->input('passwd')){
-                return $this->sendError('Missing parameters', 400, 'The request body does not contain all necessary parameters');
+                return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
+            }
+            if (Token::where('userEmail', $request->input('email'))->exists()) {
+                return $this->sendError('The account is awaiting activation.', 409, 'Activation token will expire in 24 hours.');
             }
             if (User::where('correo', $request->input('email'))->exists()) {
-                return $this->sendError('Email is already in use', 409, 'Duplicated entry for email');
+                return $this->sendError('Email is already in use.', 409, 'Duplicated entry for email.');
             }
             $newUser = new User();
             $newUser->correo = $request->input('email');
@@ -44,9 +49,35 @@ class ControllerU extends ApiController
             $newUser->passwd = $request->input('passwd');
             $newUser->state = 0;
             $newUser->save();
-            return $this->sendResponse('User created successfully', '', 201);
+            $this->createRegisterToken($request->input('email'));
+            return $this->sendResponse('User created successfully.', 'Account requires activation, a token has been sent via email.', 201);
         } catch (\Illuminate\Database\QueryException $e) {
             return "Error $e";
         }
+    }
+
+    function createRegisterToken($userEmail)
+    {
+        $token = new Token();
+        $tokenValue = rand(111111, 999999);
+        $currentDate = date('Y/m/d H:i:s');
+        $expTimeStamp = strtotime(" $currentDate + 5 minutes");
+        $tokenExp = date('Y/m/d H:i:s', $expTimeStamp);
+
+        $token->userEmail = $userEmail;
+        $token->expiration = $tokenExp;
+        $token->value = $tokenValue;
+       // Mail::to('kevinmorapais532@gmail.com')->send(new Mailer($token));
+        $token->save();
+    }
+
+    function accountActivation($token, $userEmail)
+    {
+        Token::where('expiration', '<', date('Y/m/d H:i:s'))->delete();
+        if (Token::where('userEmail', $userEmail)->where('value', $token)->doesntExist()){
+            return 404;
+        }
+        User::where('email', $userEmail)->update(['state' => 1]);
+        return 200;
     }
 }
