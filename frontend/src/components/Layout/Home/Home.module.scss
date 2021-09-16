@@ -1,0 +1,59 @@
+@import "../../../assets/styles/colors.module.scss";
+
+body {
+  background-color: $principal-blue;
+
+  .container {
+    margin-left: 10%;
+
+    .title {
+      font-size: 3.5rem;
+      color: #ffffff;
+    }
+
+    .description {
+      font-size: 1.2rem;
+    }
+
+    .ollas-container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      width: 55%;
+    }
+
+    .header-ollas {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding-top: 1.5rem;
+      padding-left: 1.5rem;
+
+      .buscar-olla {
+        border-radius: 8px;
+        color: $principal-red;
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 2.2rem;
+        border: none;
+        cursor: pointer;
+      }
+
+      .agregar-olla {
+        margin-left: 8px;
+        border-radius: 8px;
+        color: #757575;
+        font-size: 1.2rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 2.2rem;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+}
