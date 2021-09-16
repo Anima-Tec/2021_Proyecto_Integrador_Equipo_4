@@ -19,7 +19,7 @@ class ControllerU extends ApiController
             return $this->sendError('Missing parameters', 400, 'The request body does not contain all necessary parameters');
         }
         if (User::where('correo', $email)
-            ->where('passwd', $passwd)->exists()
+            ->where('passwd', $passwd)->where('state', 1)->exists()
         ) {
             $user = User::where('correo', $email)
                 ->where('passwd', $passwd)
@@ -27,6 +27,11 @@ class ControllerU extends ApiController
                 ->get();
 
             return $this->sendResponse($user, '', 200);
+        }
+        if (User::where('correo', $email)
+            ->where('passwd', $passwd)->where('state', 0)->exists()
+        ) {
+            return $this->sendError('Disabled account.', 403, 'Account has not been activated.');
         }
         return $this->sendError('User not found', 404, 'Invalid credentials');
     }

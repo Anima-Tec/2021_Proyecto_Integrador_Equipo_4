@@ -31,5 +31,11 @@ Register a user (also temporary):
             "passwd" : <passwd>
         }
     NOTES: User state is 0 by default.
+           Since there is not an email service yet, you have to get the activation token directly from the database (user_account_activation).
+
+--------------------------------------------------------------------
+
+Activate an account:
+     GET http://127.0.0.1:8000/api/activate/<userEmail>/<tokenValue>
 
 --------------------------------------------------------------------
