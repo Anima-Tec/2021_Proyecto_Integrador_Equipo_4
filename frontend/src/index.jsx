@@ -4,15 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.module.scss';
 import App from './App';
- // eslint-disable-next-line
-import Register from './components/Login/Register';
-import CrearOllas from './components/ollas/crear-ollas';
+import Home from './components/Layout/Home/Home';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <CrearOllas />
+      <Home />
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
