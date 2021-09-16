@@ -1,0 +1,9 @@
+const TYPE = {
+  REGISTER: 'REGISTER',
+  LOGIN: 'LOGIN',
+  ADD_POT: 'ADD_POT',
+  VIEW_ALL_POTS: 'VIEW_POT',
+  ADD_DONATION: 'ADD_DONATION',
+};
+
+export default TYPE;

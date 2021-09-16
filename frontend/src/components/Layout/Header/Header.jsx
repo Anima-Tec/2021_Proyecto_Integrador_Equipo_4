@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { useState } from 'react';
+import Register from '../../Register';
 
 const Header = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -19,8 +20,11 @@ const Header = () => {
     isToggled ? setIsToggled(false) : setIsToggled(true);
   };
 
+  localStorage.setItem('userIdentifier', '1');
   const logInHandler = () => {
-    setIsLogged(true);
+    const userToken = localStorage.getItem('userIdentifier');
+    console.log(userToken);
+    userToken ? setIsLogged(true) : setIsLogged(false);
   };
 
   const logOutHandler = () => {
@@ -86,18 +90,21 @@ const Header = () => {
                 <PersonIcon className={classes['person-icon']} /> Cerrar Sesión
               </button>
             ) : (
-              <button className={classes.button} onClick={logInHandler}>
-                <PersonIcon className={classes['person-icon']} /> Iniciar Sesión
-              </button>
-            )}
-
-            {!isLogged && (
-              <button
-                className={`${classes['register-button']} ${classes['button']}`}
-                onClick={registerHandler}
-              >
-                <PersonAddIcon className={classes['person-icon']} /> Registrarme
-              </button>
+              <>
+                <button className={classes.button} onClick={logInHandler}>
+                  <PersonIcon className={classes['person-icon']} /> Iniciar
+                  Sesión
+                </button>
+                <Register>
+                  <button
+                    className={`${classes['register-button']} ${classes['button']}`}
+                    onClick={registerHandler}
+                  >
+                    <PersonAddIcon className={classes['person-icon']} />{' '}
+                    Registrarme
+                  </button>
+                </Register>
+              </>
             )}
           </li>
         </div>
