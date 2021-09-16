@@ -26,7 +26,7 @@ class ControllerU extends ApiController
                 ->select('nombre', 'apellido')
                 ->get();
 
-            return $this->sendResponse($user, '', 200);
+            return $this->sendResponse($user, 'Ok', 200);
         }
         if (User::where('correo', $email)
             ->where('passwd', $passwd)->where('state', 0)->exists()

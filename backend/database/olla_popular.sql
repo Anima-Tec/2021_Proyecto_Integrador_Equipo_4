@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2021 at 02:27 AM
+-- Generation Time: Sep 16, 2021 at 03:40 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -72,6 +72,18 @@ INSERT INTO `olla` (`idOlla`, `nombre`, `autor`, `descripcion`, `latitud`, `long
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_account_activation`
+--
+
+CREATE TABLE `user_account_activation` (
+  `userEmail` varchar(50) NOT NULL,
+  `expiration` datetime NOT NULL,
+  `value` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `usuario`
 --
 
@@ -88,6 +100,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`correo`, `nombre`, `apellido`, `passwd`, `state`) VALUES
+('1@gmail.com', 'Kevin', 'Mora Pais', '12345', 0),
 ('benitogarcia@gmail.com', 'Benito', 'Garcia', '12345', 1),
 ('marcoscapo@gmail.com', 'Marcos', 'Capo', '12345', 1);
 
@@ -108,6 +121,12 @@ ALTER TABLE `donacion`
 ALTER TABLE `olla`
   ADD PRIMARY KEY (`idOlla`),
   ADD KEY `autor` (`autor`);
+
+--
+-- Indexes for table `user_account_activation`
+--
+ALTER TABLE `user_account_activation`
+  ADD PRIMARY KEY (`userEmail`,`expiration`,`value`);
 
 --
 -- Indexes for table `usuario`
