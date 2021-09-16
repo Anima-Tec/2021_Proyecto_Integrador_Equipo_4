@@ -39,7 +39,7 @@ class ControllerU extends ApiController
                 return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
             }
             if (Token::where('userEmail', $request->input('email'))->exists()) {
-                return $this->sendError('The account is awaiting activation.', 409, 'Activation token will expire in 24 hours.');
+                return $this->sendError('This account is awaiting activation.', 409, 'Activation token will expire in 24 hours.');
             }
             if (User::where('correo', $request->input('email'))->exists()) {
                 return $this->sendError('Email is already in use.', 409, 'Duplicated entry for email.');
@@ -73,7 +73,7 @@ class ControllerU extends ApiController
         $token->save();
     }
 
-    function accountActivation($token, $userEmail)
+    function accountActivation($userEmail, $token)
     {
         $expiredTokens = Token::where('expiration', '<', date('Y/m/d H:i:s'))->get();
         foreach ($expiredTokens as $token){
@@ -84,6 +84,7 @@ class ControllerU extends ApiController
             return 404;
         }
         User::where('correo', $userEmail)->update(['state' => 1]);
+        Token::where('userEmail', $userEmail)->delete();
         return 200;
     }
 }

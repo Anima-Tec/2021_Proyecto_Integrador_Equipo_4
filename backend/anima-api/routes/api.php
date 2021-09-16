@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/activate/{userEmail}/{token}', 'App\Http\Controllers\ControllerU@accountActivation');
 Route::get('/ollas', 'App\Http\Controllers\ControllerO@getAll');
 Route::post('/register', 'App\Http\Controllers\ControllerU@tempRegister');
 Route::post('/login', 'App\Http\Controllers\ControllerU@tempLogin');
