@@ -23,7 +23,7 @@ class ControllerO extends ApiController
         if (!$request->input('email') || !$request->input('name') || !$request->input('description') || !$request->input('latitude') || !$request->input('longitude') || !$request->input('from') || !$request->input('to')) {
             return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
         }
-        if (User::where('email', $request->input('email')->where('state', 1))->doesntExist){
+        if (User::where('correo', $request->input('email'))->where('state', 1)->doesntExist()){
             return $this->sendError('Provided email does not belong to an account.', 404, 'Invalid email.');
         }
         try {
@@ -31,8 +31,8 @@ class ControllerO extends ApiController
             $newOlla->nombre = $request->input('name');
             $newOlla->autor = $request->input('email');
             $newOlla->descripcion = $request->input('description');
-            $newOlla->lat = $request->input('latitude');
-            $newOlla->long = $request->input('longitude');
+            $newOlla->latitud = $request->input('latitude');
+            $newOlla->longitud = $request->input('longitude');
             $newOlla->horarioApertura = $request->input('from');
             $newOlla->horarioCierre = $request->input('to');
             $newOlla->estado = 0;
