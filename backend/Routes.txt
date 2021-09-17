@@ -36,6 +36,10 @@ Register a user (also temporary):
 --------------------------------------------------------------------
 
 Activate an account:
-     GET http://127.0.0.1:8000/api/activate/<userEmail>/<tokenValue>
+     POST http://127.0.0.1:8000/api/activate
+     BODY {
+            "email" : <userEmail>,
+            "token" : <token>
+        }
 
 --------------------------------------------------------------------
