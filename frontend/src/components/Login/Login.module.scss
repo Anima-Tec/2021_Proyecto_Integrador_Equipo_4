@@ -10,6 +10,24 @@
   background: #0000005e;
 }
 
+.close {
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  padding: 0;
+  margin: 0;
+  top: 5px;
+  right: 6px;
+  font-size: 2rem;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 1px solid #97aba3;
+}
+
 .login-btn {
   display: flex;
   background-color: #ffff;

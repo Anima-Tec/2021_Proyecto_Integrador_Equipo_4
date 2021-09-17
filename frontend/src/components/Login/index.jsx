@@ -32,32 +32,36 @@ const Login = ({ children, login }) => {
 
   return (
     <Popup trigger={children} modal className={classes['popup-content']}>
-      <div className={['login-container']}>
-        <div className={classes['welcome-container']}>
-          <h4>Bienvenido</h4>
-        </div>
-        <div className={classes['logo-container']}>
-          <img src={logo} alt='brakadevi_logo' />
-          <p className={classes['brak']}>brak</p>
-          <p className={classes['adevi']}>adevi</p>
-        </div>
-        <form onSubmit={LoginHandler} className={classes['info-container']}>
-          <p>Email</p>
-          <input
-            type='email'
-            ref={emailInputRef}
-            placeholder='Ingrese su email'
-            required
-          ></input>
-          <p>Contraseña</p>
-          <input
-            type='password'
-            placeholder='Ingrese su contraseña'
-            minLength='8'
-            ref={passwordInputRef}
-            required
-          ></input>
-          {/* <span>
+      {(close) => (
+        <div className={['login-container']}>
+          <button className={classes.close} onClick={close}>
+            &times;
+          </button>
+          <div className={classes['welcome-container']}>
+            <h4>Bienvenido</h4>
+          </div>
+          <div className={classes['logo-container']}>
+            <img src={logo} alt='brakadevi_logo' />
+            <p className={classes['brak']}>brak</p>
+            <p className={classes['adevi']}>adevi</p>
+          </div>
+          <form onSubmit={LoginHandler} className={classes['info-container']}>
+            <p>Email</p>
+            <input
+              type='email'
+              ref={emailInputRef}
+              placeholder='Ingrese su email'
+              required
+            ></input>
+            <p>Contraseña</p>
+            <input
+              type='password'
+              placeholder='Ingrese su contraseña'
+              minLength='8'
+              ref={passwordInputRef}
+              required
+            ></input>
+            {/* <span>
           <a
           href='http://localhost:3000/'
           target='_blank'
@@ -75,9 +79,10 @@ const Login = ({ children, login }) => {
           Olvidé mi contraseña
           </a>
         </span> */}
-          <button type='sumbit'>Entrar</button>
-        </form>
-      </div>
+            <button type='sumbit'>Entrar</button>
+          </form>
+        </div>
+      )}
     </Popup>
   );
 };
