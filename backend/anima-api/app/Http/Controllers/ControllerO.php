@@ -15,7 +15,7 @@ class ControllerO extends ApiController
             ->select('*')
             ->get();
 
-        return $this->sendResponse($Ollas, '', 200);
+        return $this->sendResponse($Ollas, 'Ok', 200);
     }
 
     public function createOlla(Request $request)
