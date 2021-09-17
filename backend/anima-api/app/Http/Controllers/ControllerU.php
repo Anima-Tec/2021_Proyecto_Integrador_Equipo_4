@@ -98,6 +98,6 @@ class ControllerU extends ApiController
         }
         User::where('correo', $userEmail)->update(['state' => 1]);
         Token::where('userEmail', $userEmail)->delete();
-        return $this->sendResponse('Account activated successfully.', 'Ok.', 201);
+        return $this->sendResponse('Account activated successfully.', 'Ok.', 200);
     }
 }
