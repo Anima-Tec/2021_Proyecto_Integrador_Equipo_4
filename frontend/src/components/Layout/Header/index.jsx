@@ -9,26 +9,33 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Register from '../../Register';
 import Login from '../../Login';
 
 const Header = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
+  const [authToken, setAuthToken] = useState(
+    localStorage.getItem('userIdentifier') || null
+  );
 
   const toggleHandler = () => {
     isToggled ? setIsToggled(false) : setIsToggled(true);
   };
 
-  const logInHandler = () => {
-    const userToken = localStorage.getItem('userIdentifier');
-    console.log(userToken);
-    userToken ? setIsLogged(true) : setIsLogged(false);
+  const changeTokenState = (newState) => {
+    setAuthToken(newState);
   };
 
+  useEffect(() => {
+    console.log(authToken);
+    authToken ? setIsLogged(true) : setIsLogged(false);
+  }, [authToken]);
+
   const logOutHandler = () => {
-    setIsLogged(false);
+    localStorage.removeItem('userIdentifier');
+    setAuthToken(localStorage.getItem('userIdentifier'));
   };
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
@@ -87,8 +94,10 @@ const Header = () => {
               </button>
             ) : (
               <>
-                <Login>
-                  <button className={classes.button} onClick={logInHandler}>
+                <Login login={changeTokenState}>
+                  <button
+                    className={classes.button} /* onClick={logInHandler} */
+                  >
                     <PersonIcon className={classes['person-icon']} /> Iniciar
                     Sesión
                   </button>
