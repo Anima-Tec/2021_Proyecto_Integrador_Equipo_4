@@ -13,4 +13,4 @@ ReactDOM.render(
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
-t);
+);
