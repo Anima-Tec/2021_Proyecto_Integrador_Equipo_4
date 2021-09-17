@@ -79,7 +79,10 @@ class ControllerU extends ApiController
         Mail::to($userEmail)->send(new Mailer($token));
         $token->save();
     }
-
+    function accountActivationHandler(Request $request)
+    {
+        $this->accountActivation($request->input('email'),  $request->input('token'));
+    }
     function accountActivation($userEmail, $token)
     {
         $expiredTokens = Token::where('expiration', '<', date('Y/m/d H:i:s'))->get();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Olla;
 use App\Http\Controllers\ApiController;
+use App\Models\User;
 
 class ControllerO extends ApiController
 {
@@ -17,17 +18,26 @@ class ControllerO extends ApiController
         return $this->sendResponse($Ollas, '', 200);
     }
 
-    public function store(Request $request)
+    public function createOlla(Request $request)
     {
+        if (!$request->input('email') || !$request->input('name') || !$request->input('description') || !$request->input('latitude') || !$request->input('longitude') || !$request->input('from') || !$request->input('to')) {
+            return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
+        }
+        if (User::where('email', $request->input('email')->where('state', 1))->doesntExist){
+            return $this->sendError('Provided email does not belong to an account.', 404, 'Invalid email.');
+        }
         try {
             $newOlla = new Olla();
-            $newOlla->name = $request->input('name');
-            $newOlla->schedule = $request->input('schedule');
-            $newOlla->lat = $request->input('lat');
-            $newOlla->long = $request->input('long');
-            $newOlla->desc = $request->input('desc');
+            $newOlla->nombre = $request->input('name');
+            $newOlla->autor = $request->input('email');
+            $newOlla->descripcion = $request->input('description');
+            $newOlla->lat = $request->input('latitude');
+            $newOlla->long = $request->input('longitude');
+            $newOlla->horarioApertura = $request->input('from');
+            $newOlla->horarioCierre = $request->input('to');
+            $newOlla->estado = 0;
             $newOlla->save();
-            return 'Data stored successfully';
+            return $this->sendResponse('Success', 'Ok', 200);
         } catch (\Illuminate\Database\QueryException $e) {
             return "Error $e";
         }
