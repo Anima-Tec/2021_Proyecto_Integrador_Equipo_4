@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.module.scss';
 import App from './App';
-import Home from './components/Layout/Home/Home';
+import Home from './components/Home/Home';
 
 ReactDOM.render(
   <React.StrictMode>
