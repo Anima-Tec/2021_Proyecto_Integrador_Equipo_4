@@ -1,6 +1,6 @@
 @import '../../assets/styles/colors.module.scss';
 
-:global(.popup-content){
+:global(.popup-content) {
   width: 90%;
   background: transparent;
   border: none;
@@ -24,6 +24,8 @@
 
 .welcome-container {
   display: flex;
+  align-items: center;
+  justify-content: center;
   height: 5.125rem;
   background-color: $principal-green;
   font-size: 1.875rem;
@@ -31,36 +33,31 @@
   font-weight: 900;
   flex-direction: row;
   text-align: center;
-  align-items: center;
   border-top-left-radius: 0.938rem;
   border-top-right-radius: 0.938rem;
-
-  h4 {
-    width: 44.313rem;
-  }
 }
 
-.logo-container{
+.logo-container {
   background-color: #ffff;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 
-  p{
+  p {
     font-weight: 750;
     font-size: 2rem;
   }
 
-  .brak{
+  .brak {
     color: $principal-blue;
   }
 
-  .adevi{
+  .adevi {
     color: $principal-red;
   }
 
-  img{
+  img {
     width: 3rem;
     height: 3rem;
   }
@@ -102,11 +99,11 @@
     margin: 0.625rem;
   }
 
-  p{
+  p {
     margin: 0;
   }
 
-  span{
+  span {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -114,8 +111,7 @@
 }
 
 @media (min-width: 768px) {
-
-  :global(.popup-content){
+  :global(.popup-content) {
     width: 50%;
   }
 
@@ -139,13 +135,12 @@
     }
   }
 
-  .logo-container{
-
-    p{
+  .logo-container {
+    p {
       font-size: 2rem;
     }
 
-    img{
+    img {
       width: 3rem;
       height: 3rem;
     }
@@ -153,27 +148,23 @@
 }
 
 @media (min-width: 1440px) {
-
   .welcome-container {
     font-size: 1.875rem;
-    padding-left: 1.375rem;
   }
 
-  .logo-container{
-
-    p{
+  .logo-container {
+    p {
       font-size: 3rem;
     }
 
-    img{
+    img {
       width: 4rem;
       height: 4rem;
     }
   }
 
-  .info-container{
-    
-    a{
+  .info-container {
+    a {
       font-size: 1rem;
     }
   }

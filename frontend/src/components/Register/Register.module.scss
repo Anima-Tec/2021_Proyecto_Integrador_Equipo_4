@@ -6,12 +6,17 @@
   cursor: pointer;
   position: absolute;
   display: flex;
-  line-height: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  padding: 0;
+  margin: 0;
   top: 5px;
   right: 6px;
-  font-size: 1.5rem;
+  font-size: 2rem;
   background: #ffffff;
-  border-radius: 1.125rem;
+  border-radius: 50%;
   border: 1px solid #97aba3;
 }
 
@@ -25,10 +30,10 @@
   font-weight: bold;
   border-top-right-radius: 0.938rem;
   border-top-left-radius: 0.938rem;
+  width: 100%;
 
   .title {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
   }
 }
 
@@ -89,8 +94,6 @@
   }
   .register-header {
     font-size: 2.5rem;
-    width: 55rem;
-    padding: 1.25rem;
   }
 
   .register-label {
@@ -112,25 +115,9 @@
   }
 }
 
-@media (max-width: 1919px) and (min-width: 1024px) {
-  .register-header {
-    width: 45rem;
-  }
-}
-
-@media (max-width: 1023px) and (min-width: 570px) {
-  .register-header {
-    width: 35rem;
-  }
-}
-
 @media (max-width: 425px) {
   .close {
     right: 5px;
-  }
-
-  :global(.popup-content) {
-    width: 90%;
   }
 
   .register-header {

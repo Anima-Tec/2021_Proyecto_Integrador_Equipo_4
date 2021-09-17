@@ -11,6 +11,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { useState } from 'react';
 import Register from '../../Register';
+import Login from '../../Login';
 
 const Header = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -20,7 +21,6 @@ const Header = () => {
     isToggled ? setIsToggled(false) : setIsToggled(true);
   };
 
-  localStorage.setItem('userIdentifier', '1');
   const logInHandler = () => {
     const userToken = localStorage.getItem('userIdentifier');
     console.log(userToken);
@@ -29,10 +29,6 @@ const Header = () => {
 
   const logOutHandler = () => {
     setIsLogged(false);
-  };
-
-  const registerHandler = (event) => {
-    event.preventDefault();
   };
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
@@ -91,14 +87,15 @@ const Header = () => {
               </button>
             ) : (
               <>
-                <button className={classes.button} onClick={logInHandler}>
-                  <PersonIcon className={classes['person-icon']} /> Iniciar
-                  Sesión
-                </button>
+                <Login>
+                  <button className={classes.button} onClick={logInHandler}>
+                    <PersonIcon className={classes['person-icon']} /> Iniciar
+                    Sesión
+                  </button>
+                </Login>
                 <Register>
                   <button
                     className={`${classes['register-button']} ${classes['button']}`}
-                    onClick={registerHandler}
                   >
                     <PersonAddIcon className={classes['person-icon']} />{' '}
                     Registrarme

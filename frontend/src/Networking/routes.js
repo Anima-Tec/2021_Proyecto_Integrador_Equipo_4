@@ -1,5 +1,6 @@
 const ROUTE = {
   REGISTER: '/register',
+  ACTIVATE_ACCOUNT: '/activate',
   LOGIN: '/login',
   ADD_POT: '',
   VIEW_ALL_POTS: '',

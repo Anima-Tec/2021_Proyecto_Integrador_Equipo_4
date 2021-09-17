@@ -15,7 +15,7 @@ const sendRequest = async (url, method, body) => {
       url,
       data: body,
     });
-    console.log(response);
+
     return response;
   } catch (error) {
     return error;
@@ -26,10 +26,10 @@ const fetchController = async (type, data) => {
   switch (type) {
     case TYPE.REGISTER:
       let registerResponse;
-      const url = generateUrl(ROUTE.REGISTER);
+      const registerUrl = generateUrl(ROUTE.REGISTER);
 
       try {
-        registerResponse = await sendRequest(url, METHOD.POST,
+        registerResponse = await sendRequest(registerUrl, METHOD.POST,
           {
             email: data.email,
             name: data.name,
@@ -37,12 +37,10 @@ const fetchController = async (type, data) => {
             passwd: data.password,
           });
 
-        console.log(registerResponse);
+        return registerResponse;
       } catch (error) {
         return error;
       }
-
-      return registerResponse;
 
     case TYPE.LOGIN:
 
@@ -56,6 +54,19 @@ const fetchController = async (type, data) => {
     case TYPE.ADD_DONATION:
 
       break;
+    case TYPE.ACTIVATE_ACCOUNT:
+      const activateUrl = generateUrl(ROUTE.ACTIVATE_ACCOUNT);
+
+      try {
+        const activateResponse = await sendRequest(activateUrl, METHOD.POST, {
+          email: data.email,
+          token: data.token,
+        });
+
+        return activateResponse;
+      } catch (error) {
+        return error;
+      }
 
     default:
       break;

@@ -19,7 +19,9 @@ const Register = ({ children }) => {
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
     const confirmPassword = confirmPasswordInputRef.current.value;
+
     let response;
+    let activateResponse;
 
     if (password === confirmPassword) {
       try {
@@ -30,12 +32,29 @@ const Register = ({ children }) => {
           password,
         });
 
-        console.log(response);
-        return response;
+        if (response.status === 201) {
+          const token = prompt(
+            'Un código fue enviado a tu correo, confirma tu cuenta ingresándolo.'
+          );
+          const email = emailInputRef.current.value;
+          try {
+            activateResponse = await fetchController(TYPE.ACTIVATE_ACCOUNT, {
+              email,
+              token,
+            });
+
+            return activateResponse;
+          } catch (error) {
+            alert(
+              'Token incorrecto, intenta registrarte de nuevo en 5 minutos.'
+            );
+          }
+        }
       } catch (error) {
-        console.log(error);
         return error;
       }
+    } else {
+      return alert('Las contraseñas deben ser iguales.');
     }
   };
 
@@ -127,7 +146,7 @@ const Register = ({ children }) => {
                 required
               />
 
-              <span className={classes['register-question']}>
+              {/* <span className={classes['register-question']}>
                 ¿Ya tienes cuenta?
                 <a
                   className={classes['link-to-login']}
@@ -136,7 +155,7 @@ const Register = ({ children }) => {
                   {' '}
                   Inicia sesión
                 </a>
-              </span>
+              </span> */}
 
               <button className={classes['register-button']} type='submit'>
                 Registrarse
