@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Token;
 use App\Http\Controllers\ApiController;
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 
 class ControllerU extends ApiController
 {
@@ -15,7 +17,7 @@ class ControllerU extends ApiController
     {
         $email = $request->input('email');
         $passwd = $request->input('passwd');
-        if (!$email || !$passwd){
+        if (!$email || !$passwd) {
             return $this->sendError('Missing parameters', 400, 'The request body does not contain all necessary parameters');
         }
         if (User::where('correo', $email)
@@ -40,7 +42,7 @@ class ControllerU extends ApiController
     {
         try {
             $this->accountActivation(null, null);
-            if (!$request->input('email') || !$request->input('name') || !$request->input('surname') || !$request->input('passwd')){
+            if (!$request->input('email') || !$request->input('name') || !$request->input('surname') || !$request->input('passwd')) {
                 return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
             }
             if (Token::where('userEmail', $request->input('email'))->exists()) {
@@ -74,18 +76,18 @@ class ControllerU extends ApiController
         $token->userEmail = $userEmail;
         $token->expiration = $tokenExp;
         $token->value = $tokenValue;
-       // Mail::to('kevinmorapais532@gmail.com')->send(new Mailer($token));
+        Mail::to($userEmail)->send(new Mailer($token));
         $token->save();
     }
 
     function accountActivation($userEmail, $token)
     {
         $expiredTokens = Token::where('expiration', '<', date('Y/m/d H:i:s'))->get();
-        foreach ($expiredTokens as $token){
+        foreach ($expiredTokens as $token) {
             User::where('correo', $token->userEmail)->where('state', 0)->delete();
         }
         Token::where('expiration', '<', date('Y/m/d H:i:s'))->delete();
-        if (Token::where('userEmail', $userEmail)->where('value', $token)->doesntExist()){
+        if (Token::where('userEmail', $userEmail)->where('value', $token)->doesntExist()) {
             return $this->sendError('Invalid email-token combination.', 404, 'Token and email values did not match any record.');
         }
         User::where('correo', $userEmail)->update(['state' => 1]);
