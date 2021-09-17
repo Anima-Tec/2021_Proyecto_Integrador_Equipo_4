@@ -81,7 +81,7 @@ class ControllerU extends ApiController
     }
     function accountActivationHandler(Request $request)
     {
-        if (!$request->input('email') || $request->input('token')) {
+        if (!$request->input('email') || !$request->input('token')) {
             return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
         }
         return $this->accountActivation($request->input('email'),  $request->input('token'));
