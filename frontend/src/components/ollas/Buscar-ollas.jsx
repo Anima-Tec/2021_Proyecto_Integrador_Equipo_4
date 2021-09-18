@@ -12,6 +12,7 @@ const BuscarOllas = () => {
 
   return (
     <form className={classes["ollas-form"]} onSubmit={submitHandler}>
+      <p>NO DISPONIBLE POR EL MOMENTO</p>
       <div className={classes["input-and-icon"]}>
         <LocationOnIcon />
         <input className={classes["input-ollas"]} type="text" placeholder="Ingrese diección de la olla" id="adress"/>

@@ -143,7 +143,7 @@
     .img-container {
       margin: 12rem 2%;
       width: 20rem;
-      height: 20rem;
+      height: 18.5rem;
     }
 
     .home-container {
@@ -191,7 +191,13 @@
       margin-left: 0;
     }
 
-    
+    .home-container {
+      margin-left: 8%;
+      width: 55%;
+
+      .ollas-container{
+        width: 85%;
+      }
 
       .title {
         font-size: 5rem;
@@ -200,6 +206,6 @@
       .description {
         font-size: 1.75rem;
       }
-    
+    }
   }
 }

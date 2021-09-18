@@ -28,7 +28,7 @@ const Home = () => {
               <div className={classes["header-ollas"]}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <TabList onChange={handleChange}>
-                    <Tab label="Buscar Ollas" value="1" />
+                    <Tab label="Buscar Ollas" value="1" disabled/>
                     <Tab label="Agregar ollas" value="2" />
                   </TabList>
                 </Box>
