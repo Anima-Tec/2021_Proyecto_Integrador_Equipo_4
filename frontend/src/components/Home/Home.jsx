@@ -1,9 +1,6 @@
 import React from "react";
 import classes from "./Home.module.scss";
 import imageHome from "../../assets/images/Image-home.png";
-import //Add as AddIcon,
-//Search as SearchIcon,
-"@material-ui/icons/";
 import CrearOllas from "../Ollas/Crear-ollas";
 import BuscarOllas from "../Ollas/Buscar-ollas";
 import { Tab, Box } from "@material-ui/core";
@@ -43,6 +40,7 @@ const Home = () => {
               <TabPanel value="2">
                 <CrearOllas />
               </TabPanel>
+
             </TabContext>
           </Box>
         </div>
@@ -54,4 +52,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;

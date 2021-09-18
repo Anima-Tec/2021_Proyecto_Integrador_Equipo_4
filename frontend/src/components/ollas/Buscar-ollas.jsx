@@ -23,4 +23,5 @@ const BuscarOllas = () => {
     </form>
   );
 };
+
 export default BuscarOllas;
