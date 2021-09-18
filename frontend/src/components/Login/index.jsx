@@ -8,11 +8,13 @@ import TYPE from '../../Networking/requestTypes';
 const Login = ({ children, login }) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const PopUpRef = useRef();
 
   const LoginHandler = async (event) => {
     event.preventDefault();
     const email = emailInputRef.current.value;
     const password = passwordInputRef.current.value;
+
     let response;
 
     try {
@@ -25,13 +27,21 @@ const Login = ({ children, login }) => {
       localStorage.setItem('userIdentifier', true);
       const token = localStorage.getItem('userIdentifier');
       login(token);
+      emailInputRef.current.value = '';
+      passwordInputRef.current.value = '';
+      PopUpRef.current.close();
     } else {
       alert('Email o contraseña invalidos.');
     }
   };
 
   return (
-    <Popup trigger={children} modal className={classes['popup-content']}>
+    <Popup
+      ref={PopUpRef}
+      trigger={children}
+      modal
+      className={classes['popup-content']}
+    >
       {(close) => (
         <div className={['login-container']}>
           <button className={classes.close} onClick={close}>
@@ -61,24 +71,6 @@ const Login = ({ children, login }) => {
               ref={passwordInputRef}
               required
             ></input>
-            {/* <span>
-          <a
-          href='http://localhost:3000/'
-          target='_blank'
-          rel='noreferrer'
-          className={classes['reset-passw']}
-          >
-          No tienes cuenta? Registrate
-          </a>
-          <a
-          href='http://localhost:3000/'
-          target='_blank'
-          rel='noreferrer'
-          className={classes['reset-passw']}
-          >
-          Olvidé mi contraseña
-          </a>
-        </span> */}
             <button type='sumbit'>Entrar</button>
           </form>
         </div>

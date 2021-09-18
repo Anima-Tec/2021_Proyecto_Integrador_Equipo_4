@@ -95,9 +95,7 @@ const Header = () => {
             ) : (
               <>
                 <Login login={changeTokenState}>
-                  <button
-                    className={classes.button} /* onClick={logInHandler} */
-                  >
+                  <button className={classes.button}>
                     <PersonIcon className={classes['person-icon']} /> Iniciar
                     Sesión
                   </button>

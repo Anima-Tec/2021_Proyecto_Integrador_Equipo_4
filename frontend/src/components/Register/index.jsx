@@ -146,17 +146,6 @@ const Register = ({ children }) => {
                 required
               />
 
-              {/* <span className={classes['register-question']}>
-                ¿Ya tienes cuenta?
-                <a
-                  className={classes['link-to-login']}
-                  href='(insertar ruta del login)'
-                >
-                  {' '}
-                  Inicia sesión
-                </a>
-              </span> */}
-
               <button className={classes['register-button']} type='submit'>
                 Registrarse
               </button>
