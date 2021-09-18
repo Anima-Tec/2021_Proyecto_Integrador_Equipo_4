@@ -28,24 +28,6 @@ const Login = ({ children }) => (
           minLength='8'
           required
         ></input>
-        {/* <span>
-          <a
-            href='http://localhost:3000/'
-            target='_blank'
-            rel='noreferrer'
-            className={classes['reset-passw']}
-          >
-            No tienes cuenta? Registrate
-          </a>
-          <a
-            href='http://localhost:3000/'
-            target='_blank'
-            rel='noreferrer'
-            className={classes['reset-passw']}
-          >
-            Olvidé mi contraseña
-          </a>
-        </span> */}
         <button type='sumbit'>Entrar</button>
       </form>
     </div>
