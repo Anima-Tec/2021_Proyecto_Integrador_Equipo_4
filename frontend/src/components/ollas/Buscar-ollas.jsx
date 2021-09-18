@@ -1,18 +1,20 @@
 import React from 'react';
-//import classes from './Crear-ollas.module.scss';
+import classes from './Buscar-ollas.module.scss';
 import {
-  Add as AddIcon,
+  Search as SearchIcon,
   LocationOn as LocationOnIcon,
 } from '@material-ui/icons/';
 
 const BuscarOllas = () => {
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <form className={classes['ollas-form']} onSubmit={(submitHandler)}>
-      <LocationOnIcon />
       <input className={classes['input-ollas']} type="text" placeholder="Ingrese diección de la olla" id="adress" />
-      <button className={classes['agregar-button']} type="submit"><AddIcon />Agregar</button>
-
+      <button className={classes['buscar-button']} type="submit"><SearchIcon/>Buscar</button>
     </form>
   )
 }

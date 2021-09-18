@@ -15,8 +15,6 @@ const CrearOllas = () => {
 
       <form className={classes['ollas-form']} onSubmit={(submitHandler)}>
 
-
-        <LocationOnIcon />
         <input className={classes['input-ollas']} type="text" placeholder="Ingrese diección de la olla" id="adress" />
         <input className={classes['input-ollas']} type="text" placeholder="Nombre" id="name" />
         <input className={classes['input-ollas']} type="text" placeholder="Descripción" id="description" />

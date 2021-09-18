@@ -1,0 +1,35 @@
+@import "../../assets/styles/colors.module.scss";
+
+.ollas-form {
+    display: flex;
+    flex-direction: row;
+    padding: 24px;
+    align-items: center;
+
+    .input-ollas {
+        height: 2.5rem;
+        margin-top: 1.2rem;
+        border-radius: 8px;
+        padding-left: 1rem;
+        background-color: $background-inputs;
+        border: none;
+    }
+    .buscar-button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 2.5rem;
+        border: none;
+        background-color: $principal-blue;
+        border-radius: 8px;
+        color: #ffffff;
+        margin-left: 0;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+}
+
+@media (max-width: 426px) {
+    
+}
