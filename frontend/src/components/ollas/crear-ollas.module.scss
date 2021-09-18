@@ -5,8 +5,26 @@
   flex-direction: column;
   padding: 24px;
 
-  .input-ollas {
+  .input-and-icon {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
     height: 2.5rem;
+    border-radius: 8px;
+    background-color: $background-inputs;
+    color: $principal-blue;
+
+    .input-ollas-icon {
+      height: 2.25rem;
+      background-color: $background-inputs;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+    }
+  }
+
+  .input-ollas {
+    height: 2.25rem;
     margin-top: 1.2rem;
     border-radius: 8px;
     padding-left: 1rem;
@@ -30,7 +48,7 @@
     }
 
     .horarios-fin {
-      margin-left: 2.5rem;
+      margin-left: 2rem;
       display: flex;
       flex-direction: column;
 
@@ -65,15 +83,16 @@
       background-color: $principal-blue;
       border-radius: 8px;
       color: #ffffff;
-      margin-left: 1rem;
+      margin-top: 2.5rem;
+      margin-left: 2rem;
       font-size: 1rem;
       cursor: pointer;
     }
   }
 }
-@media (max-width: 426px) {
+@media (max-width: 426px) and (min-width: 280px) {
   .ollas-form {
-    padding: 5%;
+    padding: 6%;
 
     .input-ollas {
       margin-top: 1rem;
@@ -82,13 +101,75 @@
     .horarios {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
 
       .horarios-fin {
         margin-left: 0;
       }
 
-      
+      .agregar-button {
+        margin-top: 1.5rem;
+        margin-left: 0;
+      }
+    }
+  }
+}
+@media (max-width: 768px) and (min-width: 500px) {
+  .ollas-form {
+    .horarios {
+      .horarios-fin {
+        margin-left: 2.5rem;
+      }
+
+      .agregar-button {
+        padding: 1rem 2.5rem;
+        margin-left: 3rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 800px) {
+  .ollas-form {
+    .horarios {
+      .horarios-fin {
+        margin-left: 1rem;
+      }
+
+      .agregar-button {
+        padding: 1rem 1.5rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1920px) and (min-width: 1440px){
+  .ollas-form {
+    .horarios {
+      .horarios-fin {
+        margin-left: 3rem;
+      }
+
+      .agregar-button {
+        padding: 1rem 3rem;
+        margin-left: 2.5rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1920px){
+  .ollas-form {
+    .horarios {
+      .horarios-fin {
+        margin-left: 4rem;
+      }
+
+      .agregar-button {
+        padding: 1rem 3rem;
+        margin-left: 3.5rem;
+      }
     }
   }
 }
