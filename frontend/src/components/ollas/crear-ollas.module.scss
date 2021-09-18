@@ -83,6 +83,12 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+
+      .horarios-fin {
+        margin-left: 0;
+      }
+
+      
     }
   }
 }
