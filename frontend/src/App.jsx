@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-
 import logo from './logo.svg';
 import classes from './App.module.scss';
 import Layout from './components/Layout/Layout';
@@ -11,8 +10,7 @@ const App = () => {
       <Layout>
         <Switch>
           <Route path='/' exact>
-            <p>home page</p>
-          </Route>
+          </Route> 
           <Route path='/react'>
             <div className={classes.App}>
               <header className={classes['App-header']}>
