@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Olla extends Model
 {
     use HasFactory;
-    protected $connection='databasepe';
-    protected $table='ollas';
-    protected $primaryKey = "id";
+    protected $connection='olla_popular';
+    protected $table='olla';
+    protected $primaryKey = 'idOlla';
     public $timestamps=false;
 }

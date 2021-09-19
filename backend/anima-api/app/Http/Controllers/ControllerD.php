@@ -8,101 +8,27 @@ use App\Http\Controllers\ApiController;
 
 class ControllerD extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    
+    public function getDonationsFromUser(Request $request, $userEmail)
     {
-        $email = $request->input('email');
-        $donations = Donation::where('userEmail', $email)
+        $donations = Donation::where('email', $userEmail)
         ->select('*')
             ->get();
-        return $this->sendResponse($donations, "");
+        return $this->sendResponse($donations, '', 200);
     }
-    // {
-    //     $donations = Donation::where('idOlla', '>=', 1)
-    //         ->join('ollas', 'idOlla', '=', 'ollas.id')
-    //         -->join('ollas', 'idOlla', '=', 'ollas.id')
-    //         ->get();
-
-    //     return $this->sendResponse($donations, '');
-    // }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    
+    public function saveDonation(Request $request)
     {
         try {
             $newDonation = new Donation();
             $newDonation->idOlla = $request->input('idOlla');
-            $newDonation->userEmail = $request->input('userEmail');
-            $newDonation->donationType = $request->input('type');
-            $newDonation->date = date("Y/m/d");
+            $newDonation->email = $request->input('email');
+            $newDonation->tipoDonacion = $request->input('type');
+            $newDonation->fecha = date('Y/m/d');
             $newDonation->save();
-            return "Donation stored successfully";
+            return 'Donation stored successfully';
         } catch (\Illuminate\Database\QueryException $e) {
             return "Error $e";
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

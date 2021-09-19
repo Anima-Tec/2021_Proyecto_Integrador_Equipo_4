@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { useState } from 'react';
+import Register from '../../Register';
+import Login from '../../Login';
 
 const Header = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -20,15 +22,13 @@ const Header = () => {
   };
 
   const logInHandler = () => {
-    setIsLogged(true);
+    const userToken = localStorage.getItem('userIdentifier');
+    console.log(userToken);
+    userToken ? setIsLogged(true) : setIsLogged(false);
   };
 
   const logOutHandler = () => {
     setIsLogged(false);
-  };
-
-  const registerHandler = (event) => {
-    event.preventDefault();
   };
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
@@ -86,18 +86,22 @@ const Header = () => {
                 <PersonIcon className={classes['person-icon']} /> Cerrar Sesión
               </button>
             ) : (
-              <button className={classes.button} onClick={logInHandler}>
-                <PersonIcon className={classes['person-icon']} /> Iniciar Sesión
-              </button>
-            )}
-
-            {!isLogged && (
-              <button
-                className={`${classes['register-button']} ${classes['button']}`}
-                onClick={registerHandler}
-              >
-                <PersonAddIcon className={classes['person-icon']} /> Registrarme
-              </button>
+              <>
+                <Login>
+                  <button className={classes.button} onClick={logInHandler}>
+                    <PersonIcon className={classes['person-icon']} /> Iniciar
+                    Sesión
+                  </button>
+                </Login>
+                <Register>
+                  <button
+                    className={`${classes['register-button']} ${classes['button']}`}
+                  >
+                    <PersonAddIcon className={classes['person-icon']} />{' '}
+                    Registrarme
+                  </button>
+                </Register>
+              </>
             )}
           </li>
         </div>

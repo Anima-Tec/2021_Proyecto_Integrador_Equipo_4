@@ -2,97 +2,102 @@
 
 namespace App\Http\Controllers;
 
+date_default_timezone_set("America/Argentina/Buenos_Aires");
+
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Token;
 use App\Http\Controllers\ApiController;
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 
 class ControllerU extends ApiController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function tempLogin(Request $request)
     {
         $email = $request->input('email');
         $passwd = $request->input('passwd');
-        $user = User::where('email', $email)
-            ->where('passwd', $passwd)
-            ->select('fullName', 'type')
-            ->get();
-        return $this->sendResponse($user, "");
+        if (!$email || !$passwd) {
+            return $this->sendError('Missing parameters', 400, 'The request body does not contain all necessary parameters');
+        }
+        if (User::where('correo', $email)
+            ->where('passwd', $passwd)->where('state', 1)->exists()
+        ) {
+            $user = User::where('correo', $email)
+                ->where('passwd', $passwd)
+                ->select('nombre', 'apellido')
+                ->get();
+
+            return $this->sendResponse($user, 'Ok', 200);
+        }
+        if (User::where('correo', $email)
+            ->where('passwd', $passwd)->where('state', 0)->exists()
+        ) {
+            return $this->sendError('Disabled account.', 403, 'Account has not been activated.');
+        }
+        return $this->sendError('User not found', 404, 'Invalid credentials');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function tempRegister(Request $request)
     {
         try {
+            $this->accountActivation(null, null);
+            if (!$request->input('email') || !$request->input('name') || !$request->input('surname') || !$request->input('passwd')) {
+                return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
+            }
+            if (Token::where('userEmail', $request->input('email'))->exists()) {
+                return $this->sendError('This account is awaiting activation.', 409, 'Activation token will expire in 24 hours.');
+            }
+            if (User::where('correo', $request->input('email'))->exists()) {
+                return $this->sendError('Email is already in use.', 409, 'Duplicated entry for email.');
+            }
             $newUser = new User();
-            $newUser->email = $request->input('email');
-            $newUser->fullName = $request->input('fullName');
+            $newUser->correo = $request->input('email');
+            $newUser->nombre = $request->input('name');
+            $newUser->apellido = $request->input('surname');
             $newUser->passwd = $request->input('passwd');
-            $newUser->type = $request->input('type');
+            $newUser->state = 0;
             $newUser->save();
-            return "User stored successfully";
+            $this->createRegisterToken($request->input('email'));
+            return $this->sendResponse('User created successfully.', 'Account requires activation, a token has been sent via email.', 201);
         } catch (\Illuminate\Database\QueryException $e) {
             return "Error $e";
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    function createRegisterToken($userEmail)
     {
-        //
+        $token = new Token();
+        $tokenValue = rand(111111, 999999);
+        $currentDate = date('Y/m/d H:i:s');
+        $expTimeStamp = strtotime(" $currentDate + 5 minutes");
+        $tokenExp = date('Y/m/d H:i:s', $expTimeStamp);
+
+        $token->userEmail = $userEmail;
+        $token->expiration = $tokenExp;
+        $token->value = $tokenValue;
+        Mail::to($userEmail)->send(new Mailer($token));
+        $token->save();
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    function accountActivationHandler(Request $request)
     {
-        //
+        if (!$request->input('email') || !$request->input('token')) {
+            return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
+        }
+        return $this->accountActivation($request->input('email'),  $request->input('token'));
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    function accountActivation($userEmail, $token)
     {
-        //
+        $expiredTokens = Token::where('expiration', '<', date('Y/m/d H:i:s'))->get();
+        foreach ($expiredTokens as $token) {
+            User::where('correo', $token->userEmail)->where('state', 0)->delete();
+        }
+        Token::where('expiration', '<', date('Y/m/d H:i:s'))->delete();
+        if (Token::where('userEmail', $userEmail)->where('value', $token)->doesntExist()) {
+            return $this->sendError('Invalid email-token combination.', 404, 'Token and email values did not match any record.');
+        }
+        User::where('correo', $userEmail)->update(['state' => 1]);
+        Token::where('userEmail', $userEmail)->delete();
+        return $this->sendResponse('Account activated successfully.', 'Ok.', 201);
     }
 }

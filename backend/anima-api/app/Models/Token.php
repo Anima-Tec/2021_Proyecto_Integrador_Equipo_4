@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Token extends Model
 {
     use HasFactory;
     protected $connection='olla_popular';
-    protected $table='usuario';
-    protected $primaryKey = 'correo';
+    protected $table='user_account_activation';
+    protected $primaryKey = 'userEmail';
     public $timestamps=false;
 }
