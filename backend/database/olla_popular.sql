@@ -55,10 +55,11 @@ CREATE TABLE `olla` (
   `nombre` varchar(30) DEFAULT NULL,
   `autor` varchar(30) DEFAULT NULL,
   `descripcion` varchar(300) DEFAULT NULL,
-  `latitud` float DEFAULT NULL,
-  `longitud` float DEFAULT NULL,
+  `latitud` float NOT NULL,
+  `longitud` float NOT NULL,
   `horarioApertura` time DEFAULT NULL,
   `horarioCierre` time DEFAULT NULL,
+  `conNecesidad` tinyint(4) NOT NULL,
   `estado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

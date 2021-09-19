@@ -35,6 +35,7 @@ class ControllerO extends ApiController
             $newOlla->longitud = $request->input('longitude');
             $newOlla->horarioApertura = $request->input('from');
             $newOlla->horarioCierre = $request->input('to');
+            $newOlla->conNecesidad = 1;
             $newOlla->estado = 1;
             $newOlla->save();
             return $this->sendResponse('Success', 'Ok', 200);
