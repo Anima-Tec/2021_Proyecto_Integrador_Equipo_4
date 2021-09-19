@@ -43,8 +43,20 @@ const fetchController = async (type, data) => {
       }
 
     case TYPE.LOGIN:
+      let loginResponse;
+      const loginUrl = generateUrl(ROUTE.LOGIN)
 
-      break;
+      try {
+        loginResponse = await sendRequest(loginUrl, METHOD.POST,
+          {
+            email: data.email,
+            passwd: data.password,
+          });
+        return loginResponse;
+      } catch (error) {
+        return error
+      }
+
     case TYPE.ADD_POT:
 
       break;
