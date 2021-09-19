@@ -10,6 +10,7 @@ const Register = ({ children }) => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const confirmPasswordInputRef = useRef();
+  const PopUpRef = useRef();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -42,12 +43,15 @@ const Register = ({ children }) => {
               email,
               token,
             });
-
-            return activateResponse;
           } catch (error) {
             alert(
               'Token incorrecto, intenta registrarte de nuevo en 5 minutos.'
             );
+          }
+          console.log(activateResponse);
+          if (activateResponse.status === 201) {
+            alert('Registrado correctamente');
+            PopUpRef.current.close();
           }
         }
       } catch (error) {
@@ -59,7 +63,7 @@ const Register = ({ children }) => {
   };
 
   return (
-    <Popup className={classes.content} trigger={children} modal>
+    <Popup ref={PopUpRef} className={classes.content} trigger={children} modal>
       {(close) => (
         <div className={classes.modal}>
           <button className={classes.close} onClick={close}>
