@@ -31,7 +31,7 @@ Register a user (also temporary):
             "passwd" : <passwd>
         }
     NOTES: User state is 0 by default.
-           Account activation token is sent via the new user's email.
+           Account activation token is sent via the new user's email and has a lifespan of 5 minutes.
 
 --------------------------------------------------------------------
 
