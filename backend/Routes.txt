@@ -31,7 +31,7 @@ Register a user (also temporary):
             "passwd" : <passwd>
         }
     NOTES: User state is 0 by default.
-           Since there is not an email service yet, you have to get the activation token directly from the database (user_account_activation).
+           Account activation token is sent via the new user's email and has a lifespan of 5 minutes.
 
 --------------------------------------------------------------------
 
@@ -41,5 +41,20 @@ Activate an account:
             "email" : <userEmail>,
             "token" : <token>
         }
+
+--------------------------------------------------------------------
+
+Create an "olla":
+    POST http://127.0.0.1:8000/api/ollas/save
+    BODY {
+            "email" : <authorsEmail>,
+            "name" : <name>,
+            "description" : <description>,
+            "latitude" : <latitude>,
+            "longitude" : <longitude>,
+            "from" : <openFromTime>,
+            "to" : <openToTime>
+        }
+
 
 --------------------------------------------------------------------
