@@ -10,6 +10,7 @@ use App\Models\Token;
 use App\Http\Controllers\ApiController;
 use App\Mail\Mailer;
 use Illuminate\Support\Facades\Mail;
+use \Datetime;
 
 class ControllerU extends ApiController
 {
@@ -46,7 +47,9 @@ class ControllerU extends ApiController
                 return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
             }
             if (Token::where('userEmail', $request->input('email'))->exists()) {
-                return $this->sendError('This account is awaiting activation.', 409, 'Activation token will expire in 24 hours.');
+                $tokenDate = new DateTime(Token::where('userEmail', $request->input('email'))->select('expiration')->get()[0]->expiration);
+                $timeLeft = $tokenDate->diff(new Datetime());
+                return $this->sendError('This account is awaiting activation.', 409, "Token will expire in $timeLeft->i minutes and $timeLeft->s seconds.");
             }
             if (User::where('correo', $request->input('email'))->exists()) {
                 return $this->sendError('Email is already in use.', 409, 'Duplicated entry for email.');
