@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Activation token</h1>
+    <h1>Account activation token</h1>
     <div>
         Token: {{ $token->value }}
         Expiration: {{ $token->expiration }}
