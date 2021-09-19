@@ -116,6 +116,7 @@
 
         .view-map__title {
           color: $principal-blue;
+          width: 5rem;
         }
 
         .map-icon {
@@ -287,6 +288,9 @@
 
           .register-button {
             margin: 0 0 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .logout-button {

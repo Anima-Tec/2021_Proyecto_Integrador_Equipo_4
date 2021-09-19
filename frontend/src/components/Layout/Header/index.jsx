@@ -9,26 +9,33 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Register from '../../Register';
+import Login from '../../Login';
 
 const Header = () => {
   const [isLogged, setIsLogged] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
+  const [authToken, setAuthToken] = useState(
+    localStorage.getItem('userIdentifier') || null
+  );
 
   const toggleHandler = () => {
     isToggled ? setIsToggled(false) : setIsToggled(true);
   };
 
-  const logInHandler = () => {
-    setIsLogged(true);
+  const changeTokenState = (newState) => {
+    setAuthToken(newState);
   };
+
+  useEffect(() => {
+    console.log(authToken);
+    authToken ? setIsLogged(true) : setIsLogged(false);
+  }, [authToken]);
 
   const logOutHandler = () => {
-    setIsLogged(false);
-  };
-
-  const registerHandler = (event) => {
-    event.preventDefault();
+    localStorage.removeItem('userIdentifier');
+    setAuthToken(localStorage.getItem('userIdentifier'));
   };
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
@@ -86,18 +93,22 @@ const Header = () => {
                 <PersonIcon className={classes['person-icon']} /> Cerrar Sesión
               </button>
             ) : (
-              <button className={classes.button} onClick={logInHandler}>
-                <PersonIcon className={classes['person-icon']} /> Iniciar Sesión
-              </button>
-            )}
-
-            {!isLogged && (
-              <button
-                className={`${classes['register-button']} ${classes['button']}`}
-                onClick={registerHandler}
-              >
-                <PersonAddIcon className={classes['person-icon']} /> Registrarme
-              </button>
+              <>
+                <Login login={changeTokenState}>
+                  <button className={classes.button}>
+                    <PersonIcon className={classes['person-icon']} /> Iniciar
+                    Sesión
+                  </button>
+                </Login>
+                <Register>
+                  <button
+                    className={`${classes['register-button']} ${classes['button']}`}
+                  >
+                    <PersonAddIcon className={classes['person-icon']} />{' '}
+                    Registrarme
+                  </button>
+                </Register>
+              </>
             )}
           </li>
         </div>
