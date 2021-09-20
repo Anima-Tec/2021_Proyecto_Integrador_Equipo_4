@@ -58,8 +58,24 @@ const fetchController = async (type, data) => {
       }
 
     case TYPE.ADD_POT:
+      let addPotResponse;
+      const addPotUrl = generateUrl(ROUTE.ADD_POT);
+      try {
+        addPotResponse = await sendRequest(addPotUrl, METHOD.POST, {
+          email: data.email,
+          name: data.name,
+          description: data.description,
+          latitude: data.latitude,
+          longitude: data.longitude,
+          from: data.from,
+          to: data.to,
+        });
 
-      break;
+        return addPotResponse;
+      } catch (error) {
+        return error;
+      }
+
     case TYPE.VIEW_ALL_POTS:
 
       break;
