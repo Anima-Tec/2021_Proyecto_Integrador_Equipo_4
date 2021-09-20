@@ -25,6 +25,7 @@ const Login = ({ children, login }) => {
 
     if (response.status === 200) {
       localStorage.setItem('userIdentifier', true);
+      localStorage.setItem('email', email);
       const token = localStorage.getItem('userIdentifier');
       login(token);
       emailInputRef.current.value = '';

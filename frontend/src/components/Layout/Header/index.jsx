@@ -29,7 +29,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    console.log(authToken);
     authToken ? setIsLogged(true) : setIsLogged(false);
   }, [authToken]);
 

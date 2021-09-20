@@ -2,8 +2,8 @@ const ROUTE = {
   REGISTER: '/register',
   ACTIVATE_ACCOUNT: '/activate',
   LOGIN: '/login',
-  ADD_POT: '',
-  VIEW_ALL_POTS: '',
+  ADD_POT: '/ollas/save',
+  VIEW_ALL_POTS: '/ollas',
   ADD_DONATION: '/donations/save',
   VIEW_DONATIONS: '/donations',
 }

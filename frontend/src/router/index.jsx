@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Home from '../pages/Home';
 
 import Layout from '../components/Layout';
 import paths from './paths';
@@ -9,7 +10,7 @@ const Router = () => {
     <Layout>
       <Switch>
         <Route path={paths.HOME} exact>
-          <p>home page</p>
+          <Home />
         </Route>
         <Route path={paths.DEFAULT}>
           <Redirect to={paths.HOME} />

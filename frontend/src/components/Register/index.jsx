@@ -37,7 +37,9 @@ const Register = ({ children }) => {
           const token = prompt(
             'Un código fue enviado a tu correo, confirma tu cuenta ingresándolo.'
           );
+
           const email = emailInputRef.current.value;
+
           try {
             activateResponse = await fetchController(TYPE.ACTIVATE_ACCOUNT, {
               email,
@@ -48,8 +50,8 @@ const Register = ({ children }) => {
               'Token incorrecto, intenta registrarte de nuevo en 5 minutos.'
             );
           }
-          console.log(activateResponse);
-          if (activateResponse.status === 201) {
+
+          if (activateResponse.status === 200) {
             alert('Registrado correctamente');
             PopUpRef.current.close();
           }
@@ -160,4 +162,5 @@ const Register = ({ children }) => {
     </Popup>
   );
 };
+
 export default Register;
