@@ -68,7 +68,7 @@ class ControllerU extends ApiController
         }
     }
 
-    function createRegisterToken($userEmail)
+    private function createRegisterToken($userEmail)
     {
         $token = new Token();
         $tokenValue = rand(111111, 999999);
@@ -82,14 +82,14 @@ class ControllerU extends ApiController
         Mail::to($userEmail)->send(new Mailer($token));
         $token->save();
     }
-    function accountActivationHandler(Request $request)
+    public function accountActivationHandler(Request $request)
     {
         if (!$request->input('email') || !$request->input('token')) {
             return $this->sendError('Missing parameters.', 400, 'The request body does not contain all necessary parameters.');
         }
         return $this->accountActivation($request->input('email'),  $request->input('token'));
     }
-    function accountActivation($userEmail, $token)
+    private function accountActivation($userEmail, $token)
     {
         $expiredTokens = Token::where('expiration', '<', date('Y/m/d H:i:s'))->get();
         foreach ($expiredTokens as $token) {
