@@ -4,13 +4,14 @@ import Home from '../pages/Home';
 
 import Layout from '../components/Layout';
 import paths from './paths';
+import Manage from '../pages/Manage';
 
 const Router = () => {
   return (
     <Layout>
       <Switch>
         <Route path={paths.HOME} exact>
-          <Home />
+          <Manage />
         </Route>
         <Route path={paths.DEFAULT}>
           <Redirect to={paths.HOME} />

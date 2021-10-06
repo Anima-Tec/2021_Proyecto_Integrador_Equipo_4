@@ -1,17 +1,9 @@
-import { useState } from 'react';
-import classes from './Home.module.scss';
 import imageHome from '../../assets/images/Image-home.png';
-import CrearOllas from '../../components/Ollas/CrearOllas';
-import BuscarOllas from '../../components/Ollas/BuscarOllas';
-import { Tab, Box } from '@material-ui/core';
-import { TabPanel, TabContext, TabList } from '@material-ui/lab';
+import classes from './Home.module.scss';
+import Ollas from '../../components/Ollas';
 
 const Home = () => {
-  const [value, setValue] = useState('2');
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  
 
   return (
     <div className={classes.container}>
@@ -22,27 +14,8 @@ const Home = () => {
           ollas asociadas
         </p>
 
-        <div className={classes['ollas-container']}>
-          <Box sx={{ width: '100%', typography: 'body1' }}>
-            <TabContext value={value}>
-              <div className={classes['header-ollas']}>
-                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                  <TabList onChange={handleChange}>
-                    <Tab label='Buscar Ollas' value='1' disabled />
-                    <Tab label='Agregar ollas' value='2' />
-                  </TabList>
-                </Box>
-              </div>
-
-              <TabPanel value='1'>
-                <BuscarOllas />
-              </TabPanel>
-              <TabPanel value='2'>
-                <CrearOllas />
-              </TabPanel>
-            </TabContext>
-          </Box>
-        </div>
+        <Ollas/>
+        
       </div>
 
       <div className={classes['img-container']}>
