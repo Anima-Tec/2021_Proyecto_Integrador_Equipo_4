@@ -1,4 +1,4 @@
-@import '../../assets/styles/colors.module.scss';
+@import "../../assets/styles/colors.module.scss";
 
 .container {
   min-height: 100vh;
@@ -113,19 +113,18 @@
     }
   }
 }
-
-@media only screen and (max-width: 800px) and (min-width: 500px) {
+@media (max-width: 768px) and (min-width: 426px) {
   .container {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     .img-container {
-      margin-top: 0;
+      display: none;
     }
 
     .home-container {
-      margin: 5%;
+      margin: 2%;
       width: 90%;
 
       .title {
@@ -139,11 +138,15 @@
   }
 }
 
-@media (min-width: 800px) and (max-width: 1024) {
+@media (max-width: 1024px) and (min-width: 768px) {
   .container {
     .img-container {
-      width: 10rem;
-      height: 10rem;
+      display: none;
+    }
+    .home-container {
+      margin: 5%;
+      width: 90%;
+
     }
   }
 }

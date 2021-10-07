@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
-import classes from './CrearOllas.module.scss';
+import React, { useRef } from "react";
+import classes from "./CrearOllas.module.scss";
 import {
   Add as AddIcon,
   LocationOn as LocationOnIcon,
-} from '@material-ui/icons/';
-import fetchController from '../../../Networking/fetch-controller';
-import TYPE from '../../../Networking/requestTypes';
+} from "@material-ui/icons/";
+import fetchController from "../../../Networking/fetch-controller";
+import TYPE from "../../../Networking/requestTypes";
 
 const CrearOllas = () => {
   const directionInputRef = useRef();
@@ -18,10 +18,10 @@ const CrearOllas = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (localStorage.getItem('userIdentifier')) {
+    if (localStorage.getItem("userIdentifier")) {
       const direction = directionInputRef.current.value;
       const name = nameInputRef.current.value;
-      const email = localStorage.getItem('email');
+      const email = localStorage.getItem("email");
       const description = descriptionInputRef.current.value;
       const fromTime = `${fromTimeFirstInputRef.current.value}:${fromTimeSecondInputRef.current.value}:00`;
       const toTime = `${toTimeFirstInputRef.current.value}:${toTimeSecondInputRef.current.value}:00`;
@@ -42,99 +42,99 @@ const CrearOllas = () => {
       }
 
       if (response.status === 200) {
-        alert('Olla Popular guardada correctamente.');
-        directionInputRef.current.value = '';
-        nameInputRef.current.value = '';
-        descriptionInputRef.current.value = '';
-        fromTimeFirstInputRef.current.value = '';
-        fromTimeSecondInputRef.current.value = '';
-        toTimeFirstInputRef.current.value = '';
-        toTimeSecondInputRef.current.value = '';
+        alert("Olla Popular guardada correctamente.");
+        directionInputRef.current.value = "";
+        nameInputRef.current.value = "";
+        descriptionInputRef.current.value = "";
+        fromTimeFirstInputRef.current.value = "";
+        fromTimeSecondInputRef.current.value = "";
+        toTimeFirstInputRef.current.value = "";
+        toTimeSecondInputRef.current.value = "";
       }
     } else {
-      alert('Inicie sesión para continuar.');
+      alert("Inicie sesión para continuar.");
     }
   };
 
   return (
-    <form className={classes['ollas-form']} onSubmit={submitHandler}>
-      <div className={classes['input-and-icon']}>
+    <form className={classes["ollas-form"]} onSubmit={submitHandler}>
+      <div className={classes["input-and-icon"]}>
         <LocationOnIcon />
         <input
-          className={classes['input-ollas-icon']}
-          type='text'
-          placeholder='Ingrese diección de la olla'
-          id='adress'
+          className={classes["input-ollas-icon"]}
+          type="text"
+          placeholder="Ingrese diección de la olla"
+          id="adress"
           ref={directionInputRef}
         />
       </div>
       <input
-        className={classes['input-ollas']}
-        type='text'
-        placeholder='Nombre'
+        className={classes["input-ollas"]}
+        type="text"
+        placeholder="Nombre"
         ref={nameInputRef}
-        id='name'
+        id="name"
       />
       <input
-        className={classes['input-ollas']}
-        type='text'
-        placeholder='Descripción'
+        className={classes["input-ollas"]}
+        type="text"
+        placeholder="Descripción"
         ref={descriptionInputRef}
-        id='description'
+        id="description"
       />
+      <div className={classes["horarios-and-button"]}>
+        <div className={classes.horarios}>
+          <div className={classes["horarios-inicio"]}>
+            <p>Horario de apertura:</p>
+            <div className={classes["inputs-inicio"]}>
+              <input
+                className={classes["input-horarios"]}
+                placeholder="Hora"
+                min="0"
+                max="24"
+                maxLength="2"
+                type="number"
+                ref={fromTimeFirstInputRef}
+              />
+              <span className={classes.separacion}> : </span>
+              <input
+                className={classes["input-horarios"]}
+                placeholder="Minutos"
+                min="0"
+                max="60"
+                maxLength="2"
+                type="number"
+                ref={fromTimeSecondInputRef}
+              />
+            </div>
+          </div>
 
-      <div className={classes.horarios}>
-        <div className={classes['horarios-inicio']}>
-          <p>Horario de apertura:</p>
-          <div className={classes['inputs-inicio']}>
-            <input
-              className={classes['input-horarios']}
-              placeholder='Hora'
-              min='0'
-              max='24'
-              maxLength='2'
-              type='number'
-              ref={fromTimeFirstInputRef}
-            />
-            <span className={classes.separacion}> : </span>
-            <input
-              className={classes['input-horarios']}
-              placeholder='Minutos'
-              min='0'
-              max='60'
-              maxLength='2'
-              type='number'
-              ref={fromTimeSecondInputRef}
-            />
+          <div className={classes["horarios-fin"]}>
+            <p>Horario de cierre:</p>
+            <div className={classes["inputs-fin"]}>
+              <input
+                className={classes["input-horarios"]}
+                placeholder="Hora"
+                min="0"
+                max="24"
+                maxLength="2"
+                ref={toTimeFirstInputRef}
+                type="number"
+              />
+              <span className={classes.separacion}> : </span>
+              <input
+                className={classes["input-horarios"]}
+                placeholder="Minutos"
+                min="0"
+                max="60"
+                maxLength="2"
+                ref={toTimeSecondInputRef}
+                type="number"
+              />
+            </div>
           </div>
         </div>
-
-        <div className={classes['horarios-fin']}>
-          <p>Horario de cierre:</p>
-          <div className={classes['inputs-fin']}>
-            <input
-              className={classes['input-horarios']}
-              placeholder='Hora'
-              min='0'
-              max='24'
-              maxLength='2'
-              ref={toTimeFirstInputRef}
-              type='number'
-            />
-            <span className={classes.separacion}> : </span>
-            <input
-              className={classes['input-horarios']}
-              placeholder='Minutos'
-              min='0'
-              max='60'
-              maxLength='2'
-              ref={toTimeSecondInputRef}
-              type='number'
-            />
-          </div>
-        </div>
-
-        <button className={classes['agregar-button']} type='submit'>
+        <button className={classes["agregar-button"]} type="submit">
           <AddIcon />
           Agregar
         </button>
