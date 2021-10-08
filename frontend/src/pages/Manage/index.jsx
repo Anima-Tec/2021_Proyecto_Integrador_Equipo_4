@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { Tab, Box } from "@material-ui/core";
-import { TabPanel, TabContext, TabList } from "@material-ui/lab";
-import { Search as SearchIcon } from "@material-ui/icons/";
+import { useState } from 'react';
+import { Tab, Box } from '@material-ui/core';
+import { TabPanel, TabContext, TabList } from '@material-ui/lab';
+import { Search as SearchIcon } from '@material-ui/icons/';
 
-import VerMisOllas from "../../components/Management/VerMisOllas";
-import VerMisDonaciones from "../../components/Management/VerMisDonaciones";
-import classes from "./Manage.module.scss";
+import VerMisOllas from '../../components/Management/VerMisOllas';
+import VerMisDonaciones from '../../components/Management/VerMisDonaciones';
+import classes from './Manage.module.scss';
 
 const Administrar = () => {
-  const [value, setValue] = useState("2");
+  const [value, setValue] = useState('2');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -16,32 +16,32 @@ const Administrar = () => {
 
   return (
     <div className={classes.container}>
-      <div className={classes["manage-container"]}>
-        <Box sx={{ width: "100%", typography: "body1" }}>
+      <div className={classes['manage-container']}>
+        <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
-            <div className={classes["manage-header"]}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <div className={classes['manage-header']}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleChange}>
                   <Tab
-                    className={classes["ollas-tab"]}
-                    label="Mis ollas"
-                    value="1"
+                    className={classes['ollas-tab']}
+                    label='Mis ollas'
+                    value='1'
                     icon={<SearchIcon />}
                   />
                   <Tab
-                    className={classes["donaciones-tab"]}
-                    label="Mis Donaciones"
-                    value="2"
+                    className={classes['donaciones-tab']}
+                    label='Mis Donaciones'
+                    value='2'
                     icon={<SearchIcon />}
                   />
                 </TabList>
               </Box>
             </div>
 
-            <TabPanel value="1">
+            <TabPanel value='1'>
               <VerMisOllas />
             </TabPanel>
-            <TabPanel value="2">
+            <TabPanel value='2'>
               <VerMisDonaciones />
             </TabPanel>
           </TabContext>

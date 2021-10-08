@@ -1,4 +1,4 @@
-@import "../../assets/styles/colors.module.scss";
+@import '../../assets/styles/colors.module.scss';
 
 .container {
   min-height: 100vh;
@@ -19,9 +19,13 @@
 
       :global(.MuiTab-wrapper) {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         flex-direction: row;
         padding: 0;
+      }
+
+      :global(.MuiTab-labelIcon) {
+       min-height: 3rem; 
       }
 
       .ollas-tab {
@@ -63,6 +67,7 @@
         flex-direction: row;
         align-items: center;
         padding: 1.5rem 0;
+
         .donaciones-tab {
           margin: 0;
         }

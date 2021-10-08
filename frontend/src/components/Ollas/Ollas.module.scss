@@ -1,4 +1,4 @@
-@import "../../assets/styles/colors.module.scss";
+@import '../../assets/styles/colors.module.scss';
 
 .ollas-container {
   background-color: #ffffff;
@@ -15,10 +15,15 @@
 
   :global(.MuiTab-wrapper) {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: row;
     padding: 0;
   }
+  
+  :global(.MuiTab-labelIcon) {
+    min-height: 3rem; 
+   }
+
   :global(.MuiTab-root){
     padding: 0;
   }
@@ -64,6 +69,7 @@
     justify-content: center;
   }
 }
+
 @media only screen and (max-width: 800px) and (min-width: 500px) {
   .ollas-container {
     width: 100%;

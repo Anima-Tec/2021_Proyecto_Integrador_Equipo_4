@@ -6,22 +6,23 @@ import {
   Search as SearchIcon,
 } from '@material-ui/icons/';
 
-import CrearOllas from "./CrearOllas";
-import BuscarOllas from "./BuscarOllas";
-import classes from "./Ollas.module.scss"
+import CrearOllas from './CrearOllas';
+import BuscarOllas from './BuscarOllas';
+import classes from './Ollas.module.scss'
 
 const Ollas = () => {
-  const [value, setValue] = useState("2");
+  const [value, setValue] = useState('2');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
-    <div className={classes["ollas-container"]}>
-      <Box sx={{ width: "100%", typography: "body1" }}>
+    <div className={classes['ollas-container']}>
+      <Box sx={{ width: '100%', typography: 'body1' }}>
         <TabContext value={value}>
-          <div className={classes["header-ollas"]}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <div className={classes['header-ollas']}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <TabList onChange={handleChange}>
                 <Tab
                   className={classes['search-tab']}
@@ -31,18 +32,18 @@ const Ollas = () => {
                 />
                 <Tab
                   className={classes['add-tab']}
-                  label='Buscar ollas'
+                  label='Crear ollas'
                   icon={<AddIcon/>}
-                  value="2"
+                  value='2'
                 />
               </TabList>
             </Box>
           </div>
 
-          <TabPanel value="1">
+          <TabPanel value='1'>
             <BuscarOllas />
           </TabPanel>
-          <TabPanel value="2">
+          <TabPanel value='2'>
             <CrearOllas />
           </TabPanel>
         </TabContext>

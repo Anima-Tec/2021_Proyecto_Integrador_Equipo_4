@@ -76,9 +76,23 @@ const fetchController = async (type, data) => {
         return error;
       }
 
+      //revisar
     case TYPE.VIEW_ALL_POTS:
-
+      // const activateUrl = generateUrl(ROUTE.VIEW_ALL_POTS);
+      try{
+        const activateResponse = await sendRequest(activateUrl, METHOD.GET, {
+          name: data.name,
+          description: data.description,
+          from: data.from,
+          to: data.to,
+        });
+        return activateResponse;
+      }
+      catch (error) {
+        return error;
+      }
       break;
+
     case TYPE.ADD_DONATION:
 
       break;
