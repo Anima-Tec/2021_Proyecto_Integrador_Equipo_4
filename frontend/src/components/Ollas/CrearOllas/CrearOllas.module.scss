@@ -35,7 +35,7 @@
   .horarios-and-button {
     display: flex;
     align-items: center;
-    margin-left: 1rem;
+    justify-content: space-between;
 
     .horarios {
       display: flex;
@@ -50,6 +50,7 @@
           display: flex;
           flex-direction: row;
           align-items: center;
+          
         }
       }
 
@@ -79,6 +80,7 @@
         margin-right: 5px;
       }
     }
+
     .agregar-button {
       display: flex;
       flex-direction: row;
@@ -119,6 +121,7 @@
           margin-left: 0;
         }
       }
+
       .agregar-button {
         margin-top: 1.5rem;
         margin-left: 0;
@@ -142,16 +145,14 @@
   }
 }
 
-@media only screen and (max-width: 1024px) and (min-width: 730px) {
+@media only screen and (max-width: 1024px) and (min-width: 731px) {
   .ollas-form {
     .horarios-and-button {
+      display: flex;
       .horarios {
         .horarios-fin {
           margin-left: 10%;
         }
-      }
-      .agregar-button{
-        margin-left: 10%;
       }
     }
   }
