@@ -94,19 +94,4 @@ class ServiceHandler extends Controller
             'Message' => 'New donation created.'
         ]);
     }
-
-    public function saveDonation(Request $request)
-    {
-        try {
-            $newDonation = new Donation();
-            $newDonation->idOlla = $request->input('idOlla');
-            $newDonation->email = $request->input('email');
-            $newDonation->tipoDonacion = $request->input('type');
-            $newDonation->fecha = date('Y/m/d');
-            $newDonation->save();
-            return 'Donation stored successfully';
-        } catch (\Illuminate\Database\QueryException $e) {
-            return "Error $e";
-        }
-    }
 }
