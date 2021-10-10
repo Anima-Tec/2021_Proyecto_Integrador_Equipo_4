@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class donation extends Model
+class Donation extends Model
 {
     use HasFactory;
-    protected $connection='olla_popular';
-    protected $table='donacion';
-    protected $primaryKey = 'idDonacion';
-    public $timestamps=false;
+
+    protected $fillable = [
+        'potId',
+        'authorEmail',
+        'donationType'
+    ];
 }

@@ -5,11 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Token extends Model
+class Pot extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-        'tokenValue',
-        'email',
-        'expiration'
+        'name',
+        'authorEmail',
+        'desc',
+        'openFrom',
+        'to'
     ];
+
 }
