@@ -25,7 +25,7 @@ class AuthController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password'])
         ]);
-        $accessToken = $user->createToken('auth_token')->plainTextToken;
+        $user->createToken('auth_token')->plainTextToken;
 
         $currentDate = date('Y/m/d H:i:s');
         $expTimeStamp = strtotime(" $currentDate + 5 minutes");
