@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\Token;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
+date_default_timezone_set("America/Argentina/Buenos_Aires");
 class AuthController extends Controller
 {
     public function register(Request $request)

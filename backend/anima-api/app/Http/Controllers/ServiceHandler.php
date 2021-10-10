@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Pot;
 use App\Models\Donation;
 
+date_default_timezone_set("America/Argentina/Buenos_Aires");
+
 class ServiceHandler extends Controller
 {
     public function getAllPots()
