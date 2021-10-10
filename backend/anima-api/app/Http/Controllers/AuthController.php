@@ -49,7 +49,13 @@ class AuthController extends Controller
                 'message' => 'Invalid login credentials'
             ], 401);
         }
+        
         $user = User::where('email', $request['email'])->firstOrFail();
+        if (!$user->email_verified_at){
+            return response()->json([
+                'message' => 'Account has not been activated.'
+            ], 401);
+        }
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'accsess_token' => $token,
