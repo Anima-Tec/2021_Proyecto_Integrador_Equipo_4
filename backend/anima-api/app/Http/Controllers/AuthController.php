@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\Mailer;
 use Illuminate\Support\Facades\Mail;
+
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 class AuthController extends Controller
 {
@@ -56,4 +57,29 @@ class AuthController extends Controller
         ]);
     }
 
+    public function accountActivation(Request $request)
+    {
+        $expiredTokens = Token::where('expiration', '<', date('Y/m/d H:i:s'))->get();
+        Token::where('expiration', '<', date('Y/m/d H:i:s'))->delete();
+        foreach ($expiredTokens as $token) {
+            User::where('email', $token->email)->where('email_verified_at', null)->delete();
+        }
+
+        $validatedData = $request->validate([
+            'email' => 'required|string|email|max:255',
+            'token' => 'required|integer'
+        ]);
+
+        if (Token::where('email', $validatedData['email'])->where('tokenValue', $validatedData['token'])->exists()) {
+            User::where('email', $validatedData['email'])->update(['email_verified_at' => date('Y/m/d H:i:s')]);
+            Token::where('email', $validatedData['email'])->delete();
+
+            return response()->json([
+                'Message' => 'User activated successfully.'
+            ]);
+        }
+        return response()->json([
+            'Message' => 'Token has expired or provided values are incorrect.'
+        ], 404);
+    }
 }

@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/activate', [ControllerU::class, 'accountActivationHandler']);
+Route::post('/activate', [AuthController::class, 'accountActivation']);
 Route::post('/pots/save', [ServiceHandler::class, 'createPot'])->middleware('auth:sanctum');;
 Route::get('/pots', [ServiceHandler::class, 'getAllPots'])->middleware('auth:sanctum');;
 Route::get('/donations/{userEmail}', [ServiceHandler::class, 'getDonationsFromUser'])->middleware('auth:sanctum');;
