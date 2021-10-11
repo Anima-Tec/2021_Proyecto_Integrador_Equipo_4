@@ -1,6 +1,7 @@
 import axios from 'axios';
-import TYPE from './requestTypes';
+import qs from 'qs';
 
+import TYPE from './requestTypes';
 import { ROUTE, generateUrl } from './routes';
 
 const METHOD = {
@@ -13,9 +14,13 @@ const sendRequest = async (url, method, body) => {
     const response = await axios({
       method,
       url,
-      data: body,
+      data: qs.stringify(body),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json'
+      },
     });
-
+    console.log(response);
     return response;
   } catch (error) {
     return error;
@@ -27,18 +32,18 @@ const fetchController = async (type, data) => {
     case TYPE.REGISTER:
       let registerResponse;
       const registerUrl = generateUrl(ROUTE.REGISTER);
-
+      console.log(data.name, data.surname, data.email, data.password);
       try {
         registerResponse = await sendRequest(registerUrl, METHOD.POST,
           {
+            fullName: `${data.name} ${data.surname}`,
             email: data.email,
-            name: data.name,
-            surname: data.surname,
-            passwd: data.password,
+            password: data.password,
           });
 
         return registerResponse;
       } catch (error) {
+        console.log(error);
         return error;
       }
 
