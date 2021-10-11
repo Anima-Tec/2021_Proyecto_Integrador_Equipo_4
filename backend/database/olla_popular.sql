@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2021 at 03:40 AM
+-- Generation Time: Oct 11, 2021 at 10:14 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.8
 
@@ -24,148 +24,225 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `donacion`
+-- Table structure for table `donations`
 --
 
-CREATE TABLE `donacion` (
-  `idDonacion` int(11) NOT NULL,
-  `idOlla` int(11) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `fecha` date DEFAULT NULL,
-  `tipoDonacion` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `donacion`
---
-
-INSERT INTO `donacion` (`idDonacion`, `idOlla`, `email`, `fecha`, `tipoDonacion`) VALUES
-(1, 1, 'marcoscapo@gmail.com', '2021-08-31', 'Dinero'),
-(2, 1, 'benitogarcia@gmail.com', '2021-09-15', 'Dinero'),
-(3, 1, 'benitogarcia@gmail.com', '2021-09-15', 'Dinero');
+CREATE TABLE `donations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `potid` bigint(20) UNSIGNED NOT NULL,
+  `authorEmail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `donationType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `olla`
+-- Table structure for table `migrations`
 --
 
-CREATE TABLE `olla` (
-  `idOlla` int(11) NOT NULL,
-  `nombre` varchar(30) DEFAULT NULL,
-  `autor` varchar(30) DEFAULT NULL,
-  `descripcion` varchar(300) DEFAULT NULL,
-  `latitud` float NOT NULL,
-  `longitud` float NOT NULL,
-  `horarioApertura` time DEFAULT NULL,
-  `horarioCierre` time DEFAULT NULL,
-  `conNecesidad` tinyint(4) NOT NULL,
-  `estado` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `olla`
+-- Dumping data for table `migrations`
 --
 
-INSERT INTO `olla` (`idOlla`, `nombre`, `autor`, `descripcion`, `latitud`, `longitud`, `horarioApertura`, `horarioCierre`, `estado`) VALUES
-(1, 'Olla Benito]', 'benitogarcia@gmail.com', 'Una olla para toda la familia, ofrecemos un plato de comida para las familias uruguayas del barrio Aguada.', -34.9087, -56.191, '21:00:00', '23:00:00', 1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2015_10_12_000000_create_pots_table', 1),
+(3, '2016_10_12_000000_create_donations_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2021_10_10_221456_create_tokens_table', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_account_activation`
+-- Table structure for table `personal_access_tokens`
 --
 
-CREATE TABLE `user_account_activation` (
-  `userEmail` varchar(50) NOT NULL,
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pots`
+--
+
+CREATE TABLE `pots` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `authorEmail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `desc` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `openFrom` time NOT NULL,
+  `to` time NOT NULL,
+  `isInNeed` tinyint(4) NOT NULL DEFAULT 1,
+  `state` tinyint(4) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tokens`
+--
+
+CREATE TABLE `tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenValue` int(11) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expiration` datetime NOT NULL,
-  `value` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `usuario` (
-  `correo` varchar(30) NOT NULL,
-  `nombre` varchar(30) DEFAULT NULL,
-  `apellido` varchar(30) DEFAULT NULL,
-  `passwd` varchar(30) DEFAULT NULL,
-  `state` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fullName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `usuario`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `usuario` (`correo`, `nombre`, `apellido`, `passwd`, `state`) VALUES
-('1@gmail.com', 'Kevin', 'Mora Pais', '12345', 0),
-('benitogarcia@gmail.com', 'Benito', 'Garcia', '12345', 1),
-('marcoscapo@gmail.com', 'Marcos', 'Capo', '12345', 1);
+INSERT INTO `users` (`id`, `fullName`, `email`, `email_verified_at`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'User', 'user@test.com', '2021-10-11 23:14:15', '$2y$10$JY/gas3tqTXOaptVoy2.EeZcM1OVQ/Ccuvmq3pUKU1T64xNdP3xCm', '2021-10-11 23:14:15', '2021-10-11 23:14:15');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `donacion`
+-- Indexes for table `donations`
 --
-ALTER TABLE `donacion`
-  ADD PRIMARY KEY (`idDonacion`),
-  ADD KEY `idOlla` (`idOlla`);
+ALTER TABLE `donations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `donations_potid_foreign` (`potid`),
+  ADD KEY `donations_authoremail_foreign` (`authorEmail`);
 
 --
--- Indexes for table `olla`
+-- Indexes for table `migrations`
 --
-ALTER TABLE `olla`
-  ADD PRIMARY KEY (`idOlla`),
-  ADD KEY `autor` (`autor`);
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user_account_activation`
+-- Indexes for table `personal_access_tokens`
 --
-ALTER TABLE `user_account_activation`
-  ADD PRIMARY KEY (`userEmail`,`expiration`,`value`);
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `usuario`
+-- Indexes for table `pots`
 --
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`correo`);
+ALTER TABLE `pots`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pots_authoremail_foreign` (`authorEmail`);
+
+--
+-- Indexes for table `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tokens_email_foreign` (`email`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `donacion`
+-- AUTO_INCREMENT for table `donations`
 --
-ALTER TABLE `donacion`
-  MODIFY `idDonacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `donations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `olla`
+-- AUTO_INCREMENT for table `migrations`
 --
-ALTER TABLE `olla`
-  MODIFY `idOlla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pots`
+--
+ALTER TABLE `pots`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tokens`
+--
+ALTER TABLE `tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `donacion`
+-- Constraints for table `donations`
 --
-ALTER TABLE `donacion`
-  ADD CONSTRAINT `donacion_ibfk_1` FOREIGN KEY (`idOlla`) REFERENCES `olla` (`idOlla`);
+ALTER TABLE `donations`
+  ADD CONSTRAINT `donations_authoremail_foreign` FOREIGN KEY (`authorEmail`) REFERENCES `users` (`email`),
+  ADD CONSTRAINT `donations_potid_foreign` FOREIGN KEY (`potid`) REFERENCES `pots` (`id`);
 
 --
--- Constraints for table `olla`
+-- Constraints for table `pots`
 --
-ALTER TABLE `olla`
-  ADD CONSTRAINT `olla_ibfk_1` FOREIGN KEY (`autor`) REFERENCES `usuario` (`correo`);
+ALTER TABLE `pots`
+  ADD CONSTRAINT `pots_authoremail_foreign` FOREIGN KEY (`authorEmail`) REFERENCES `users` (`email`);
+
+--
+-- Constraints for table `tokens`
+--
+ALTER TABLE `tokens`
+  ADD CONSTRAINT `tokens_email_foreign` FOREIGN KEY (`email`) REFERENCES `users` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
