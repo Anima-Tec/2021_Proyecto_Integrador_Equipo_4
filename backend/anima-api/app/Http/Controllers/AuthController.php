@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Token;
+use App\Models\PersonalAccessTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Mail\Mailer;
@@ -39,7 +40,7 @@ class AuthController extends Controller
         Mail::to($validatedData['email'])->send(new Mailer($token));
 
         return response()->json([
-            'Message' => 'Account must be activated, an email has been sent.',
+            'message' => 'Account must be activated, an email has been sent.',
         ]);
     }
     public function login(Request $request)
@@ -49,11 +50,16 @@ class AuthController extends Controller
                 'message' => 'Invalid login credentials'
             ], 401);
         }
-        
+
         $user = User::where('email', $request['email'])->firstOrFail();
-        if (!$user->email_verified_at){
+        if (!$user->email_verified_at) {
             return response()->json([
                 'message' => 'Account has not been activated.'
+            ], 401);
+        }
+        if (PersonalAccessTokens::where('tokenable_id', $user->id)->exists()) {
+            return response()->json([
+                'message' => 'User is already logged in.'
             ], 401);
         }
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -61,6 +67,14 @@ class AuthController extends Controller
             'username' => $user->fullName,
             'access_token' => $token,
             'token_type' => 'Bearer'
+        ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'message' => 'User logged out.'
         ]);
     }
 
@@ -82,11 +96,11 @@ class AuthController extends Controller
             Token::where('email', $validatedData['email'])->delete();
 
             return response()->json([
-                'Message' => 'User activated successfully.'
+                'message' => 'User activated successfully.'
             ]);
         }
         return response()->json([
-            'Message' => 'Token has expired or provided values are incorrect.'
+            'message' => 'Token has expired or provided values are incorrect.'
         ], 404);
     }
 }

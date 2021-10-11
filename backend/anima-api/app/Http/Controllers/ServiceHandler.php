@@ -33,7 +33,7 @@ class ServiceHandler extends Controller
         ]);
         if (User::where('email', $validatedData['authorEmail'])->doesntExist()) {
             return response()->json([
-                'Message' => 'Email does not belong to a registered user.'
+                'message' => 'Email does not belong to a registered user.'
             ], 404);
         }
 
@@ -46,7 +46,7 @@ class ServiceHandler extends Controller
         ]);
 
         return response()->json([
-            'Message' => 'New pot created.'
+            'message' => 'New pot created.'
         ]);
     }
 
@@ -77,12 +77,12 @@ class ServiceHandler extends Controller
         ]);
         if (User::where('email', $validatedData['authorEmail'])->doesntExist()) {
             return response()->json([
-                'Message' => 'Email does not belong to a registered user.'
+                'message' => 'Email does not belong to a registered user.'
             ], 404);
         }
         if (Pot::where('id', $validatedData['potId'])->doesntExist()) {
             return response()->json([
-                'Message' => 'Pot not found.'
+                'message' => 'Pot not found.'
             ], 404);
         }
 
@@ -93,7 +93,8 @@ class ServiceHandler extends Controller
         ]);
 
         return response()->json([
-            'Message' => 'New donation created.'
+            'message' => 'New donation created.'
         ]);
     }
+
 }
