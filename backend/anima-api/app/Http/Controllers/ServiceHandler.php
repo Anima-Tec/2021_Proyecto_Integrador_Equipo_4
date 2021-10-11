@@ -26,21 +26,20 @@ class ServiceHandler extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'authorEmail' => 'required|string|email|max:255',
             'desc' => 'required|string',
             'openFrom' => 'required',
             'to' => 'required'
         ]);
-
-        if (User::where('email', $validatedData['authorEmail'])->doesntExist()) {
-            return response()->json([
-                'message' => 'Email does not belong to a registered user.'
-            ], 404);
-        }
+        $user = $request->user();
+        // if (User::where('email', $validatedData['authorEmail'])->doesntExist()) {
+        //     return response()->json([
+        //         'message' => 'Email does not belong to a registered user.'
+        //     ], 404);
+        // }
 
         Pot::create([
             'name' => $validatedData['name'],
-            'authorEmail' => $validatedData['authorEmail'],
+            'authorEmail' => $user->email,
             'desc' => $validatedData['desc'],
             'openFrom' => $validatedData['openFrom'],
             'to' => $validatedData['to'],
