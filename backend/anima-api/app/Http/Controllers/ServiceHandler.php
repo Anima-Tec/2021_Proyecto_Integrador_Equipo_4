@@ -30,7 +30,7 @@ class ServiceHandler extends Controller
             'openFrom' => 'required',
             'to' => 'required'
         ]);
-        
+
         $user = $request->user();
 
         Pot::create([
@@ -46,9 +46,10 @@ class ServiceHandler extends Controller
         ]);
     }
 
-    public function getDonationsFromUser(Request $request, $userEmail)
+    public function getDonationsFromUser(Request $request)
     {
-        $donations = Donation::where('authorEmail', $userEmail)
+        $user = $request->user();
+        $donations = Donation::where('authorEmail', $user->email)
             ->select('*')
             ->get();
         return response()->json([
