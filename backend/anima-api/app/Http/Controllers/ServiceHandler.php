@@ -31,32 +31,25 @@ class ServiceHandler extends Controller
             'openFrom' => 'required',
             'to' => 'required'
         ]);
+
         if (User::where('email', $validatedData['authorEmail'])->doesntExist()) {
             return response()->json([
                 'message' => 'Email does not belong to a registered user.'
             ], 404);
         }
 
-        $user = Pot::create([
+        Pot::create([
             'name' => $validatedData['name'],
             'authorEmail' => $validatedData['authorEmail'],
             'desc' => $validatedData['desc'],
             'openFrom' => $validatedData['openFrom'],
-            'to' => $validatedData['to']
+            'to' => $validatedData['to'],
         ]);
 
         return response()->json([
             'message' => 'New pot created.'
         ]);
     }
-
-    // public function show($id)
-    // {
-    //     $olla = Olla::where('idPelicula', $id)
-    //         ->select('idPelicula', 'nombre', 'img')
-    //         ->get();
-    //     return $this->sendResponse($olla, 'Olla obtenida correctamente');
-    // }
 
     public function getDonationsFromUser(Request $request, $userEmail)
     {
@@ -96,5 +89,4 @@ class ServiceHandler extends Controller
             'message' => 'New donation created.'
         ]);
     }
-
 }

@@ -27,8 +27,8 @@ class AuthController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password'])
         ]);
-        $user->createToken('auth_token')->plainTextToken;
 
+        $user->createToken('auth_token')->plainTextToken;
         $currentDate = date('Y/m/d H:i:s');
         $expTimeStamp = strtotime(" $currentDate + 5 minutes");
 
@@ -37,6 +37,7 @@ class AuthController extends Controller
             'email' => $validatedData['email'],
             'expiration' =>  date('Y/m/d H:i:s', $expTimeStamp)
         ]);
+
         Mail::to($validatedData['email'])->send(new Mailer($token));
 
         return response()->json([
@@ -58,10 +59,9 @@ class AuthController extends Controller
             ], 401);
         }
         if (PersonalAccessTokens::where('tokenable_id', $user->id)->exists()) {
-            return response()->json([
-                'message' => 'User is already logged in.'
-            ], 401);
+            PersonalAccessTokens::where('tokenable_id', $user->id)->delete();
         }
+        
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'username' => $user->fullName,

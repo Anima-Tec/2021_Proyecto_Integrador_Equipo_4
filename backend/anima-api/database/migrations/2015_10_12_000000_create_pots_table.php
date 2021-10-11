@@ -21,8 +21,8 @@ class CreatePotsTable extends Migration
             $table->string('desc');
             $table->time('openFrom');
             $table->time('to');
-            $table->tinyInteger('isInNeed');
-            $table->tinyInteger('state');
+            $table->tinyInteger('isInNeed')->default(1);
+            $table->tinyInteger('state')->default(1);
             $table->timestamps();
         });
     }
