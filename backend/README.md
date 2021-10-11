@@ -6,7 +6,7 @@
 
 ###### 3. Clone repository (https://github.com/Katherine-Damires/2021_Proyecto_Integrador_Equipo_-4-) into C:/xampp/htdocs
 
-###### 4. Create a database named "olla_popular" and import the olla_popular.sql file in backend/database
+###### 4. Create a database named "olla_popular".
 
 ###### 5. Go to "htdocs/2021*Proyecto_Integrador_Equipo*-4-/backend/anima-api"
 
@@ -14,6 +14,8 @@
 
 ###### 7. Run composer -vvv install
 
-###### 8. Run php artisan serv
+###### 8. Run php artisan migrate
 
-###### 9. Try it out by making a GET request at http://127.0.0.1:8000/api/olla
+###### 9. Run php artisan serv
+
+###### 10. Check the postman collection (under the Documentation folder) for usage info.
