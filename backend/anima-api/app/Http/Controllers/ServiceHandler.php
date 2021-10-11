@@ -61,14 +61,11 @@ class ServiceHandler extends Controller
     {
         $validatedData = $request->validate([
             'potId' => 'required|integer',
-            'authorEmail' => 'required|string|email|max:255',
             'donationType' => 'required|string'
         ]);
-        if (User::where('email', $validatedData['authorEmail'])->doesntExist()) {
-            return response()->json([
-                'message' => 'Email does not belong to a registered user.'
-            ], 404);
-        }
+
+        $user = $request->user();
+
         if (Pot::where('id', $validatedData['potId'])->doesntExist()) {
             return response()->json([
                 'message' => 'Pot not found.'
@@ -77,7 +74,7 @@ class ServiceHandler extends Controller
 
         $user = Donation::create([
             'potId' => $validatedData['potId'],
-            'authorEmail' => $validatedData['authorEmail'],
+            'authorEmail' => $user->email,
             'donationType' => $validatedData['donationType']
         ]);
 
