@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Donation extends Model
+class Pot extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'potId',
+        'name',
         'authorEmail',
-        'donationType'
+        'desc',
+        'openFrom',
+        'to'
     ];
+
 }
