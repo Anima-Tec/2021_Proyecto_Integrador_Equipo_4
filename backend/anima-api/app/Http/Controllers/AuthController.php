@@ -23,13 +23,13 @@ class AuthController extends Controller
 
         ]);
 
-        $validatedData = $request->only(['fullName', 'email', 'password']);
-
         if (!$dataValidation->passes()) {
             return response()->json([
                 'message' => 'Invalid values were provided, check documentation for validation requirements.',
             ], 400);
         }
+
+        $validatedData = $request->only(['fullName', 'email', 'password']);
 
         if (User::where('email', $validatedData['email'])->exists()) {
             return response()->json([
