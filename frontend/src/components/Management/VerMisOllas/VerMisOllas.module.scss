@@ -27,6 +27,10 @@
       border: none;
     }
 
+    .description{
+      min-height: 19rem;
+    }
+
     .edit-button {
       display: flex;
       flex-direction: row;
@@ -56,12 +60,17 @@
   }
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1124px) {
   .container {
     .container-content {
       padding: 1rem;
       display: flex;
       width: 100%;
+
+      .description{
+        min-height: 0px;
+        max-height: none;
+      }
 
       .title {
         font-size: 1.85rem;
