@@ -92,7 +92,6 @@ const fetchController = async (type, data) => {
       catch (error) {
         return error;
       }
-    break;
 
     case TYPE.ADD_DONATION:
 

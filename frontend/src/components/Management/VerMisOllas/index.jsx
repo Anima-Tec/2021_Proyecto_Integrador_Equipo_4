@@ -1,13 +1,13 @@
-import React from "react";
-import { ArrowForwardIos as ArrowForwardIosIcon } from "@material-ui/icons/";
+import React from 'react';
+import { ArrowForwardIos as ArrowForwardIosIcon } from '@material-ui/icons/';
 
-import classes from "./VerMisOllas.module.scss";
-import imgPrueba from "../../../assets/images/img-prueba.jpg";
+import classes from './VerMisOllas.module.scss';
+import imgPrueba from '../../../assets/images/img-prueba.jpg';
 
 const VerMisOllas = () => {
   return (
     <div className={classes.container}>
-      <div className={classes["container-content"]}>
+      <div className={classes['container-content']}>
         <h1 className={classes.title}>Benito camelo</h1>
         <button className={classes.state}>Olla sin necesidad</button>
         <p className={classes.description}>
@@ -27,13 +27,13 @@ const VerMisOllas = () => {
           nihil sed vitae!
         </p>
         <p className={classes.time}>Horario: 10:00 - 01:00</p>
-        <button className={classes["edit-button"]}>
-          Editar olla popular <ArrowForwardIosIcon />{" "}
+        <button className={classes['edit-button']}>
+          Editar olla popular <ArrowForwardIosIcon/>
         </button>
       </div>
 
-      <div className={classes["container-img"]}>
-        <img className={classes.img} src={imgPrueba} alt="img-prueba" />
+      <div className={classes['container-img']}>
+        <img className={classes.img} src={imgPrueba} alt='img-prueba' />
       </div>
     </div>
   );
