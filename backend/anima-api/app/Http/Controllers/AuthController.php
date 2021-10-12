@@ -16,11 +16,26 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['fullName', 'email', 'password']), [
             'fullName' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8'
+
         ]);
+
+        $validatedData = $request->only(['fullName', 'email', 'password']);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        if (User::where('email', $validatedData['email'])->exists()) {
+            return response()->json([
+                'message' => 'Email is already in use.',
+            ], 409);
+        }
 
         $user = User::create([
             'fullName' => $validatedData['fullName'],
@@ -61,7 +76,7 @@ class AuthController extends Controller
         if (PersonalAccessTokens::where('tokenable_id', $user->id)->exists()) {
             PersonalAccessTokens::where('tokenable_id', $user->id)->delete();
         }
-        
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'username' => $user->fullName,
