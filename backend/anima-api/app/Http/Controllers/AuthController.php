@@ -101,10 +101,19 @@ class AuthController extends Controller
             User::where('email', $token->email)->where('email_verified_at', null)->delete();
         }
 
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['email', 'token']), [
             'email' => 'required|string|email|max:255',
-            'token' => 'required|integer'
+            'token' => 'required|integer|min:6'
+
         ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['email', 'token']);
 
         if (Token::where('email', $validatedData['email'])->where('tokenValue', $validatedData['token'])->exists()) {
             User::where('email', $validatedData['email'])->update(['email_verified_at' => date('Y/m/d H:i:s')]);
