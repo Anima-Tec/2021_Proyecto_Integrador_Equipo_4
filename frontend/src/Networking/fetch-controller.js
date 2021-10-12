@@ -78,20 +78,21 @@ const fetchController = async (type, data) => {
 
       //revisar
     case TYPE.VIEW_ALL_POTS:
-      // const activateUrl = generateUrl(ROUTE.VIEW_ALL_POTS);
+      let viewPotsResponse;
+      const viewPotsUrl = generateUrl(ROUTE.VIEW_ALL_POTS);
       try{
-        const activateResponse = await sendRequest(activateUrl, METHOD.GET, {
+          viewPotsResponse = await sendRequest(viewPotsUrl, METHOD.GET, {
           name: data.name,
           description: data.description,
           from: data.from,
           to: data.to,
         });
-        return activateResponse;
+        return console.log(viewPotsResponse);
       }
       catch (error) {
         return error;
       }
-      break;
+    break;
 
     case TYPE.ADD_DONATION:
 
