@@ -24,13 +24,20 @@ class ServiceHandler extends Controller
 
     public function createPot(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['name', 'desc', 'openFrom', 'to']), [
             'name' => 'required|string|max:255',
             'desc' => 'required|string',
-            'openFrom' => 'required',
-            'to' => 'required'
+            'openFrom' => 'required|date_format:H:i',
+            'to' => 'required|date_format:H:i'
         ]);
 
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to']);
         $user = $request->user();
 
         Pot::create([
@@ -59,10 +66,18 @@ class ServiceHandler extends Controller
 
     public function createDonation(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['potId', 'donationType']), [
             'potId' => 'required|integer',
             'donationType' => 'required|string'
         ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['potId', 'donationType']);
 
         $user = $request->user();
 
