@@ -34,7 +34,7 @@ class Mailer extends Mailable
     public function build()
     {
         return $this->view('emails.mailView')->with([
-            'token' => $this->token->value,
+            'token' => $this->token->tokenValue,
             'expiration' => $this->token->expiration,
         ]);
     }

@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ServiceHandler;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,13 +16,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::post('/activate', 'App\Http\Controllers\ControllerU@accountActivationHandler');
-Route::post('/ollas/save', 'App\Http\Controllers\ControllerO@createOlla');
-Route::get('/ollas', 'App\Http\Controllers\ControllerO@getAll');
-Route::post('/register', 'App\Http\Controllers\ControllerU@tempRegister');
-Route::post('/login', 'App\Http\Controllers\ControllerU@tempLogin');
-Route::get('/donations/{userEmail}', 'App\Http\Controllers\ControllerD@getDonationsFromUser');
-Route::post('/donations/save', 'App\Http\Controllers\ControllerD@saveDonation');
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');;
+Route::post('/activate', [AuthController::class, 'accountActivation']);
+Route::post('/pots/save', [ServiceHandler::class, 'createPot'])->middleware('auth:sanctum');;
+Route::get('/pots', [ServiceHandler::class, 'getAllPots'])->middleware('auth:sanctum');;
+Route::get('/donations', [ServiceHandler::class, 'getDonationsFromUser'])->middleware('auth:sanctum');;
+Route::post('/donations/save', [ServiceHandler::class, 'createDonation'])->middleware('auth:sanctum');;
