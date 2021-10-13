@@ -14,6 +14,18 @@ date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 class ServiceHandler extends Controller
 {
+    public function getAllPotsFromUser(Request $request)
+    {
+        $user = $request->user();
+        $Pots = Pot::where('state', 1)->where('authorEmail', $user->email)
+            ->select('*')
+            ->get();
+
+        return response()->json([
+            'Pots' => $Pots
+        ], 200);
+    }
+
     public function getAllPots()
     {
         $potsCache = Cache::get('pots');
