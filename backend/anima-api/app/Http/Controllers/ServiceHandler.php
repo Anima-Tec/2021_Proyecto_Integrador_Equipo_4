@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pot;
 use App\Models\Donation;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Cache;
 
 class CreateTokensTable extends Migration
 {
@@ -13,6 +14,7 @@ class CreateTokensTable extends Migration
      */
     public function up()
     {
+        Cache::flush();
         Schema::create('tokens', function (Blueprint $table) {
             $table->id();
             $table->integer('tokenValue');
