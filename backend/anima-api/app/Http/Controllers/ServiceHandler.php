@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Pot;
 use App\Models\Donation;
 use Illuminate\Support\Facades\Cache;
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
@@ -122,12 +124,13 @@ class ServiceHandler extends Controller
             ], 404);
         }
 
-        $user = Donation::create([
+        Donation::create([
             'potId' => $validatedData['potId'],
             'authorEmail' => $user->email,
             'donationType' => $validatedData['donationType']
         ]);
-
+        $potOwner = Pot::where('id', $validatedData['potId'])->select('authorEmail')->get()[0]->authorEmail;
+        Mail::to($potOwner)->send(new Mailer(['authorEmail' => $user->email, 'donationType' => $validatedData['donationType']]));
         return response()->json([
             'message' => 'New donation created.'
         ]);

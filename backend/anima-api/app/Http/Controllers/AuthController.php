@@ -47,13 +47,15 @@ class AuthController extends Controller
         $currentDate = date('Y/m/d H:i:s');
         $expTimeStamp = strtotime(" $currentDate + 5 minutes");
 
-        $token = Token::create([
-            'tokenValue' => rand(111111, 999999),
+        $tokenValue = rand(111111, 999999);
+        $expiration =  date('Y/m/d H:i:s', $expTimeStamp);
+        Token::create([
+            'tokenValue' => $tokenValue,
             'email' => $validatedData['email'],
-            'expiration' =>  date('Y/m/d H:i:s', $expTimeStamp)
+            'expiration' =>  $expiration
         ]);
 
-        Mail::to($validatedData['email'])->send(new Mailer($token));
+        Mail::to($validatedData['email'])->send(new Mailer(['tokenValue' => $tokenValue, 'expiration' => $expiration]));
 
         return response()->json([
             'message' => 'Account must be activated, an email has been sent.',
