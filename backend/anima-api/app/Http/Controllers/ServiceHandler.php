@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pot;
 use App\Models\Donation;
+use Cache;
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
@@ -13,9 +14,19 @@ class ServiceHandler extends Controller
 {
     public function getAllPots()
     {
+        $potsCache = Cache::get('pots');
+
+        if ($potsCache) {
+            return response()->json([
+                'Pots' => $potsCache
+            ], 200);
+        }
+
         $Pots = Pot::where('state', 1)
             ->select('*')
             ->get();
+
+        Cache::put('pots', $Pots, 600);
 
         return response()->json([
             'Pots' => $Pots
@@ -47,7 +58,7 @@ class ServiceHandler extends Controller
             'openFrom' => $validatedData['openFrom'],
             'to' => $validatedData['to'],
         ]);
-
+        Cache::forget('pots');
         return response()->json([
             'message' => 'New pot created.'
         ]);
