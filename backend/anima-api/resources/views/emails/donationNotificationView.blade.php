@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Account activation token</h1>
+    <h1>Donation request</h1>
     <div>
-        Token: {{ $token }}
-        Expiration: {{ $expiration }}
+        User: {{ $authorEmail }}
+        Donation: {{ $donationType }}
     </div>
 </body>
 </html>

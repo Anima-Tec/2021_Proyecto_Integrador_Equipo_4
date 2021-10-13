@@ -7,13 +7,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Token;
+use Exception;
 
 class Mailer extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = "Token";
-    public $token;
+    public $subject = "Ollas populares";
+    public $body = [];
 
 
     /**
@@ -21,9 +22,9 @@ class Mailer extends Mailable
      *
      * @return void
      */
-    public function __construct(Token $token)
+    public function __construct($body)
     {
-        $this->token = $token;
+        $this->body = $body;
     }
 
     /**
@@ -33,9 +34,21 @@ class Mailer extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.mailView')->with([
-            'token' => $this->token->tokenValue,
-            'expiration' => $this->token->expiration,
-        ]);
+        try {
+            $this->body['authorEmail'];
+            return $this->view('emails.donationNotificationView')->with([
+                'authorEmail' => $this->body['authorEmail'],
+                'donationType' => $this->body['donationType'],
+            ]);
+        } catch (Exception) {
+            try {
+                $this->body['expiration'];
+                return $this->view('emails.mailView')->with([
+                    'token' => $this->body['tokenValue'],
+                    'expiration' => $this->body['expiration'],
+                ]);
+            } catch (Exception) {
+            }
+        }
     }
 }
