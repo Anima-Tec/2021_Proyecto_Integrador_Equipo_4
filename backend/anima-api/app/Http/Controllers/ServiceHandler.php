@@ -33,6 +33,30 @@ class ServiceHandler extends Controller
         ], 200);
     }
 
+    public function getPotsPager($offset, $limit)
+    {
+        $dataValidation = $this->getValidationFactory()->make(['offset' => $offset, 'limit' => $limit], [
+            'offset' => 'required|integer',
+            'limit' => 'required|integer'
+        ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $Pots = Pot::where('state', 1)
+            ->skip($limit * $offset)
+            ->take($limit)
+            ->get();
+
+
+        return response()->json([
+            'Pots' => $Pots
+        ], 200);
+    }
+
     public function createPot(Request $request)
     {
         $dataValidation = $this->getValidationFactory()->make($request->only(['name', 'desc', 'openFrom', 'to']), [
