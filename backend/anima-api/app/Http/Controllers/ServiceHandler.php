@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pot;
 use App\Models\Donation;
+use Illuminate\Support\Facades\Cache;
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
@@ -13,9 +14,43 @@ class ServiceHandler extends Controller
 {
     public function getAllPots()
     {
+        $potsCache = Cache::get('pots');
+
+        if ($potsCache) {
+            return response()->json([
+                'Pots' => $potsCache
+            ], 200);
+        }
+
         $Pots = Pot::where('state', 1)
             ->select('*')
             ->get();
+
+        Cache::put('pots', $Pots, 600);
+
+        return response()->json([
+            'Pots' => $Pots
+        ], 200);
+    }
+
+    public function getPotsPager($offset, $limit)
+    {
+        $dataValidation = $this->getValidationFactory()->make(['offset' => $offset, 'limit' => $limit], [
+            'offset' => 'required|integer',
+            'limit' => 'required|integer'
+        ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $Pots = Pot::where('state', 1)
+            ->skip($limit * $offset)
+            ->take($limit)
+            ->get();
+
 
         return response()->json([
             'Pots' => $Pots
@@ -47,7 +82,7 @@ class ServiceHandler extends Controller
             'openFrom' => $validatedData['openFrom'],
             'to' => $validatedData['to'],
         ]);
-
+        Cache::forget('pots');
         return response()->json([
             'message' => 'New pot created.'
         ]);
