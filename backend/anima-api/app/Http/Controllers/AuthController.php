@@ -16,11 +16,26 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['fullName', 'email', 'password']), [
             'fullName' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8'
+
         ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['fullName', 'email', 'password']);
+
+        if (User::where('email', $validatedData['email'])->exists()) {
+            return response()->json([
+                'message' => 'Email is already in use.',
+            ], 409);
+        }
 
         $user = User::create([
             'fullName' => $validatedData['fullName'],
@@ -32,13 +47,15 @@ class AuthController extends Controller
         $currentDate = date('Y/m/d H:i:s');
         $expTimeStamp = strtotime(" $currentDate + 5 minutes");
 
-        $token = Token::create([
-            'tokenValue' => rand(111111, 999999),
+        $tokenValue = rand(111111, 999999);
+        $expiration =  date('Y/m/d H:i:s', $expTimeStamp);
+        Token::create([
+            'tokenValue' => $tokenValue,
             'email' => $validatedData['email'],
-            'expiration' =>  date('Y/m/d H:i:s', $expTimeStamp)
+            'expiration' =>  $expiration
         ]);
 
-        Mail::to($validatedData['email'])->send(new Mailer($token));
+        Mail::to($validatedData['email'])->send(new Mailer(['tokenValue' => $tokenValue, 'expiration' => $expiration]));
 
         return response()->json([
             'message' => 'Account must be activated, an email has been sent.',
@@ -61,7 +78,7 @@ class AuthController extends Controller
         if (PersonalAccessTokens::where('tokenable_id', $user->id)->exists()) {
             PersonalAccessTokens::where('tokenable_id', $user->id)->delete();
         }
-        
+
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'username' => $user->fullName,
@@ -86,10 +103,19 @@ class AuthController extends Controller
             User::where('email', $token->email)->where('email_verified_at', null)->delete();
         }
 
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['email', 'token']), [
             'email' => 'required|string|email|max:255',
-            'token' => 'required|integer'
+            'token' => 'required|integer|min:6'
+
         ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['email', 'token']);
 
         if (Token::where('email', $validatedData['email'])->where('tokenValue', $validatedData['token'])->exists()) {
             User::where('email', $validatedData['email'])->update(['email_verified_at' => date('Y/m/d H:i:s')]);

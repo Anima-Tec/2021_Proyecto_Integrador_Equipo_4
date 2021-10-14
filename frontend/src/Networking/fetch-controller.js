@@ -81,10 +81,11 @@ const fetchController = async (type, data) => {
       let viewPotsResponse;
       const viewPotsUrl = generateUrl(ROUTE.VIEW_ALL_POTS);
       try{
-          viewPotsResponse = await sendRequest(viewPotsUrl, METHOD.GET, {
+        viewPotsResponse = await sendRequest(viewPotsUrl, METHOD.GET, {
           name: data.name,
-          description: data.description,
-          from: data.from,
+          state: data.state,
+          description: data.desc,
+          from: data.openFrom,
           to: data.to,
         });
         return console.log(viewPotsResponse);

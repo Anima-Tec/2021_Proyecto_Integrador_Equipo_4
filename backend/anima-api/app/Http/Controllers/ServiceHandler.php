@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pot;
 use App\Models\Donation;
+use Illuminate\Support\Facades\Cache;
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 class ServiceHandler extends Controller
 {
-    public function getAllPots()
+    public function getAllPotsFromUser(Request $request)
     {
-        $Pots = Pot::where('state', 1)
+        $user = $request->user();
+        $Pots = Pot::where('state', 1)->where('authorEmail', $user->email)
             ->select('*')
             ->get();
 
@@ -22,15 +26,67 @@ class ServiceHandler extends Controller
         ], 200);
     }
 
-    public function createPot(Request $request)
+    public function getAllPots()
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'desc' => 'required|string',
-            'openFrom' => 'required',
-            'to' => 'required'
+        $potsCache = Cache::get('pots');
+
+        if ($potsCache) {
+            return response()->json([
+                'Pots' => $potsCache
+            ], 200);
+        }
+
+        $Pots = Pot::where('state', 1)
+            ->select('*')
+            ->get();
+
+        Cache::put('pots', $Pots, 600);
+
+        return response()->json([
+            'Pots' => $Pots
+        ], 200);
+    }
+
+    public function getPotsPager($offset, $limit)
+    {
+        $dataValidation = $this->getValidationFactory()->make(['offset' => $offset, 'limit' => $limit], [
+            'offset' => 'required|integer',
+            'limit' => 'required|integer'
         ]);
 
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $Pots = Pot::where('state', 1)
+            ->skip($limit * $offset)
+            ->take($limit)
+            ->get();
+
+
+        return response()->json([
+            'Pots' => $Pots
+        ], 200);
+    }
+
+    public function createPot(Request $request)
+    {
+        $dataValidation = $this->getValidationFactory()->make($request->only(['name', 'desc', 'openFrom', 'to']), [
+            'name' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'openFrom' => 'required|date_format:H:i',
+            'to' => 'required|date_format:H:i'
+        ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to']);
         $user = $request->user();
 
         Pot::create([
@@ -40,7 +96,7 @@ class ServiceHandler extends Controller
             'openFrom' => $validatedData['openFrom'],
             'to' => $validatedData['to'],
         ]);
-
+        Cache::forget('pots');
         return response()->json([
             'message' => 'New pot created.'
         ]);
@@ -59,10 +115,18 @@ class ServiceHandler extends Controller
 
     public function createDonation(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['potId', 'donationType']), [
             'potId' => 'required|integer',
             'donationType' => 'required|string'
         ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['potId', 'donationType']);
 
         $user = $request->user();
 
@@ -72,12 +136,13 @@ class ServiceHandler extends Controller
             ], 404);
         }
 
-        $user = Donation::create([
+        Donation::create([
             'potId' => $validatedData['potId'],
             'authorEmail' => $user->email,
             'donationType' => $validatedData['donationType']
         ]);
-
+        $potOwner = Pot::where('id', $validatedData['potId'])->select('authorEmail')->get()[0]->authorEmail;
+        Mail::to($potOwner)->send(new Mailer(['authorEmail' => $user->email, 'donationType' => $validatedData['donationType']]));
         return response()->json([
             'message' => 'New donation created.'
         ]);

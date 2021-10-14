@@ -12,7 +12,7 @@ const Router = () => {
     <Layout>
       <Switch>
         <Route path={paths.HOME} exact>
-          <Manage />
+          <Home />
         </Route>
         <Route path={paths.DEFAULT}>
           <Redirect to={paths.HOME} />

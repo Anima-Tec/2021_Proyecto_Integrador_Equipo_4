@@ -25,5 +25,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 Route::post('/activate', [AuthController::class, 'accountActivation']);
 Route::post('/pots/save', [ServiceHandler::class, 'createPot'])->middleware('auth:sanctum');;
 Route::get('/pots', [ServiceHandler::class, 'getAllPots'])->middleware('auth:sanctum');;
+Route::get('/pots/user', [ServiceHandler::class, 'getAllPotsFromUser'])->middleware('auth:sanctum');;
+Route::get('/pots/{offset}/{limit}', [ServiceHandler::class, 'getPotsPager'])->middleware('auth:sanctum');;
 Route::get('/donations', [ServiceHandler::class, 'getDonationsFromUser'])->middleware('auth:sanctum');;
 Route::post('/donations/save', [ServiceHandler::class, 'createDonation'])->middleware('auth:sanctum');;
