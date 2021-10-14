@@ -102,6 +102,32 @@ class ServiceHandler extends Controller
         ]);
     }
 
+    public function getDonationsPager(Request $request, $offset, $limit)
+    {
+        $dataValidation = $this->getValidationFactory()->make(['offset' => $offset, 'limit' => $limit], [
+            'offset' => 'required|integer',
+            'limit' => 'required|integer'
+        ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+        
+        $user = $request->user();
+
+        $Pots = Donation::where('authorEmail', $user->email)
+            ->skip($limit * $offset)
+            ->take($limit)
+            ->get();
+
+
+        return response()->json([
+            'Pots' => $Pots
+        ], 200);
+    }
+
     public function getDonationsFromUser(Request $request)
     {
         $user = $request->user();
