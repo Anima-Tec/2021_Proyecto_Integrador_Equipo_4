@@ -13,7 +13,7 @@
   }
 
   .img-container {
-    margin: auto auto auto 3rem;
+    margin: auto auto 3% 3rem;
 
     .img-home {
       width: 85%;
@@ -78,7 +78,7 @@
   }
 }
 
-@media only screen and (max-width: 426px) {
+@media (max-width: 426px) {
   .container {
     display: flex;
     flex-direction: column;
@@ -150,11 +150,13 @@
   }
 }
 
-@media only screen and (max-width: 1500px) and (min-width: 1100px) {
+@media (max-width: 1500px) and (min-width: 1100px) {
   .container {
     margin: auto 0 auto 0;
+
     .img-container {
       margin: auto auto auto 3%;
+
       .img-home{
         width: 90%;
         height: 90%;
@@ -167,10 +169,10 @@
   }
 }
 
-@media only screen and (max-width: 1920px) and (min-width: 1501px) {
+@media (max-width: 1920px) and (min-width: 1501px) {
   .container {
     .img-container{
-      margin: 10% auto auto 8%;
+      margin: auto auto 10% 8%;
 
       .img-home{
         width: 100%;
@@ -196,7 +198,7 @@
   }
 }
 
-@media only screen and (min-width: 1921px) {
+@media (min-width: 1921px) {
   .container {
     .img-container {
       width: 30rem;
