@@ -114,17 +114,17 @@ class ServiceHandler extends Controller
                 'message' => 'Invalid values were provided, check documentation for validation requirements.',
             ], 400);
         }
-        
+
         $user = $request->user();
 
-        $Pots = Donation::where('authorEmail', $user->email)
+        $Donations = Donation::where('authorEmail', $user->email)
             ->skip($limit * $offset)
             ->take($limit)
             ->get();
 
 
         return response()->json([
-            'Pots' => $Pots
+            'Pots' => $Donations
         ], 200);
     }
 
@@ -161,12 +161,12 @@ class ServiceHandler extends Controller
                 'message' => 'Pot not found.'
             ], 404);
         }
+            Donation::create([
+                'potId' => $validatedData['potId'],
+                'authorEmail' => $user->email,
+                'donationType' => $validatedData['donationType']
+            ]);
 
-        Donation::create([
-            'potId' => $validatedData['potId'],
-            'authorEmail' => $user->email,
-            'donationType' => $validatedData['donationType']
-        ]);
         $potOwner = Pot::where('id', $validatedData['potId'])->select('authorEmail')->get()[0]->authorEmail;
         Mail::to($potOwner)->send(new Mailer(['authorEmail' => $user->email, 'donationType' => $validatedData['donationType']]));
         return response()->json([

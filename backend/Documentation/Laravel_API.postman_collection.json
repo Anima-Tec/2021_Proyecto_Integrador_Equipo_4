@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c95e38c7-6bb4-42b2-8169-8a255eaef03e",
+		"_postman_id": "077cae20-9978-40c2-a83f-a8ea0d3a5b32",
 		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -350,46 +350,6 @@
 			"name": "Donations",
 			"item": [
 				{
-					"name": "Get donations from user",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "4|JVzcvK8auIoNVrIv5nWF5i2FZOikEMqkSESE1jVc",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://127.0.0.1:8000/api/donations",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"donations"
-							]
-						},
-						"description": "The bearer token will be used to identify the user."
-					},
-					"response": []
-				},
-				{
 					"name": "Create a donation",
 					"request": {
 						"auth": {
@@ -444,6 +404,88 @@
 							]
 						},
 						"description": "Creates a new donation and stores in the database."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all donations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|JVzcvK8auIoNVrIv5nWF5i2FZOikEMqkSESE1jVc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/donations",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donations"
+							]
+						},
+						"description": "Returns all donations made by the user that is currently logged in."
+					},
+					"response": []
+				},
+				{
+					"name": "Donations pager",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|DE5UJTZuBeyvhItrQcCXykzaaLCHNlcH62DxqYJQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/donations/0/5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donations",
+								"0",
+								"5"
+							]
+						},
+						"description": "The first value represents the page while the second one is the amount of content you want in the page.\n\nIf I wanted to get the first 5 donations the params would be 0 and 5 (so i would get the instances 1-5).\n\nWhen you need the next page you can simply add 1 to the offset to get 6-10, then 11-15, and so on.\n\nKeep in mind that this endpoint only returns the donations form the user that is currently logged in."
 					},
 					"response": []
 				}
