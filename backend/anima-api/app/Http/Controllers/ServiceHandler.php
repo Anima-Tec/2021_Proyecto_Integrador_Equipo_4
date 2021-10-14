@@ -124,7 +124,7 @@ class ServiceHandler extends Controller
 
 
         return response()->json([
-            'Pots' => $Donations
+            'Donations' => $Donations
         ], 200);
     }
 
