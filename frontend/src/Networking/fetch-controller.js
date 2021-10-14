@@ -1,5 +1,5 @@
-import axios from 'axios';
 import qs from 'qs';
+import axios from 'axios';
 
 import TYPE from './requestTypes';
 import { ROUTE, generateUrl } from './routes';
@@ -11,20 +11,20 @@ const METHOD = {
 
 const sendRequest = async (url, method, body) => {
   try {
-    const response = await axios({
+    const axiosR = await axios({
       method,
       url,
       data: qs.stringify(body),
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json'
-      },
-    });
-    console.log(response);
-    return response;
+        'Accept': 'application/json',
+      }
+    })
+    return axiosR;
+
   } catch (error) {
-    return error;
-  };
+    return error.response;
+  }
 };
 
 const fetchController = async (type, data) => {
@@ -32,20 +32,15 @@ const fetchController = async (type, data) => {
     case TYPE.REGISTER:
       let registerResponse;
       const registerUrl = generateUrl(ROUTE.REGISTER);
-      console.log(data.name, data.surname, data.email, data.password);
-      try {
-        registerResponse = await sendRequest(registerUrl, METHOD.POST,
-          {
-            fullName: `${data.name} ${data.surname}`,
-            email: data.email,
-            password: data.password,
-          });
+      registerResponse = await sendRequest(registerUrl, METHOD.POST,
+        {
+          fullName: `${data.name} ${data.surname}`,
+          email: data.email,
+          password: data.password,
+        });
 
-        return registerResponse;
-      } catch (error) {
-        console.log(error);
-        return error;
-      }
+      return registerResponse;
+
 
     case TYPE.LOGIN:
       let loginResponse;

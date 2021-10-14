@@ -1,4 +1,3 @@
-import { Animated } from 'react-animated-css';
 import React, { useRef } from 'react';
 import Popup from 'reactjs-popup';
 

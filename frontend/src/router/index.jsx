@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 
 import Layout from '../components/Layout';
 import paths from './paths';
+import Activation from '../pages/Activation';
 
 const Router = () => {
   return (
@@ -11,6 +12,9 @@ const Router = () => {
       <Switch>
         <Route path={paths.HOME} exact>
           <Home />
+        </Route>
+        <Route path={paths.ACTIVATION}>
+          <Activation />
         </Route>
         <Route path={paths.DEFAULT}>
           <Redirect to={paths.HOME} />
