@@ -35,13 +35,13 @@
       font-size: 1.2rem;
     }
 
-    .ollas-container {
+    .pots-container {
       background-color: #ffffff;
       border-radius: 8px;
       width: 100%;
     }
 
-    .header-ollas {
+    .header-pots {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -100,11 +100,11 @@
         font-size: 0.9rem;
       }
 
-      .ollas-container {
+      .pots-container {
         width: 100%;
       }
 
-      .header-ollas {
+      .header-pots {
         padding-top: 1rem;
         padding-left: 0;
         align-items: center;
@@ -131,7 +131,7 @@
         margin-top: 0;
       }
 
-      .ollas-container {
+      .pots-container {
         width: 100%;
       }
     }
@@ -140,9 +140,11 @@
 
 @media (max-width: 1099px) and (min-width: 768px) {
   .container {
+
     .img-container {
       display: none;
     }
+
     .home-container {
       width: 90%;
 
@@ -162,7 +164,8 @@
         height: 90%;
       }
     }
-      .ollas-container {
+
+      .pots-container {
         width: 95%;
       }
     
@@ -171,6 +174,7 @@
 
 @media (max-width: 1920px) and (min-width: 1501px) {
   .container {
+
     .img-container{
       margin: auto auto 10% 8%;
 
@@ -179,11 +183,12 @@
         height: 100%;
       }
     }
+
     .home-container {
       margin: 6% 0 0 7%;
       width: 50%;
 
-      .ollas-container {
+      .pots-container {
         width: 100%;
       }
 
@@ -200,6 +205,7 @@
 
 @media (min-width: 1921px) {
   .container {
+    
     .img-container {
       width: 30rem;
       height: 30rem;
@@ -210,7 +216,7 @@
       margin-left: 8%;
       width: 55%;
 
-      .ollas-container {
+      .pots-container {
         width: 85%;
       }
 

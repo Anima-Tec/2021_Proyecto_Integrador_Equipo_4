@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import classes from './Home.module.scss';
-import imageHome from '../../assets/images/Image-home.png';
-import CrearOllas from '../../components/Ollas/CrearOllas';
-import BuscarOllas from '../../components/Ollas/BuscarOllas';
 import { Tab, Box } from '@material-ui/core';
 import { TabPanel, TabContext, TabList } from '@material-ui/lab';
+
+import classes from './Home.module.scss';
+import imageHome from '../../assets/images/Image-home.png';
+import CreatePots from '../../components/Ollas/CreatePots';
+import SearchPots from '../../components/Ollas/SearchPots';
 
 const Home = () => {
   const [value, setValue] = useState('2');
@@ -22,10 +23,10 @@ const Home = () => {
           ollas asociadas
         </p>
 
-        <div className={classes['ollas-container']}>
+        <div className={classes['pots-container']}>
           <Box sx={{ width: '100%', typography: 'body1' }}>
             <TabContext value={value}>
-              <div className={classes['header-ollas']}>
+              <div className={classes['header-pots']}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <TabList onChange={handleChange}>
                     <Tab label='Buscar Ollas' value='1' />
@@ -35,10 +36,10 @@ const Home = () => {
               </div>
 
               <TabPanel value='1'>
-                <BuscarOllas />
+                <SearchPots />
               </TabPanel>
               <TabPanel value='2'>
-                <CrearOllas />
+                <CreatePots />
               </TabPanel>
             </TabContext>
           </Box>
