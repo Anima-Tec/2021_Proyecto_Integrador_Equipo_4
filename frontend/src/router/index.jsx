@@ -1,11 +1,11 @@
-import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Redirect, Route, Switch } from "react-router-dom";
 
-import Home from '../pages/Home';
-import Manage from '../pages/Manage';
+import Home from "../pages/Home";
+import Manage from "../pages/Manage";
 
-import Layout from '../components/Layout';
-import paths from './paths';
+import Layout from "../components/Layout";
+import paths from "./paths";
 
 const Router = () => {
   return (
@@ -13,6 +13,9 @@ const Router = () => {
       <Switch>
         <Route path={paths.HOME} exact>
           <Home />
+        </Route>
+        <Route path={paths.VIEW_MY_POTS}>
+          <Manage />
         </Route>
         <Route path={paths.DEFAULT}>
           <Redirect to={paths.HOME} />

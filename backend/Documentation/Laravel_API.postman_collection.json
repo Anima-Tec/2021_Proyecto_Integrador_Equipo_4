@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c95e38c7-6bb4-42b2-8169-8a255eaef03e",
+		"_postman_id": "cb33647e-7f6f-4c94-8866-113b28dc636a",
 		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -340,6 +340,47 @@
 							]
 						},
 						"description": "Returns x amount of entries at a y offset. This service is meant to be used with a pager."
+					},
+					"response": []
+				},
+				{
+					"name": "Get pots user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|LLq4HOf1POpe6AJ3cpE9UnB4IcoRucKroyqTI8ew",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/pots/user",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pots",
+								"user"
+							]
+						},
+						"description": "Returns all active pots created by the current user."
 					},
 					"response": []
 				}
