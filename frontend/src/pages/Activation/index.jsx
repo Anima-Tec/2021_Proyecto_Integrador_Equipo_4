@@ -47,11 +47,10 @@ const Activation = () => {
   };
 
   const switchInput = (event) => {
-    debugger;
     const actualIndex = event.target.tabIndex - 1;
     const inputLength = event.target.value.length;
     const inputName = event.target.name;
-    const inputValue = event.target.value.replace(/[^\d.]/g, '');
+    const inputValue = event.target.value.replace(/[^\d]/g, '');
     event.target.value = inputValue;
 
     if (event.target.value !== '') {
@@ -81,12 +80,14 @@ const Activation = () => {
   return (
     <div className={classes['principal-content']}>
       <div className={classes.activation}>
-        <header className={classes.title}>
-          <h2>¡Activa tu cuenta!</h2>
+        <header className={classes.header}>
+          <h2 className={classes.title}>¡Activa tu cuenta!</h2>
         </header>
         <form className={classes.form} onSubmit={confirmToken}>
           <span className={classes.email}>
-            <label htmlFor='email'>Email</label>
+            <label className={classes['email-label']} htmlFor='email'>
+              Email&ensp;
+            </label>
             <input
               type='email'
               onChange={updateEmail}
@@ -152,7 +153,9 @@ const Activation = () => {
               className={classes['input-fields']}
             />
           </section>
-          <button type='submit'>Confirmar cuenta</button>
+          <button className={classes['submit-button']} type='submit'>
+            Confirmar cuenta
+          </button>
         </form>
       </div>
     </div>

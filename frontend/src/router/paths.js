@@ -1,7 +1,7 @@
 const paths = {
   DEFAULT: '*',
   HOME: '/',
-  ACTIVATION: '/activation',
+  ACTIVATION: '/activate-account',
 };
 
 export default paths;

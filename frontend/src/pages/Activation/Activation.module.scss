@@ -16,45 +16,85 @@ input[type='number'] {
   width: 100%;
   height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 0 6px 4px #0000004f;
 
-  .activation {
-    width: 30rem;
-    height: 20rem;
-    border-radius: 5px;
-    box-shadow: 0 0 6px 4px #0000004f;
+  .header {
+    height: 4rem;
+    width: 100%;
+    color: $white;
+    background-color: $principal-blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     .title {
-      height: 4rem;
-      width: 100%;
-      color: $white;
-      background-color: $principal-blue;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 5px 5px 0 0;
-      border-bottom: solid 1px;
-
-      h2 {
-        margin: 0;
-      }
+      margin: 0;
     }
+  }
+
+  .activation {
+    display: contents;
 
     .form {
+      margin: auto 0;
+      height: 16rem;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      padding: 1rem;
+
+      .email {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .email-label {
+          font-size: 1.2rem;
+        }
+
+        .email-input {
+          height: 1.5rem;
+          width: 100%;
+          border-radius: 5px;
+          border: 1px solid $activation_input-border-color;
+          font-size: 1rem;
+          background-color: $background-inputs;
+        }
+      }
+
       .fields {
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
+        width: 100%;
+
         .input-fields {
-          width: 3rem;
+          width: 2.5rem;
           height: 4rem;
+          font-size: 1.5rem;
           text-align: center;
+          border: solid 1px $activation_input-border-color;
           border-radius: 10px;
-          border-style: none;
-          border: solid 1px black;
+          background-color: $background-inputs;
+        }
+      }
+
+      .submit-button {
+        width: 100%;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border-style: none;
+        background-color: $principal-blue;
+        color: $white;
+
+        &:active {
+          background-color: $principal-sky-blue;
         }
       }
     }
