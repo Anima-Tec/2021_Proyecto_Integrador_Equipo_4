@@ -5,19 +5,20 @@
   flex-direction: row;
   box-shadow: 5px 5px 20px 1px #0000007a;
   border-radius: 1rem;
+  margin-bottom: 3rem;
 
   .container-content {
     display: flex;
     flex-direction: column;
     padding: 3rem;
-    width: 40%;
+    width: 50%;
 
     .title {
       font-weight: bold;
       font-size: 2.3rem;
     }
 
-    .state {
+    .state-1 {
       width: 9.375rem;
       height: 1.5rem;
       color: $principal-green;
@@ -27,8 +28,14 @@
       border: none;
     }
 
-    .description{
-      min-height: 19rem;
+    .state-0 {
+      width: 9.375rem;
+      height: 1.5rem;
+      color: $principal-red;
+      background-color: #d95b6370;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
     }
 
     .edit-button {
@@ -49,7 +56,7 @@
   }
 
   .container-img {
-    width: 60%;
+    width: 50%;
 
     .img {
       width: 100% ;
@@ -60,8 +67,9 @@
   }
 }
 
-@media only screen and (max-width: 1124px) {
+@media (max-width: 1124px) {
   .container {
+
     .container-content {
       padding: 1rem;
       display: flex;
@@ -83,8 +91,9 @@
   }
 }
 
-@media only screen and (min-width: 1920px) {
+@media (min-width: 1920px) {
   .container {
+    
     .container-content {
       padding: 3rem;
 
@@ -92,7 +101,12 @@
         font-size: 4rem;
       }
 
-      .state{
+      .state-1{
+        font-size: 1rem;
+        width: 16rem;
+      }
+
+      .state-0{
         font-size: 1rem;
         width: 16rem;
       }

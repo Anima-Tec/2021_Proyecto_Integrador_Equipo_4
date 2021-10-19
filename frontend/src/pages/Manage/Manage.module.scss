@@ -28,7 +28,7 @@
        min-height: 3rem; 
       }
 
-      .ollas-tab {
+      .pots-tab {
         color: #bd3131;
         font-weight: bold;
         border-radius: 8px;
@@ -42,7 +42,7 @@
         }
       }
 
-      .donaciones-tab {
+      .donations-tab {
         margin-left: 1rem;
         border-radius: 8px;
         font-weight: bold;
@@ -59,16 +59,18 @@
   }
 }
 
-@media only screen and (max-width: 320px) {
+@media (max-width: 320px) {
   .container {
+
     .manage-container {
+
       .manage-header {
         display: flex;
         flex-direction: row;
         align-items: center;
         padding: 1.5rem 0;
 
-        .donaciones-tab {
+        .donations-tab {
           margin: 0;
         }
       }

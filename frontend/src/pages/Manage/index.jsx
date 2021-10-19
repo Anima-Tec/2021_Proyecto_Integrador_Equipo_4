@@ -23,13 +23,13 @@ const Administrar = () => {
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleChange}>
                   <Tab
-                    className={classes['ollas-tab']}
+                    className={classes['pots-tab']}
                     label='Mis ollas'
                     value='1'
                     icon={<SearchIcon />}
                   />
                   <Tab
-                    className={classes['donaciones-tab']}
+                    className={classes['donations-tab']}
                     label='Mis Donaciones'
                     value='2'
                     icon={<SearchIcon />}

@@ -4,6 +4,7 @@ const ROUTE = {
   LOGIN: '/login',
   ADD_POT: '/pots/save',
   VIEW_ALL_POTS: '/pots',
+  VIEW_MY_POTS: '/pots/user',
   ADD_DONATION: '/donations/save',
   VIEW_DONATIONS: '/donations',
 }

@@ -17,16 +17,12 @@
     display: flex;
     align-items: flex-start;
     flex-direction: row;
-    padding: 0;
+    padding-top: 5px;
   }
   
   :global(.MuiTab-labelIcon) {
     min-height: 3rem; 
    }
-
-  :global(.MuiTab-root){
-    padding: 0;
-  }
 
   .search-tab{
     color: #bd3131;
@@ -44,6 +40,7 @@
   }
 
   .add-tab{
+    margin-left: 1rem;
     border-radius: 8px;
     font-weight: bold;
 
@@ -57,7 +54,7 @@
   }
 }
 
-@media only screen and (max-width: 426px) {
+@media (max-width: 426px) {
   .ollas-container {
     width: 100%;
   }
@@ -67,28 +64,32 @@
     padding-left: 0;
     align-items: center;
     justify-content: center;
+
+    .add-tab{
+      margin: 0;
+    }
   }
 }
 
-@media only screen and (max-width: 800px) and (min-width: 500px) {
+@media (max-width: 800px) and (min-width: 500px) {
   .ollas-container {
     width: 100%;
   }
 }
 
-@media only screen and (max-width: 1440px) and (min-width: 1024px) {
+@media (max-width: 1440px) and (min-width: 1024px) {
   .ollas-container {
     width: 95%;
   }
 }
 
-@media only screen and (max-width: 1920px) and (min-width: 1440px) {
+@media (max-width: 1920px) and (min-width: 1440px) {
   .ollas-container {
     width: 100%;
   }
 }
 
-@media only screen and (min-width: 1920px) {
+@media (min-width: 1920px) {
   .ollas-container {
     width: 85%;
   }
