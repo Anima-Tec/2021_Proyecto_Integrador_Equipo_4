@@ -49,6 +49,7 @@ const Home = () => {
         <img className={classes['img-home']} src={imageHome} alt='img' />
       </div>
     </div>
+    
   );
 };
 
