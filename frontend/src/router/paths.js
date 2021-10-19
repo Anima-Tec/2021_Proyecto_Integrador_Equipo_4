@@ -1,7 +1,7 @@
 const paths = {
   DEFAULT: '*',
   HOME: '/',
-  VIEW_MY_POTS: '/view-my-pots'
+  VIEW_MY: '/view-my'
 };
 
 export default paths;

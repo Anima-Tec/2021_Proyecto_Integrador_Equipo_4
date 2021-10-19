@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowForwardIos as ArrowForwardIosIcon } from '@material-ui/icons/';
 
-import classes from './VerMisOllas.module.scss';
+import classes from './ViewMyPots.module.scss';
 import imgPrueba from '../../../assets/images/img-prueba.jpg';
 import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';

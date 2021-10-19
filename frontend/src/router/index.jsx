@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 import Home from "../pages/Home";
-import Manage from "../pages/Manage";
+import Control from "../pages/Control";
 
 import Layout from "../components/Layout";
 import paths from "./paths";
@@ -14,8 +14,8 @@ const Router = () => {
         <Route path={paths.HOME} exact>
           <Home />
         </Route>
-        <Route path={paths.VIEW_MY_POTS}>
-          <Manage />
+        <Route path={paths.VIEW_MY}>
+          <Control />
         </Route>
         <Route path={paths.DEFAULT}>
           <Redirect to={paths.HOME} />

@@ -1,7 +1,7 @@
 import classes from './Header.module.scss';
 import logo from '../../../assets/images/logo.png';
 import {
-  Map as MapIcon,
+  Search as SearchIcon,
   Person as PersonIcon,
   PersonAdd as PersonAddIcon,
 } from '@material-ui/icons';
@@ -75,12 +75,13 @@ const Header = () => {
               : classes['nav-content']
           }
         >
-          <li className={classes['view-map']}>
-            <MapIcon className={classes['map-icon']} />
+          <li className={classes['view']}>
+            <SearchIcon className={classes['search-icon']} />
             <h4
-              className={`${classes['view-map__title']} ${classes['pointer-no-selectable']}`}
+              className={`${classes['view__title']} ${classes['pointer-no-selectable']}`}
+              //onClick={window.location.href='/view-my'}
             >
-              Ver mapa
+              Mis ollas
             </h4>
           </li>
           <li className={classes.buttons}>

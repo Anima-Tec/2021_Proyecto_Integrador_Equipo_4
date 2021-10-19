@@ -3,9 +3,9 @@ import { Tab, Box } from '@material-ui/core';
 import { TabPanel, TabContext, TabList } from '@material-ui/lab';
 import { Search as SearchIcon } from '@material-ui/icons/';
 
-import VerMisOllas from '../../components/Management/VerMisOllas';
-import VerMisDonaciones from '../../components/Management/VerMisDonaciones';
-import classes from './Manage.module.scss';
+import ViewMyPots from '../../components/ViewMy/ViewMyPots';
+import ViewMyDonations from '../../components/ViewMy/ViewMyDonations';
+import classes from './Control.module.scss';
 
 const Administrar = () => {
   const [value, setValue] = useState('2');
@@ -39,10 +39,10 @@ const Administrar = () => {
             </div>
 
             <TabPanel value='1'>
-              <VerMisOllas />
+              <ViewMyPots/>
             </TabPanel>
             <TabPanel value='2'>
-              <VerMisDonaciones />
+              <ViewMyDonations />
             </TabPanel>
           </TabContext>
         </Box>
