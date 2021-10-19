@@ -37,6 +37,10 @@ const Header = () => {
     setAuthToken(localStorage.getItem('userIdentifier'));
   };
 
+  const ViewPots = () => {
+    window.location.href='/view-my'
+  }
+
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
 
   return (
@@ -79,7 +83,7 @@ const Header = () => {
             <SearchIcon className={classes['search-icon']} />
             <h4
               className={`${classes['view__title']} ${classes['pointer-no-selectable']}`}
-              //onClick={window.location.href='/view-my'}
+              onClick={ViewPots}
             >
               Mis ollas
             </h4>
