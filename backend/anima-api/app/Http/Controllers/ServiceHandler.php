@@ -116,10 +116,9 @@ class ServiceHandler extends Controller
         }
 
         $user = $request->user();
-        $hasNextPage = false;
-        $donationCount = Donation::where('authorEmail', $user->email)->count();
-        if (($donationCount / $limit) - ($offset + 1) > 0) {
-            $hasNextPage = true;
+        $pagesLeft = ceil((Donation::where('authorEmail', $user->email)->count() / $limit) - $offset);
+        if ($pagesLeft < 0) {
+            $pagesLeft = 0;
         }
 
         $Donations = Donation::where('authorEmail', $user->email)
@@ -127,10 +126,9 @@ class ServiceHandler extends Controller
             ->take($limit)
             ->get();
 
-
         return response()->json([
             'Donations' => $Donations,
-            'hasNextPage' => $hasNextPage
+            'PagesLeft' => abs($pagesLeft)
         ], 200);
     }
 
