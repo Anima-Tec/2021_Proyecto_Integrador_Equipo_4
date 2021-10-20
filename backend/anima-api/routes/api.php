@@ -28,4 +28,5 @@ Route::get('/pots', [ServiceHandler::class, 'getAllPots']);;
 Route::get('/pots/user', [ServiceHandler::class, 'getAllPotsFromUser'])->middleware('auth:sanctum');;
 Route::get('/pots/{offset}/{limit}', [ServiceHandler::class, 'getPotsPager']);;
 Route::get('/donations', [ServiceHandler::class, 'getDonationsFromUser'])->middleware('auth:sanctum');;
+Route::get('/donations/{offset}/{limit}', [ServiceHandler::class, 'getDonationsPager'])->middleware('auth:sanctum');;
 Route::post('/donations/save', [ServiceHandler::class, 'createDonation'])->middleware('auth:sanctum');;
