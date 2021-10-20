@@ -77,10 +77,9 @@ const fetchController = async (type, data) => {
       }
 
       //revisar
-    case TYPE.VIEW__POTS:
+    case TYPE.VIEW_MY_POTS:
       let viewPotsResponse;
       const viewPotsUrl = generateUrl(ROUTE.VIEW_MY_POTS);
-      
       try{
         const viewPotsResponse = await axios({
           method: "GET",
@@ -94,6 +93,9 @@ const fetchController = async (type, data) => {
       catch (error) {
         return error;
       }
+    
+
+
 
     case TYPE.ADD_DONATION:
 
