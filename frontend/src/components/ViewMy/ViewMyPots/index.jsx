@@ -6,7 +6,7 @@ import imgPrueba from "../../../assets/images/img-prueba.jpg";
 import fetchController from "../../../Networking/fetch-controller";
 import TYPE from "../../../Networking/requestTypes";
 
-const VerMisOllas = () => {
+const ViewMyPots = () => {
   const [pots, setPots] = useState([]);
 
   useEffect(() => {
@@ -53,4 +53,4 @@ const VerMisOllas = () => {
     
   ));
 };
-export default VerMisOllas;
+export default ViewMyPots;

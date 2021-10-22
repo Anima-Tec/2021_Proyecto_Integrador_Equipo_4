@@ -7,7 +7,7 @@ import ViewMyPots from '../../components/ViewMy/ViewMyPots';
 import ViewMyDonations from '../../components/ViewMy/ViewMyDonations';
 import classes from './Control.module.scss';
 
-const Administrar = () => {
+const Control = () => {
   const [value, setValue] = useState('2');
 
   const handleChange = (event, newValue) => {
@@ -51,4 +51,4 @@ const Administrar = () => {
   );
 };
 
-export default Administrar;
+export default Control;
