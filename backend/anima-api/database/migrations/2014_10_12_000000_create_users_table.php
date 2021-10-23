@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
 
         User::create([
             'fullName' => 'User',
-            'email' => 'user@test.com',
+            'email' => 'email@email.com',
             'email_verified_at' =>  date('Y/m/d H:i:s'),
             'password' => Hash::make('123456789')
         ]);

@@ -23,6 +23,8 @@ class CreatePotsTable extends Migration
             $table->time('to');
             $table->tinyInteger('isInNeed')->default(1);
             $table->tinyInteger('state')->default(1);
+            $table->decimal('lat', 7, 5)->default(12.60925);
+            $table->decimal('lng', 7, 5)->default(9.06714);;
             $table->timestamps();
         });
     }
