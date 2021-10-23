@@ -63,6 +63,18 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
+        $dataValidation = $this->getValidationFactory()->make($request->only(['email', 'password']), [
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:8'
+
+        ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
         if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'message' => 'Invalid login credentials'
