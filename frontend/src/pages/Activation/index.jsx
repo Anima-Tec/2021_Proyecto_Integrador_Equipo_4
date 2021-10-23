@@ -1,5 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
+import fetchController from '../../Networking/fetch-controller';
+import TYPE from '../../Networking/requestTypes';
+
 import classes from './Activation.module.scss';
 
 const Activation = () => {
@@ -31,6 +34,16 @@ const Activation = () => {
     sixthField,
   ];
 
+  useEffect(() => {
+    addToast(
+      'Un token fue enviado a tu correo, confirma tu cuenta ingresándo.',
+      {
+        appearance: 'success',
+        autoDismiss: '10000',
+      }
+    );
+  }, [addToast]);
+
   const changeFocus = (actualIndex, inputValueLength) => {
     if (inputValueLength > 0) {
       if (actualIndex < 5) {
@@ -61,7 +74,7 @@ const Activation = () => {
 
   const updateEmail = (event) => setEmail(event.target.value);
 
-  const confirmToken = (event) => {
+  const confirmToken = async (event) => {
     event.preventDefault();
     const {
       firstField,
@@ -73,8 +86,19 @@ const Activation = () => {
     } = tokenFields;
 
     const token = `${firstField}${secondField}${thirdField}${fourthField}${fifthField}${sixthField}`;
-    console.log(email, token);
-    addToast('success', { appearance: 'success', autoDismiss: '1000' });
+    const response = await fetchController(TYPE.ACTIVATE_ACCOUNT, {
+      email,
+      token,
+    });
+    console.log(response);
+    if (response.status === 200) {
+      addToast('success', { appearance: 'success', autoDismiss: '1000' });
+    } else {
+      addToast('Invalid token or email', {
+        appearance: 'error',
+        autoDismiss: '2000',
+      });
+    }
   };
 
   return (

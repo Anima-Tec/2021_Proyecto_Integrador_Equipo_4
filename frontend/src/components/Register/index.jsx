@@ -1,71 +1,73 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Popup from 'reactjs-popup';
+import { useToasts } from 'react-toast-notifications';
 
 import fetchController from '../../Networking/fetch-controller';
 import TYPE from '../../Networking/requestTypes';
+import paths from '../../router/paths';
 import classes from './Register.module.scss';
+import Spinner from '../UI/Spinner';
 
 const Register = ({ children }) => {
-  const nameInputRef = useRef();
-  const surNameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const confirmPasswordInputRef = useRef();
+  const { addToast } = useToasts();
+  const [formData, setFormData] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const [loading, setLoading] = useState(false);
+
   const PopUpRef = useRef();
 
   const closePopup = () => {
     PopUpRef.current.close();
   };
 
+  const updateFormData = (event) => {
+    const value = event.target.value;
+    const inputId = event.target.id;
+    setFormData((prevState) => ({ ...prevState, [inputId]: value }));
+  };
+
   const submitHandler = async (event) => {
     event.preventDefault();
-
-    const name = nameInputRef.current.value;
-    const surName = surNameInputRef.current.value;
-    const email = emailInputRef.current.value;
-    const password = passwordInputRef.current.value;
-    const confirmPassword = confirmPasswordInputRef.current.value;
-
-    let response;
-    let activateResponse;
+    const { name, surname, email, password, confirmPassword } = formData;
 
     if (password === confirmPassword) {
-      try {
-        response = await fetchController(TYPE.REGISTER, {
-          name,
-          surname: surName,
-          email,
-          password,
+      setLoading(true);
+
+      const response = await fetchController(TYPE.REGISTER, {
+        name,
+        surname,
+        email,
+        password,
+      });
+
+      if (response.status === 200) {
+        setLoading(false);
+
+        addToast(
+          'Un token fue enviado a tu correo, confirma tu cuenta ingresándo.',
+          { appearance: 'success', autoDismiss: '10000' }
+        );
+        window.open(paths.ACTIVATION, '_blank');
+      }
+
+      if (response.status === 409) {
+        setLoading(false);
+
+        addToast('Usuario ya existente.', {
+          appearance: 'error',
+          autoDismiss: '4000',
         });
-        console.log(response);
-        if (response.status === 200) {
-          const token = prompt(
-            'Un código fue enviado a tu correo, confirma tu cuenta ingresándolo.'
-          );
-
-          const email = emailInputRef.current.value;
-
-          try {
-            activateResponse = await fetchController(TYPE.ACTIVATE_ACCOUNT, {
-              email,
-              token,
-            });
-          } catch (error) {
-            alert(
-              'Token incorrecto, intenta registrarte de nuevo en 5 minutos.'
-            );
-          }
-
-          if (activateResponse.status === 200) {
-            alert('Registrado correctamente');
-            PopUpRef.current.close();
-          }
-        }
-      } catch (error) {
-        return error;
       }
     } else {
-      return alert('Las contraseñas deben ser iguales.');
+      return addToast('Las contraseñas deben ser iguales.', {
+        appearance: 'warning',
+        autoDismiss: '2000',
+      });
     }
   };
 
@@ -78,6 +80,7 @@ const Register = ({ children }) => {
       modal
     >
       <div className={classes.modal}>
+        {loading && <Spinner />}
         <button className={classes.close} onClick={closePopup}>
           &times;
         </button>
@@ -92,10 +95,10 @@ const Register = ({ children }) => {
             </label>
             <input
               className={classes['register-input']}
+              onChange={updateFormData}
               type='text'
               placeholder='Nombre'
               id='name'
-              ref={nameInputRef}
               required
             />
 
@@ -105,10 +108,10 @@ const Register = ({ children }) => {
             </label>
             <input
               className={classes['register-input']}
+              onChange={updateFormData}
               type='text'
               placeholder='Apellido'
               id='surname'
-              ref={surNameInputRef}
               required
             />
 
@@ -118,10 +121,10 @@ const Register = ({ children }) => {
             </label>
             <input
               className={classes['register-input']}
+              onChange={updateFormData}
               type='email'
               placeholder='Email'
               id='email'
-              ref={emailInputRef}
               required
             />
 
@@ -131,20 +134,20 @@ const Register = ({ children }) => {
             </label>
             <input
               className={classes['register-input']}
+              onChange={updateFormData}
               type='password'
               placeholder='Contraseña'
               id='password'
               minLength='8'
-              ref={passwordInputRef}
               required
             />
             <input
               className={classes['register-input']}
+              onChange={updateFormData}
               type='password'
               placeholder='Confirmar Contraseña'
-              id='confmirmPassword'
+              id='confirmPassword'
               minLength='8'
-              ref={confirmPasswordInputRef}
               required
             />
 

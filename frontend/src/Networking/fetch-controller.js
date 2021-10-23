@@ -32,6 +32,7 @@ const fetchController = async (type, data) => {
     case TYPE.REGISTER:
       let registerResponse;
       const registerUrl = generateUrl(ROUTE.REGISTER);
+
       registerResponse = await sendRequest(registerUrl, METHOD.POST,
         {
           fullName: `${data.name} ${data.surname}`,
@@ -40,7 +41,6 @@ const fetchController = async (type, data) => {
         });
 
       return registerResponse;
-
 
     case TYPE.LOGIN:
       let loginResponse;
@@ -52,6 +52,7 @@ const fetchController = async (type, data) => {
             email: data.email,
             passwd: data.password,
           });
+
         return loginResponse;
       } catch (error) {
         return error
@@ -60,6 +61,7 @@ const fetchController = async (type, data) => {
     case TYPE.ADD_POT:
       let addPotResponse;
       const addPotUrl = generateUrl(ROUTE.ADD_POT);
+
       try {
         addPotResponse = await sendRequest(addPotUrl, METHOD.POST, {
           email: data.email,

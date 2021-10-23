@@ -1,13 +1,11 @@
 @import '../../assets/styles/colors.module.scss';
 
-/* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
 }
@@ -18,24 +16,23 @@ input[type='number'] {
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  box-shadow: 0 0 6px 4px #0000004f;
-
-  .header {
-    height: 4rem;
-    width: 100%;
-    color: $white;
-    background-color: $principal-blue;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .title {
-      margin: 0;
-    }
-  }
 
   .activation {
     display: contents;
+
+    .header {
+      height: 4rem;
+      width: 100%;
+      color: $white;
+      background-color: $principal-blue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .title {
+        margin: 0;
+      }
+    }
 
     .form {
       margin: auto 0;
@@ -44,7 +41,6 @@ input[type='number'] {
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-      padding: 1rem;
 
       .email {
         width: 100%;
@@ -80,6 +76,7 @@ input[type='number'] {
           border: solid 1px $activation_input-border-color;
           border-radius: 10px;
           background-color: $background-inputs;
+          color: $activation_input-text-color;
         }
       }
 
@@ -97,6 +94,53 @@ input[type='number'] {
           background-color: $principal-sky-blue;
         }
       }
+
+      @media (min-width: 426px) {
+        width: 70%;
+        margin: auto;
+      }
+
+      @media (min-width: 600px) {
+        width: 60%;
+      }
+
+      @media (min-width: 768px) {
+        width: 45%;
+      }
+    }
+  }
+
+  @media (min-width: 990px) {
+    justify-content: center;
+    align-items: center;
+
+    .activation {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 12px 6px $activation_box-shadow-color;
+      border-radius: 5px;
+
+      .header {
+        border-radius: 5px 5px 0 0;
+      }
+
+      .form {
+        width: 95%;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .activation {
+      width: 40%;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .activation {
+      width: 35%;
     }
   }
 }
