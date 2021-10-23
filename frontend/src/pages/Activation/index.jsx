@@ -90,11 +90,14 @@ const Activation = () => {
       email,
       token,
     });
-    console.log(response);
+
     if (response.status === 200) {
-      addToast('success', { appearance: 'success', autoDismiss: '1000' });
+      addToast('Cuenta activada correctamente.', {
+        appearance: 'success',
+        autoDismiss: '10000',
+      });
     } else {
-      addToast('Invalid token or email', {
+      addToast('Token o email invalidos.', {
         appearance: 'error',
         autoDismiss: '2000',
       });

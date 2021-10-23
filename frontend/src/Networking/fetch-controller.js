@@ -9,7 +9,7 @@ const METHOD = {
   GET: 'GET',
 };
 
-const sendRequest = async (url, method, body) => {
+const sendRequest = async (url, method, body, extraHeaders) => {
   try {
     const axiosR = await axios({
       method,
@@ -18,6 +18,7 @@ const sendRequest = async (url, method, body) => {
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json',
+        ...extraHeaders
       }
     })
     return axiosR;
@@ -27,13 +28,12 @@ const sendRequest = async (url, method, body) => {
   }
 };
 
-const fetchController = async (type, data) => {
+const fetchController = async (type, data, extraHeaders) => {
   switch (type) {
     case TYPE.REGISTER:
-      let registerResponse;
       const registerUrl = generateUrl(ROUTE.REGISTER);
 
-      registerResponse = await sendRequest(registerUrl, METHOD.POST,
+      const registerResponse = await sendRequest(registerUrl, METHOD.POST,
         {
           fullName: `${data.name} ${data.surname}`,
           email: data.email,
@@ -43,40 +43,30 @@ const fetchController = async (type, data) => {
       return registerResponse;
 
     case TYPE.LOGIN:
-      let loginResponse;
       const loginUrl = generateUrl(ROUTE.LOGIN)
 
-      try {
-        loginResponse = await sendRequest(loginUrl, METHOD.POST,
-          {
-            email: data.email,
-            passwd: data.password,
-          });
-
-        return loginResponse;
-      } catch (error) {
-        return error
-      }
-
-    case TYPE.ADD_POT:
-      let addPotResponse;
-      const addPotUrl = generateUrl(ROUTE.ADD_POT);
-
-      try {
-        addPotResponse = await sendRequest(addPotUrl, METHOD.POST, {
+      const loginResponse = await sendRequest(loginUrl, METHOD.POST,
+        {
           email: data.email,
-          name: data.name,
-          description: data.description,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          from: data.from,
-          to: data.to,
+          password: data.password,
         });
 
-        return addPotResponse;
-      } catch (error) {
-        return error;
-      }
+      return loginResponse;
+
+    case TYPE.ADD_POT:
+      const addPotUrl = generateUrl(ROUTE.ADD_POT);
+
+      const addPotResponse = await sendRequest(addPotUrl, METHOD.POST, {
+        email: data.email,
+        name: data.name,
+        description: data.description,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        from: data.from,
+        to: data.to,
+      });
+
+      return addPotResponse;
 
     case TYPE.VIEW_ALL_POTS:
 
@@ -87,16 +77,19 @@ const fetchController = async (type, data) => {
     case TYPE.ACTIVATE_ACCOUNT:
       const activateUrl = generateUrl(ROUTE.ACTIVATE_ACCOUNT);
 
-      try {
-        const activateResponse = await sendRequest(activateUrl, METHOD.POST, {
-          email: data.email,
-          token: data.token,
-        });
+      const activateResponse = await sendRequest(activateUrl, METHOD.POST, {
+        email: data.email,
+        token: data.token,
+      });
 
-        return activateResponse;
-      } catch (error) {
-        return error;
-      }
+      return activateResponse;
+
+    case TYPE.LOG_OUT:
+      const logOutURL = generateUrl(ROUTE.LOG_OUT);
+
+      const logOutResponse = await sendRequest(logOutURL, METHOD.POST, {}, { Authorization: `Bearer ${extraHeaders.token}` });
+
+      return logOutResponse;
 
     default:
       break;

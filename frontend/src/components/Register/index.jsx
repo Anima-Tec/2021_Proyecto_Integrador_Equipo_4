@@ -2,14 +2,15 @@ import React, { useRef, useState } from 'react';
 import Popup from 'reactjs-popup';
 import { useToasts } from 'react-toast-notifications';
 
-import fetchController from '../../Networking/fetch-controller';
-import TYPE from '../../Networking/requestTypes';
-import paths from '../../router/paths';
-import classes from './Register.module.scss';
 import Spinner from '../UI/Spinner';
+import paths from '../../router/paths';
+import TYPE from '../../Networking/requestTypes';
+import fetchController from '../../Networking/fetch-controller';
+import classes from './Register.module.scss';
 
 const Register = ({ children }) => {
   const { addToast } = useToasts();
+  const PopUpRef = useRef();
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
@@ -18,8 +19,6 @@ const Register = ({ children }) => {
     confirmPassword: '',
   });
   const [loading, setLoading] = useState(false);
-
-  const PopUpRef = useRef();
 
   const closePopup = () => {
     PopUpRef.current.close();
@@ -47,12 +46,8 @@ const Register = ({ children }) => {
 
       if (response.status === 200) {
         setLoading(false);
-
-        addToast(
-          'Un token fue enviado a tu correo, confirma tu cuenta ingresándo.',
-          { appearance: 'success', autoDismiss: '10000' }
-        );
-        window.open(paths.ACTIVATION, '_blank');
+        window.open(paths.ACTIVATION);
+        closePopup();
       }
 
       if (response.status === 409) {
@@ -79,8 +74,8 @@ const Register = ({ children }) => {
       trigger={children}
       modal
     >
+      {loading && <Spinner />}
       <div className={classes.modal}>
-        {loading && <Spinner />}
         <button className={classes.close} onClick={closePopup}>
           &times;
         </button>
