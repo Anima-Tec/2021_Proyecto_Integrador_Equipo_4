@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Pot;
 use App\Models\Donation;
+use Illuminate\Support\Facades\Cache;
+use App\Mail\Mailer;
+use Illuminate\Support\Facades\Mail;
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 class ServiceHandler extends Controller
 {
-    public function getAllPots()
+    // Pots ------------------------------------------------------------------------------------------------------------------------------
+    public function getAllPotsFromUser(Request $request)
     {
-        $Pots = Pot::where('state', 1)
+        $user = $request->user();
+        $Pots = Pot::where('state', 1)->where('authorEmail', $user->email)
             ->select('*')
             ->get();
 
@@ -22,15 +26,43 @@ class ServiceHandler extends Controller
         ], 200);
     }
 
+    public function getAllPots()
+    {
+        $potsCache = Cache::get('pots');
+
+        if ($potsCache) {
+            return response()->json([
+                'Pots' => $potsCache
+            ], 200);
+        }
+
+        $Pots = Pot::where('state', 1)
+            ->select('*')
+            ->get();
+
+        Cache::put('pots', $Pots, 600);
+
+        return response()->json([
+            'Pots' => $Pots
+        ], 200);
+    }
+
     public function createPot(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['name', 'desc', 'openFrom', 'to']), [
             'name' => 'required|string|max:255',
             'desc' => 'required|string',
-            'openFrom' => 'required',
-            'to' => 'required'
+            'openFrom' => 'required|date_format:H:i',
+            'to' => 'required|date_format:H:i'
         ]);
 
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to']);
         $user = $request->user();
 
         Pot::create([
@@ -40,12 +72,150 @@ class ServiceHandler extends Controller
             'openFrom' => $validatedData['openFrom'],
             'to' => $validatedData['to'],
         ]);
-
+        Cache::forget('pots');
         return response()->json([
             'message' => 'New pot created.'
         ]);
     }
 
+    public function getPotById(Request $request, $id)
+    {
+        if (Pot::where('id', $id)->doesntExist()) {
+            return response()->json([
+                'message' => "No pot under id $id was found."
+            ], 404);
+        }
+        $Pot = Pot::where('id', $id)->get();
+        return response()->json([
+            'Pot' => $Pot
+        ], 200);
+    }
+    // Pagers ------------------------------------------------------------------------------------------------------------------------------
+    public function pagerWithAuth(Request $request, $contentType, $offset, $limit)
+    {
+        $dataValidation = $this->getValidationFactory()->make(['offset' => $offset, 'limit' => $limit], [
+            'offset' => 'required|integer',
+            'limit' => 'required|integer'
+        ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid offset or limit values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+        switch ($contentType) {
+            case 'donations':
+
+                $user = $request->user();
+                $pagesLeft = ceil((Donation::where('authorEmail', $user->email)->count() / $limit) - $offset);
+
+                $Donations = Donation::where('authorEmail', $user->email)
+                    ->skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+                $pagesLeft = $pagesLeft - 1;
+
+                return response()->json([
+                    'Donations' => $Donations,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
+            case 'pots':
+
+                $user = $request->user();
+                $pagesLeft = ceil((Pot::where('authorEmail', $user->email)->count() / $limit) - $offset);
+
+                $Pots = Pot::where('authorEmail', $user->email)
+                    ->skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                $pagesLeft = $pagesLeft - 1;
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+
+                return response()->json([
+                    'Pots' => $Pots,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
+            default:
+                return response()->json([
+                    'message' => "Content of type '$contentType' not found."
+                ], 404);
+        }
+    }
+
+    public function pagerWithoutAuth($contentType, $offset, $limit)
+    {
+        $dataValidation = $this->getValidationFactory()->make(['offset' => $offset, 'limit' => $limit], [
+            'offset' => 'required|integer',
+            'limit' => 'required|integer'
+        ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid offset or limit values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+        switch ($contentType) {
+            case 'donations':
+
+                $pagesLeft = ceil((Donation::count() / $limit) - $offset);
+
+                $Donations = Donation::skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+                $pagesLeft = $pagesLeft - 1;
+
+                return response()->json([
+                    'Donations' => $Donations,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
+            case 'pots':
+
+                $pagesLeft = ceil((Pot::where('state', 1)->count() / $limit) - $offset);
+
+                $Pots = Pot::where('state', 1)->skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+                $pagesLeft = $pagesLeft - 1;
+
+                return response()->json([
+                    'Pots' => $Pots,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
+            default:
+                return response()->json([
+                    'message' => "Content of type '$contentType' not found."
+                ], 404);
+        }
+    }
+    // Donations ------------------------------------------------------------------------------------------------------------------------------
     public function getDonationsFromUser(Request $request)
     {
         $user = $request->user();
@@ -59,10 +229,18 @@ class ServiceHandler extends Controller
 
     public function createDonation(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataValidation = $this->getValidationFactory()->make($request->only(['potId', 'donationType']), [
             'potId' => 'required|integer',
             'donationType' => 'required|string'
         ]);
+
+        if (!$dataValidation->passes()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['potId', 'donationType']);
 
         $user = $request->user();
 
@@ -71,13 +249,14 @@ class ServiceHandler extends Controller
                 'message' => 'Pot not found.'
             ], 404);
         }
-
-        $user = Donation::create([
+        Donation::create([
             'potId' => $validatedData['potId'],
             'authorEmail' => $user->email,
             'donationType' => $validatedData['donationType']
         ]);
 
+        $potOwner = Pot::where('id', $validatedData['potId'])->select('authorEmail')->get()[0]->authorEmail;
+        Mail::to($potOwner)->send(new Mailer(['authorEmail' => $user->email, 'donationType' => $validatedData['donationType']]));
         return response()->json([
             'message' => 'New donation created.'
         ]);

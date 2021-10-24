@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "29029caa-6d0b-4fa8-8d97-d9cf7ebe9267",
-		"name": "Laravel API Doc",
+		"_postman_id": "53bca8e6-a8bd-464d-8923-8a9cb43e3138",
+		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -297,22 +297,16 @@
 						"description": "Returns an array containing all existing pots."
 					},
 					"response": []
-				}
-			],
-			"description": "Services related with pots."
-		},
-		{
-			"name": "Donations",
-			"item": [
+				},
 				{
-					"name": "Get donations from user",
+					"name": "Get pots user",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4|JVzcvK8auIoNVrIv5nWF5i2FZOikEMqkSESE1jVc",
+									"value": "4|LLq4HOf1POpe6AJ3cpE9UnB4IcoRucKroyqTI8ew",
 									"type": "string"
 								}
 							]
@@ -326,7 +320,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/donations",
+							"raw": "http://127.0.0.1:8000/api/pots/user",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -337,13 +331,45 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"donations"
+								"pots",
+								"user"
 							]
 						},
-						"description": "The bearer token will be used to identify the user."
+						"description": "Returns all active pots created by the current user."
 					},
 					"response": []
 				},
+				{
+					"name": "Get one pot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/pots/<id>",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pots",
+								"<id>"
+							]
+						},
+						"description": "Returns the pots that matches the provided ID."
+					},
+					"response": []
+				}
+			],
+			"description": "Services related with pots."
+		},
+		{
+			"name": "Donations",
+			"item": [
 				{
 					"name": "Create a donation",
 					"request": {
@@ -401,9 +427,124 @@
 						"description": "Creates a new donation and stores in the database."
 					},
 					"response": []
+				},
+				{
+					"name": "Get all donations from user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|JVzcvK8auIoNVrIv5nWF5i2FZOikEMqkSESE1jVc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/donations",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"donations"
+							]
+						},
+						"description": "Returns all donations made by the user that is currently logged in."
+					},
+					"response": []
 				}
 			],
-			"description": "Take a guess."
+			"description": "All endpoints related to donations."
+		},
+		{
+			"name": "Pagers",
+			"item": [
+				{
+					"name": "Pager",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/<contentType>/<offset>/<limit>",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"<contentType>",
+								"<offset>",
+								"<limit>"
+							]
+						},
+						"description": "Returns all content regardless of its author while allowing pagination.\n\nThe 'contentType' param can either be 'donations' or 'pots', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
+					},
+					"response": []
+				},
+				{
+					"name": "Pager with auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|v3WB13EJqq27p9iI9POA5SZfJaJ2ltfQZsnPjsJT",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/<contentType>/<offset>/<limit>",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"<contentType>",
+								"<offset>",
+								"<limit>"
+							]
+						},
+						"description": "Returns content created by the current user while allowing pagination.\n\nThe 'contentType' param can either be 'donations' or 'pots', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
+					},
+					"response": []
+				}
+			],
+			"description": "Here are all the endpoints that paginate content. \n\nThey both do the same thing, although one requires a Bearer token since it returns content that the current user created."
 		}
 	]
 }

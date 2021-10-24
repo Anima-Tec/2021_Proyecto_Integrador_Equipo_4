@@ -19,11 +19,20 @@ use App\Http\Controllers\ServiceHandler;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//User account
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');;
 Route::post('/activate', [AuthController::class, 'accountActivation']);
+//Pots
 Route::post('/pots/save', [ServiceHandler::class, 'createPot'])->middleware('auth:sanctum');;
-Route::get('/pots', [ServiceHandler::class, 'getAllPots'])->middleware('auth:sanctum');;
+Route::get('/pots', [ServiceHandler::class, 'getAllPots']);;
+Route::get('/pots/user', [ServiceHandler::class, 'getAllPotsFromUser'])->middleware('auth:sanctum');;
+Route::get('/pots/{id}', [ServiceHandler::class, 'getPotById']);;
+//Donations
 Route::get('/donations', [ServiceHandler::class, 'getDonationsFromUser'])->middleware('auth:sanctum');;
 Route::post('/donations/save', [ServiceHandler::class, 'createDonation'])->middleware('auth:sanctum');;
+//Pagers
+Route::get('/{contentType}/{offset}/{limit}', [ServiceHandler::class, 'pagerWithoutAuth']);;
+Route::get('auth/{contentType}/{offset}/{limit}', [ServiceHandler::class, 'pagerWithAuth'])->middleware('auth:sanctum');;
