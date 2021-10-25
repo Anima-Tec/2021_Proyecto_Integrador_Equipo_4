@@ -63,8 +63,10 @@ const fetchController = async (type, data) => {
       try {
         addPotResponse = await sendRequest(addPotUrl, METHOD.POST, {
           email: data.email,
-          name: data.name,
+          adress: data.adress,
+          potName: data.name,
           description: data.description,
+          img: data.img,
           latitude: data.latitude,
           longitude: data.longitude,
           from: data.from,

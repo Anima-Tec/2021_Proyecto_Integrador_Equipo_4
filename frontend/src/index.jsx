@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastProvider } from 'react-toast-notifications';
+
 import './index.module.scss';
 import Router from './router';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <ToastProvider>
     <BrowserRouter>
       <Router />
     </BrowserRouter>
-  </React.StrictMode>,
+  </ToastProvider>,
   document.getElementById('root')
 );
