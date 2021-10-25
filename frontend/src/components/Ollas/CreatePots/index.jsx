@@ -5,6 +5,7 @@ import {
 } from '@material-ui/icons/';
 import { useToasts } from 'react-toast-notifications';
 
+import Spinner from '../../UI/Spinner'
 import classes from './CreatePots.module.scss';
 import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
@@ -58,6 +59,7 @@ const CreatePots = () => {
 
     if (response.status === 200) {
       setLoading(false);
+      {loading ? <Spinner /> : <div />}
       addToast('Olla Popular guardada correctamente.', {
         appearance: 'success',
         autoDismiss: '10000',
@@ -73,6 +75,7 @@ const CreatePots = () => {
     }
   } else {
     setLoading(false);
+    {loading ? <Spinner /> : <div />}
     return addToast('Inicie sesión para continuar', {
       appearance: 'error',
       autoDismiss: '4000',
