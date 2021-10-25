@@ -76,7 +76,9 @@ const fetchController = async (type, data) => {
         return error;
       }
 
-      //revisar
+    case TYPE.VIEW_ALL_POTS:
+      break;
+
     case TYPE.VIEW_MY_POTS:
       let viewPotsResponse;
       const viewPotsUrl = generateUrl(ROUTE.VIEW_MY_POTS);
@@ -94,12 +96,10 @@ const fetchController = async (type, data) => {
         return error;
       }
     
-
-
-
     case TYPE.ADD_DONATION:
 
       break;
+
     case TYPE.ACTIVATE_ACCOUNT:
       const activateUrl = generateUrl(ROUTE.ACTIVATE_ACCOUNT);
 

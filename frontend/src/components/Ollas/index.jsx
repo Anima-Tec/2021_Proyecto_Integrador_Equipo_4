@@ -13,7 +13,7 @@ import classes from './Ollas.module.scss'
 const Ollas = () => {
   const [value, setValue] = useState('2');
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 

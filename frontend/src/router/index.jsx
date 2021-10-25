@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Control from "../pages/Control";
-
 import Layout from "../components/Layout";
 import paths from "./paths";
 

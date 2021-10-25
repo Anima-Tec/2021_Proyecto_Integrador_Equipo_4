@@ -1,9 +1,7 @@
 import React from "react";
 
-const VerMisDoanaciones = () => {
-    return (
-        <p>donaciones</p>
-    )
+const ViewMyDonations = () => {
+    
 }
 
-export default VerMisDoanaciones
+export default ViewMyDonations
