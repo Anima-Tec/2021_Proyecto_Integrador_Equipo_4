@@ -40,6 +40,7 @@ const CreatePots = () => {
 
   if (localStorage.getItem('userIdentifier')) {
     setLoading(true);
+    {loading ? <Spinner /> : <div />}
     const email = localStorage.getItem('email');
     const fromTime = `${fromTimeFirstInputRef.current.value}:${fromTimeSecondInputRef.current.value}:00`;
     const toTime = `${toTimeFirstInputRef.current.value}:${toTimeSecondInputRef.current.value}:00`;
