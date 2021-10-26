@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Filesystem\Filesystem;
 
 class CreatePotsTable extends Migration
 {
@@ -13,6 +14,8 @@ class CreatePotsTable extends Migration
      */
     public function up()
     {
+        $file = new Filesystem;
+        $file->cleanDirectory('public\assets');
         Schema::create('pots', function (Blueprint $table) {
             $table->id();
             $table->string('name');
