@@ -24,7 +24,7 @@ class CreatePotsTable extends Migration
             $table->string('desc');
             $table->time('openFrom');
             $table->time('to');
-            $table->string('address')->default(1);
+            $table->string('address')->default('None provided');
             $table->string('imageURL')->nullable();
             $table->tinyInteger('isInNeed')->default(1);
             $table->tinyInteger('state')->default(1);
