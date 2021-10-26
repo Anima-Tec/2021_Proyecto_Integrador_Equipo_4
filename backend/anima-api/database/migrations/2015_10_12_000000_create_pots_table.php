@@ -21,6 +21,7 @@ class CreatePotsTable extends Migration
             $table->string('desc');
             $table->time('openFrom');
             $table->time('to');
+            $table->string('image')->nullable();
             $table->tinyInteger('isInNeed')->default(1);
             $table->tinyInteger('state')->default(1);
             $table->decimal('lat', 7, 5)->default(12.60925);

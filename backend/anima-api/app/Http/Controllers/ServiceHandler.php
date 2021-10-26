@@ -88,6 +88,7 @@ class ServiceHandler extends Controller
 
         $fileName = "pot_" .$latestPot. ".jpg";
         $request->file('image')->move(public_path("/assets/pots/$latestPot"), $fileName);
+        Pot::where('id', $latestPot)->update(['image' => url("/assets/pots/$latestPot".'/'.$fileName)]);
 
         return response()->json([
             'message' => 'New pot created.'
