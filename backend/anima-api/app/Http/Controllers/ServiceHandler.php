@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Models\Pot;
 use App\Models\Donation;
@@ -49,14 +50,16 @@ class ServiceHandler extends Controller
 
     public function createPot(Request $request)
     {
-        $dataValidation = $this->getValidationFactory()->make($request->only(['name', 'desc', 'openFrom', 'to']), [
+
+        $dataValidation = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'desc' => 'required|string',
             'openFrom' => 'required|date_format:H:i',
-            'to' => 'required|date_format:H:i'
+            'to' => 'required|date_format:H:i',
+            'image' => 'required|mimes:jpg,png,jpeg,gif,svg'
         ]);
 
-        if (!$dataValidation->passes()) {
+        if ($dataValidation->fails()) {
             return response()->json([
                 'message' => 'Invalid values were provided, check documentation for validation requirements.',
             ], 400);
@@ -72,7 +75,20 @@ class ServiceHandler extends Controller
             'openFrom' => $validatedData['openFrom'],
             'to' => $validatedData['to'],
         ]);
+
         Cache::forget('pots');
+
+        $latestPot = Pot::where([
+            ['name', '=', $validatedData['name']],
+            ['authorEmail', '=',  $user->email],
+            ['desc', '=',  $validatedData['desc']],
+            ['openFrom', '=', $validatedData['openFrom']],
+            ['to', '=', $validatedData['to']]
+        ])->orderBy('created_at', 'desc')->select('id')->limit(1)->get()[0]->id;
+
+        $fileName = "pot_" .$latestPot. ".jpg";
+        $request->file('image')->move(public_path("/assets/pots/$latestPot"), $fileName);
+
         return response()->json([
             'message' => 'New pot created.'
         ]);
