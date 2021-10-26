@@ -87,7 +87,7 @@ class ServiceHandler extends Controller
         ])->orderBy('id', 'desc')->select('id')->limit(1)->get()[0]->id;
 
         $fileName = "pot_" .$latestPot. ".jpg";
-        $request->file('image')->move(public_path("/assets/pots/$latestPot"), $fileName);
+        $request->file('image')->move(public_path("/assets/pots/pot_$latestPot"), $fileName);
         Pot::where('id', $latestPot)->update(['imageURL' => url("/assets/pots/$latestPot".'/'.$fileName)]);
 
         return response()->json([
