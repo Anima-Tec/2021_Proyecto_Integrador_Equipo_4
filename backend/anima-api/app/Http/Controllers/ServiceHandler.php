@@ -73,7 +73,7 @@ class ServiceHandler extends Controller
             'authorEmail' => $user->email,
             'desc' => $validatedData['desc'],
             'openFrom' => $validatedData['openFrom'],
-            'to' => $validatedData['to'],
+            'to' => $validatedData['to']
         ]);
 
         Cache::forget('pots');
@@ -84,11 +84,11 @@ class ServiceHandler extends Controller
             ['desc', '=',  $validatedData['desc']],
             ['openFrom', '=', $validatedData['openFrom']],
             ['to', '=', $validatedData['to']]
-        ])->orderBy('created_at', 'desc')->select('id')->limit(1)->get()[0]->id;
+        ])->orderBy('id', 'desc')->select('id')->limit(1)->get()[0]->id;
 
         $fileName = "pot_" .$latestPot. ".jpg";
         $request->file('image')->move(public_path("/assets/pots/$latestPot"), $fileName);
-        Pot::where('id', $latestPot)->update(['image' => url("/assets/pots/$latestPot".'/'.$fileName)]);
+        Pot::where('id', $latestPot)->update(['imageURL' => url("/assets/pots/$latestPot".'/'.$fileName)]);
 
         return response()->json([
             'message' => 'New pot created.'
