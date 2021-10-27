@@ -2,6 +2,7 @@ const ROUTE = {
   REGISTER: '/register',
   ACTIVATE_ACCOUNT: '/activate',
   LOGIN: '/login',
+  LOG_OUT: '/logout',
   ADD_POT: '/ollas/save',
   VIEW_ALL_POTS: '/ollas',
   ADD_DONATION: '/donations/save',

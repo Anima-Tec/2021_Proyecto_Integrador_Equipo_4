@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import classes from './Home.module.scss';
-import imageHome from '../../assets/images/Image-home.png';
+import { TabPanel, TabContext, TabList } from '@material-ui/lab';
+import { Tab, Box } from '@material-ui/core';
+
 import CrearOllas from '../../components/Ollas/CrearOllas';
 import BuscarOllas from '../../components/Ollas/BuscarOllas';
-import { Tab, Box } from '@material-ui/core';
-import { TabPanel, TabContext, TabList } from '@material-ui/lab';
+import imageHome from '../../assets/images/Image-home.png';
+import classes from './Home.module.scss';
 
 const Home = () => {
   const [value, setValue] = useState('2');
