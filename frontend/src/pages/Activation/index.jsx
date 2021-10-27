@@ -36,7 +36,7 @@ const Activation = () => {
 
   useEffect(() => {
     addToast(
-      'Un token fue enviado a tu correo, confirma tu cuenta ingresándo.',
+      'Un token fue enviado a tu correo, confirma tu cuenta ingresandolo.',
       {
         appearance: 'success',
         autoDismiss: '10000',
