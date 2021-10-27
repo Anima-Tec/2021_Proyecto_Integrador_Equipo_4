@@ -80,21 +80,15 @@ const fetchController = async (type, data) => {
       break;
 
     case TYPE.VIEW_MY_POTS:
-      let viewPotsResponse;
       const viewPotsUrl = generateUrl(ROUTE.VIEW_MY_POTS);
-      try{
         const viewPotsResponse = await axios({
           method: "GET",
-          url: "http://127.0.0.1:8000/api/pots/user",
+          url: viewPotsUrl,
           headers: {
-            Authorization: `Bearer 6|2AOv3hPnMDHpdG0LIKUXLp0rEt5r0wmkjmNyrIX6`
+            Authorization: `Bearer 4|knp8c2Tmiapp28L7dad0zAGHAIGnUyyLIPqsjYwh`
           }
         });
         return viewPotsResponse;
-      }
-      catch (error) {
-        return error;
-      }
     
     case TYPE.ADD_DONATION:
 
