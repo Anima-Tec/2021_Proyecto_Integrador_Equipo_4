@@ -13,7 +13,7 @@ import TYPE from '../../../Networking/requestTypes';
 const CreatePots = () => {
   const { addToast } = useToasts();
   const [formData, setFormData] = useState({
-    adress: '',
+    address: '',
     potName: '',
     description: '',
     fromTimeFirst: '',
@@ -23,59 +23,46 @@ const CreatePots = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  //mantuve estos por que estan utilizados para combinar lo ingresado mas abajo
-  const fromTimeFirstInputRef = useRef();
-  const fromTimeSecondInputRef = useRef();
-  const toTimeFirstInputRef = useRef();
-  const toTimeSecondInputRef = useRef();
-
   const updateFormData = (event) => {
     const value = event.target.value;
     const inputId = event.target.id;
     setFormData((prevState) => ({ ...prevState, [inputId]: value }));
+    //event.current.length
   };
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const { adress, potName, description, fromTime, toTime } = formData;
+    const { address, potName, description, fromTimeFirst, fromTimeSecond, toTimeFirst, toTimeSecond } = formData;
 
   if (localStorage.getItem('userIdentifier')) {
     setLoading(true);
-    {loading ? <Spinner /> : <div />}
     const email = localStorage.getItem('email');
-    const fromTime = `${fromTimeFirstInputRef.current.value}:${fromTimeSecondInputRef.current.value}:00`;
-    const toTime = `${toTimeFirstInputRef.current.value}:${toTimeSecondInputRef.current.value}:00`;
-
+    const token = localStorage.getItem('userIdentifier')
+    const fromTime = `${fromTimeFirst}:${fromTimeSecond}`;
+    const toTime = `${toTimeFirst}:${toTimeSecond}`;
+    
     const response = await fetchController(TYPE.ADD_POT, {
       email,
-      adress,
+      address,
       potName,
       description,
       latitude: 1,
       longitude: 1,
       from: fromTime,
       to: toTime,
-    });
+    },
+    {token}
+    );
 
     if (response.status === 200) {
       setLoading(false);
-      {loading ? <Spinner /> : <div />}
       addToast('Olla Popular guardada correctamente.', {
         appearance: 'success',
         autoDismiss: '10000',
       });
-      //debería sacar esto?, a 3 primeros solo les cambie el nombre 
-      adress.current.value = '';
-      potName.current.value = '';
-      description.current.value = '';
-      fromTimeFirstInputRef.current.value = '';
-      fromTimeSecondInputRef.current.value = '';
-      toTimeFirstInputRef.current.value = '';
-      toTimeSecondInputRef.current.value = '';
     }
   } else {
     setLoading(false);
-    {loading ? <Spinner /> : <div />}
     return addToast('Inicie sesión para continuar', {
       appearance: 'error',
       autoDismiss: '4000',
@@ -91,7 +78,7 @@ const CreatePots = () => {
           className={classes['input-pots-icon']}
           type='text'
           placeholder='Ingrese diección de la olla'
-          id='adress'
+          id='address'
           onChange={updateFormData}
         />
       </div>
@@ -119,12 +106,9 @@ const CreatePots = () => {
                 placeholder='Hora'
                 min='0'
                 max='24'
-                maxLength='2'
                 type='number'
-                //tengo dudas de si utilizar onChange={updateFormData} en estos campos ya que no tienen id
-
-                //entiendo que este ref se tiene que mantener para juntar los valores de los 2 inputs como se hace mas arriba
-                ref={fromTimeFirstInputRef}
+                id='fromTimeFirst'
+                onChange={updateFormData}
               />
               <span className={classes.separation}> : </span>
               <input
@@ -132,9 +116,9 @@ const CreatePots = () => {
                 placeholder='Minutos'
                 min='0'
                 max='60'
-                maxLength='2'
                 type='number'
-                ref={fromTimeSecondInputRef}
+                id='fromTimeSecond'
+                onChange={updateFormData}
               />
             </div>
           </div>
@@ -147,9 +131,9 @@ const CreatePots = () => {
                 placeholder='Hora'
                 min='0'
                 max='24'
-                maxLength='2'
-                ref={toTimeFirstInputRef}
                 type='number'
+                id='toTimeFirst'
+                onChange={updateFormData}
               />
               <span className={classes.separation}> : </span>
               <input
@@ -157,9 +141,9 @@ const CreatePots = () => {
                 placeholder='Minutos'
                 min='0'
                 max='60'
-                maxLength='2'
-                ref={toTimeSecondInputRef}
                 type='number'
+                id='toTimeSecond'
+                onChange={updateFormData}
               />
             </div>
           </div>

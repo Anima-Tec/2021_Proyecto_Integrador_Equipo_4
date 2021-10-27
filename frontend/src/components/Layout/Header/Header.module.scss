@@ -17,6 +17,7 @@
 }
 
 .header {
+  z-index: 1;
   display: flex;
   align-items: center;
   position: fixed;
@@ -24,7 +25,7 @@
   width: 100%;
   min-height: 4rem;
   margin: 0;
-  background-color: #ffffff;
+  background-color: $white;
   box-shadow: 0 1px 4px #00000033;
   border-radius: 0 0 1rem 1rem;
 

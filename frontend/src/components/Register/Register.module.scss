@@ -28,14 +28,17 @@
   justify-content: center;
   background: $principal-blue;
   font-size: 1.875rem;
-  color: #ffffff;
+  align-items: center;
+  color: $white;
   font-weight: bold;
+  font-size: 1.875rem;
+  height: 4rem;
   border-top-right-radius: 0.938rem;
   border-top-left-radius: 0.938rem;
   width: 100%;
 
   .title {
-    margin: 1rem 0;
+    margin: 0;
   }
 }
 
@@ -95,7 +98,8 @@
     line-height: 2rem;
   }
   .register-header {
-    font-size: 2.5rem;
+    height: 5rem;
+    font-size: 1.6rem;
   }
 
   .register-label {

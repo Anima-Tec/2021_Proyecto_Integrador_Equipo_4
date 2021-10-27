@@ -36,7 +36,6 @@ class AuthController extends Controller
                 'message' => 'Email is already in use.',
             ], 409);
         }
-
         $user = User::create([
             'fullName' => $validatedData['fullName'],
             'email' => $validatedData['email'],
