@@ -14,7 +14,8 @@ class Pot extends Model
         'authorEmail',
         'desc',
         'openFrom',
-        'to'
+        'to',
+        'address'
     ];
 
 }

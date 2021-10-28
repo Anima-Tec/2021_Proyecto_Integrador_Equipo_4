@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "53bca8e6-a8bd-464d-8923-8a9cb43e3138",
+		"_postman_id": "2a9066a5-899b-4923-bb99-a7f7c8bce1ce",
 		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -198,7 +198,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4|JVzcvK8auIoNVrIv5nWF5i2FZOikEMqkSESE1jVc",
+									"value": "2|C4MnYnP7IeByR9nfDbYY32Te8bPunB4vGsiqzVDB",
 									"type": "string"
 								}
 							]
@@ -212,28 +212,36 @@
 							}
 						],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
 									"key": "name",
-									"value": "Pot name",
+									"value": "Pot Name",
 									"type": "text"
 								},
 								{
 									"key": "desc",
-									"value": "Pot's description",
+									"value": "Pot description",
 									"type": "text"
 								},
 								{
 									"key": "openFrom",
 									"value": "10:00",
-									"description": "Time from which the pot is open.",
 									"type": "text"
 								},
 								{
 									"key": "to",
 									"value": "18:00",
-									"description": "Pot's closure time.",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/kevin/Downloads/Image.jpg"
+								},
+								{
+									"key": "address",
+									"value": "Pot address",
 									"type": "text"
 								}
 							]
@@ -254,7 +262,7 @@
 								"save"
 							]
 						},
-						"description": "Stores a new pot in the database."
+						"description": "Stores a new pot in the database.\n\nKeep in mind that this request's body must be in the form-data format and the image extension can be JPG, PNG, JPEG, GIF or SVG."
 					},
 					"response": []
 				},
@@ -266,7 +274,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4|JVzcvK8auIoNVrIv5nWF5i2FZOikEMqkSESE1jVc",
+									"value": "2|C4MnYnP7IeByR9nfDbYY32Te8bPunB4vGsiqzVDB",
 									"type": "string"
 								}
 							]
@@ -306,7 +314,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "4|LLq4HOf1POpe6AJ3cpE9UnB4IcoRucKroyqTI8ew",
+									"value": "2|C4MnYnP7IeByR9nfDbYY32Te8bPunB4vGsiqzVDB",
 									"type": "string"
 								}
 							]
@@ -360,7 +368,7 @@
 								"<id>"
 							]
 						},
-						"description": "Returns the pots that matches the provided ID."
+						"description": "Returns the pot that matches the provided ID."
 					},
 					"response": []
 				}
