@@ -14,32 +14,28 @@ const ViewMyPots = () => {
   const [pageCount, setPageCount] = useState(1);
   const [currentPage, setcurrentPage] = useState(0);
 
+  const getPots = async () => {
+    const token = localStorage.getItem('userIdentifier')
+    const response = await fetchController(TYPE.VIEW_MY_POTS,{}, {token});
+    setPots(response.data.Pots);
+    setPageCount(response.lenght / 5);
+    setLoading(true);
+
+    //response.status
+  };
   useEffect(() => {
-    const getPots = async () => {
-      try {
-        const response = await fetchController(TYPE.VIEW_MY_POTS);
-        setPots(response.data.Pots);
-        setPageCount(response.lenght / 5);
-        setLoading(true);
-      } catch (error) {
-        return alert("Error desconocido.");
-      }
-    };
     getPots();
   }, []);
 
   const paginationUrl = `http://127.0.0.1:8000/api/pots/user&page=${currentPage}`;
 
   const handlePageChange = (selectedObject) => {
-		setcurrentPage(selectedObject.selected);
-	
-	};
+    setcurrentPage(selectedObject.selected);
+  };
 
-  if (pots.length >= 1) {
-    return (
-     
-      <>
-      {pots.map((pot) =>
+  return pots.length >= 1 ? (
+    <>
+      {pots.map((pot) => (
         <div className={classes.container}>
           <div className={classes["container-content"]}>
             <h1 className={classes.title}>{pot.name}</h1>
@@ -64,27 +60,25 @@ const ViewMyPots = () => {
             <img className={classes.img} src={imgPrueba} alt="img-prueba" />
           </div>
         </div>
-      )}
-          <div className={classes["pagination-container"]}>
-            <ReactPaginate
-              pageCount={pageCount}
-              pageRange={2}
-              marginPagesDisplayed={2}
-              onPageChange={handlePageChange}
-              containerClassName={"container"}
-              previousLinkClassName={"page"}
-              breakClassName={"page"}
-              nextLinkClassName={"page"}
-              pageClassName={"page"}
-              disabledClassNae={"disabled"}
-              activeClassName={"active"}
-            />
-          </div>
-        
-      </>
-    );
-  } else {
-    return <NotFound />;
-  }
+      ))}
+      <div className={classes["pagination-container"]}>
+        <ReactPaginate
+          pageCount={pageCount}
+          pageRange={2}
+          marginPagesDisplayed={2}
+          onPageChange={handlePageChange}
+          containerClassName={"container"}
+          previousLinkClassName={"page"}
+          breakClassName={"page"}
+          nextLinkClassName={"page"}
+          pageClassName={"page"}
+          disabledClassNae={"disabled"}
+          activeClassName={"active"}
+        />
+      </div>
+    </>
+  ) : (
+    <NotFound />
+  );
 };
 export default ViewMyPots;

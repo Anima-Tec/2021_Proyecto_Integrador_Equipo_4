@@ -73,13 +73,10 @@ const fetchController = async (type, data, extraHeaders) => {
 
     case TYPE.VIEW_MY_POTS:
       const viewPotsUrl = generateUrl(ROUTE.VIEW_MY_POTS);
-        const viewPotsResponse = await axios({
-          method: "GET",
-          url: viewPotsUrl,
-          headers: {
-            Authorization: `Bearer 4|knp8c2Tmiapp28L7dad0zAGHAIGnUyyLIPqsjYwh`
-          }
-        });
+        const viewPotsResponse = await sendRequest(viewPotsUrl, METHOD.GET,
+        {},
+        {Authorization: `Bearer ${extraHeaders.token}`}
+        );
         return viewPotsResponse;
     
     case TYPE.ADD_DONATION:
