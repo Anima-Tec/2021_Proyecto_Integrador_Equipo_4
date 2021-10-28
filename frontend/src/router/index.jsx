@@ -1,26 +1,22 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import Home from "../pages/Home";
-import Control from "../pages/Control";
-import Layout from "../components/Layout";
-import paths from "./paths";
+import paths from './paths';
+import Activation from '../pages/Activation';
+import CommonRoute from './CommonRoute';
+import ViewMy from '../pages/ViewMy'
+import Home from '../pages/Home'
 
 const Router = () => {
   return (
-    <Layout>
-      <Switch>
-        <Route path={paths.HOME} exact>
-          <Home />
-        </Route>
-        <Route path={paths.VIEW_MY}>
-          <Control />
-        </Route>
-        <Route path={paths.DEFAULT}>
-          <Redirect to={paths.HOME} />
-        </Route>
-      </Switch>
-    </Layout>
+    <Switch>
+      <CommonRoute path={paths.HOME} exact component={Home} />
+      <CommonRoute path={paths.VIEW_MY} exact component={ViewMy} />
+      <Route path={paths.ACTIVATION} component={Activation} />
+      <Route path={paths.DEFAULT}>
+        <Redirect to={paths.HOME} />
+      </Route>
+    </Switch>
   );
 };
 

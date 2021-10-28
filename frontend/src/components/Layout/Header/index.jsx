@@ -1,17 +1,18 @@
-import classes from './Header.module.scss';
-import logo from '../../../assets/images/logo.png';
+import { useEffect, useState } from 'react';
 import {
   Search as SearchIcon,
   Person as PersonIcon,
   PersonAdd as PersonAddIcon,
 } from '@material-ui/icons';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-import { useEffect, useState } from 'react';
 import Register from '../../Register';
 import Login from '../../Login';
+import logo from '../../../assets/images/logo.png';
+import classes from './Header.module.scss';
+import fetchController from '../../../Networking/fetch-controller';
+import TYPE from '../../../Networking/requestTypes';
 
 const Header = () => {
   const [isLogged, setIsLogged] = useState(false);
@@ -32,9 +33,17 @@ const Header = () => {
     authToken ? setIsLogged(true) : setIsLogged(false);
   }, [authToken]);
 
-  const logOutHandler = () => {
-    localStorage.removeItem('userIdentifier');
-    setAuthToken(localStorage.getItem('userIdentifier'));
+  const logOutHandler = async () => {
+    const response = await fetchController(
+      TYPE.LOG_OUT,
+      {},
+      { token: localStorage.getItem('userIdentifier') }
+    );
+
+    if (response.status === 200) {
+      localStorage.removeItem('userIdentifier');
+      setAuthToken(localStorage.getItem('userIdentifier'));
+    }
   };
 
   const ViewPots = () => {

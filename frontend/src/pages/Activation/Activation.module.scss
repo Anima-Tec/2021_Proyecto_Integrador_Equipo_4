@@ -1,0 +1,146 @@
+@import '../../assets/styles/colors.module.scss';
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.principal-content {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+
+  .activation {
+    display: contents;
+
+    .header {
+      height: 4rem;
+      width: 100%;
+      color: $white;
+      background-color: $principal-blue;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .title {
+        margin: 0;
+      }
+    }
+
+    .form {
+      margin: auto 0;
+      height: 16rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .email {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .email-label {
+          font-size: 1.2rem;
+        }
+
+        .email-input {
+          height: 1.5rem;
+          width: 100%;
+          border-radius: 5px;
+          border: 1px solid $activation_input-border-color;
+          font-size: 1rem;
+          background-color: $background-inputs;
+        }
+      }
+
+      .fields {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        .input-fields {
+          width: 2.5rem;
+          height: 4rem;
+          font-size: 1.5rem;
+          text-align: center;
+          border: solid 1px $activation_input-border-color;
+          border-radius: 10px;
+          background-color: $background-inputs;
+          color: $activation_input-text-color;
+        }
+      }
+
+      .submit-button {
+        width: 100%;
+        font-size: 1.2rem;
+        font-weight: 600;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border-style: none;
+        background-color: $principal-blue;
+        color: $white;
+
+        &:active {
+          background-color: $principal-sky-blue;
+        }
+      }
+
+      @media (min-width: 426px) {
+        width: 70%;
+        margin: auto;
+      }
+
+      @media (min-width: 600px) {
+        width: 60%;
+      }
+
+      @media (min-width: 768px) {
+        width: 45%;
+      }
+    }
+  }
+
+  @media (min-width: 990px) {
+    justify-content: center;
+    align-items: center;
+
+    .activation {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 12px 6px $activation_box-shadow-color;
+      border-radius: 5px;
+
+      .header {
+        border-radius: 5px 5px 0 0;
+      }
+
+      .form {
+        width: 95%;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .activation {
+      width: 40%;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .activation {
+      width: 35%;
+    }
+  }
+}

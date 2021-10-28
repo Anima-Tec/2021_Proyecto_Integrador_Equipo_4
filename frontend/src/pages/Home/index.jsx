@@ -1,6 +1,6 @@
+import Ollas from '../../components/Ollas';
 import imageHome from '../../assets/images/Image-home.png';
 import classes from './Home.module.scss';
-import Ollas from '../../components/Ollas';
 
 const Home = () => {
   
