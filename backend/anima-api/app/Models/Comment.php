@@ -5,19 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pot extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'potID',
         'authorEmail',
-        'desc',
-        'openFrom',
-        'to',
-        'address',
-        'lat',
-        'lng'
+        'body'
     ];
-
 }

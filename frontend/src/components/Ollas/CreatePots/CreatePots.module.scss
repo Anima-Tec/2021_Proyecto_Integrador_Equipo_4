@@ -14,6 +14,12 @@
     background-color: $background-inputs;
     color: $principal-blue;
 
+    :global(.css-yk16xz-control){
+      background-color: $background-inputs;
+      border-style: none;
+      cursor: text
+    }
+
     .input-pots-icon {
       height: 2.25rem;
       background-color: $background-inputs;
@@ -32,6 +38,37 @@
     border: none;
   }
 
+  .uploader-container{
+    margin-top: 1.2rem;
+
+    .drag-area{
+      flex-direction: column;
+      justify-content: center;
+      min-width: 13rem;
+      max-width: none;
+      width: auto;
+      height: 4rem;
+      border-radius: 8px;
+      color: $black;
+      border: 5px dashed $background-inputs;
+      padding: 10px;
+      
+      .active{
+        background-color: $principal-grey;
+      }
+      
+      .upload-icon{
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .upload-text{
+        align-items: center;
+      }
+    }
+  }
+    
   .schedule-and-button {
     display: flex;
     align-items: center;
