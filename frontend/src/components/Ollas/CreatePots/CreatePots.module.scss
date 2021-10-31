@@ -32,6 +32,26 @@
     border: none;
   }
 
+  .drag-area{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    margin-top: 1.2rem;
+    border-radius: 8px;
+    color: $principal-grey;
+    border: 5px dashed $background-inputs;
+
+    .label-img{
+      cursor: pointer;
+    }
+
+    .active{
+      background-color: $principal-grey;
+    }
+  }
+
   .schedule-and-button {
     display: flex;
     align-items: center;

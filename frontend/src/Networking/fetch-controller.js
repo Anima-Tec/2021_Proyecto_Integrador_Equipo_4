@@ -60,10 +60,10 @@ const fetchController = async (type, data, extraHeaders) => {
         address: data.address,
         name: data.potName,
         desc: data.description,
-        latitude: data.latitude,
-        longitude: data.longitude,
+        latlng: data.latlng,
+        image: data.image,
         openFrom: data.from,
-        to: data.to,
+        to: data.to, 
       },
       {Authorization: `Bearer ${extraHeaders.token}`}
       );

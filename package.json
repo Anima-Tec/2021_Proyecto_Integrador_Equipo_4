@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@material-ui/icons": "^4.11.2",
+    "react-places-autocomplete": "^7.3.0"
+  }
+}
