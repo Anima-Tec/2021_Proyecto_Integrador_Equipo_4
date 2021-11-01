@@ -615,6 +615,125 @@
 				}
 			],
 			"description": "Here are all the endpoints that paginate content. \n\nThey both do the same thing, although one requires a Bearer token since it returns content that the current user created."
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Create a comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|Hfr2wZgSAvAddfeqIwknEmn6StHNuy66GiEKN46M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "potID",
+									"value": "1",
+									"description": "The pot that you wish to add the comment to",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "Some string",
+									"description": "The body of the comment",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/comment/save",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comment",
+								"save"
+							]
+						},
+						"description": "This will add a new row to the comment table and relate it with the desired pot."
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments from a pot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/comments/pots/<potID>",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comments",
+								"pots",
+								"<potID>"
+							]
+						},
+						"description": "Returns all comments related to the pot's id."
+					},
+					"response": []
+				},
+				{
+					"name": "Get comments made by a user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "4|Hfr2wZgSAvAddfeqIwknEmn6StHNuy66GiEKN46M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/comments/user",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"comments",
+								"user"
+							]
+						},
+						"description": "Returns all comments made by a user."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints related to obtaining and creating comments."
 		}
 	]
 }
