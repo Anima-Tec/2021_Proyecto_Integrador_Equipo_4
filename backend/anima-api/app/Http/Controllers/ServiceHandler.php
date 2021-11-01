@@ -107,11 +107,6 @@ class ServiceHandler extends Controller
             'message' => 'Update successful.',
             'newValues' => $newPot
         ], 200);
-
-
-        $fileName = "pot_" . $potID . ".jpg";
-        $request->file('image')->move(public_path("/assets/pots/pot_$potID"), $fileName);
-        Pot::where('id', $potID)->update(['imageURL' => url("/assets/pots/pot_" . '/' . $fileName)]);
     }
     public function getAllPotsFromUser(Request $request)
     {
