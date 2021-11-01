@@ -19,13 +19,17 @@ use App\Http\Controllers\ServiceHandler;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//Comments
+Route::post('/comment/save', [ServiceHandler::class, 'createComment'])->middleware('auth:sanctum');;
+Route::get('/comments/pots/{potID}', [ServiceHandler::class, 'getCommentsFromPot']);;
+Route::get('/comments/user', [ServiceHandler::class, 'getCommentsFromUser'])->middleware('auth:sanctum');;
 //User account
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');;
 Route::post('/activate', [AuthController::class, 'accountActivation']);
 //Pots
+Route::post('/pots/update/{potID}', [ServiceHandler::class, 'updatePot'])->middleware('auth:sanctum');;
 Route::post('/pots/save', [ServiceHandler::class, 'createPot'])->middleware('auth:sanctum');;
 Route::get('/pots', [ServiceHandler::class, 'getAllPots']);;
 Route::get('/pots/user', [ServiceHandler::class, 'getAllPotsFromUser'])->middleware('auth:sanctum');;

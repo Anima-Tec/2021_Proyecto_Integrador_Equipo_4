@@ -6,15 +6,108 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Models\Pot;
 use App\Models\Donation;
-use Illuminate\Support\Facades\Cache;
 use App\Mail\Mailer;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\File;
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 class ServiceHandler extends Controller
 {
+    // Comments ------------------------------------------------------------------------------------------------------------------------------
+    public function createComment(Request $request)
+    {
+
+        $dataValidation = Validator::make($request->all(), [
+            'potID' => 'required|integer|exists:App\Models\Pot,id',
+            'body' => 'required|string|max:255'
+        ]);
+
+        if ($dataValidation->fails()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['potID', 'body']);
+        $user = $request->user();
+
+        Comment::create([
+            'potID' => $validatedData['potID'],
+            'authorEmail' => $user->email,
+            'body' => $validatedData['body']
+        ]);
+
+        return response()->json([
+            'message' => 'New comment created.'
+        ]);
+    }
+
+    public function getCommentsFromPot($potID)
+    {
+        $dataValidation = Validator::make(['potID' => $potID], [
+            'potID' => 'required|integer'
+        ]);
+        
+        if ($dataValidation->fails()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+        $Comments = Comment::where('potID', $potID)->get();
+        return response()->json([
+            "Comments" => $Comments
+        ], 200);
+    }
+
+    public function getCommentsFromUser(Request $request)
+    {
+        $Comments = Comment::where('authorEmail', $request->user()->email)->get();
+        return response()->json([
+            "Comments" => $Comments
+        ], 200);
+    }
     // Pots ------------------------------------------------------------------------------------------------------------------------------
+    public function updatePot(Request $request, $potID)
+    {
+        $dataValidation = Validator::make($request->all(), [
+            'name' => 'string|max:255',
+            'desc' => 'string',
+            'openFrom' => 'date_format:H:i',
+            'to' => 'date_format:H:i',
+            'address' => 'string',
+            'image' => 'mimes:jpg,png,jpeg,gif,svg',
+            'isInNeed' => [Rule::in(['1', '0'])],
+            'state' => [Rule::in(['1', '0'])]
+        ]);
+
+        if ($dataValidation->fails()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to', 'address', 'image', 'isInNeed', 'state']);
+        $user = $request->user();
+        if (Pot::where('id', $potID)->doesntExist()) {
+            return response()->json([
+                'message' => 'Pot not found.'
+            ], 404);
+        }
+        $oldPot = Pot::where('id', $potID)->get()[0];
+        $newPot = ['name' => $validatedData['name'] ?? $oldPot->name, 'authorEmail' => $user->email, 'desc' => $validatedData['desc'] ?? $oldPot->desc, 'openFrom' => $validatedData['openFrom'] ??  $oldPot->openFrom, 'to' => $validatedData['to'] ?? $oldPot->to, 'address' => $validatedData['address'] ?? $oldPot->address, 'isInNeed' => $validatedData['isInNeed'] ?? $oldPot->isInNeed, 'state' => $validatedData['state'] ?? $oldPot->state];
+        if ($request->hasFile('image')) {
+            File::delete(public_path("/assets/pots/pot_$potID/pot_$potID.jpg"));
+            $request->file('image')->move(public_path("/assets/pots/pot_$potID"), "pot_$potID.jpg");
+        }
+        Pot::where('id', $potID)->update($newPot);
+        return response()->json([
+            'message' => 'Update successful.',
+            'newValues' => $newPot
+        ], 200);
+    }
     public function getAllPotsFromUser(Request $request)
     {
         $user = $request->user();
@@ -29,19 +122,10 @@ class ServiceHandler extends Controller
 
     public function getAllPots()
     {
-        $potsCache = Cache::get('pots');
-
-        if ($potsCache) {
-            return response()->json([
-                'Pots' => $potsCache
-            ], 200);
-        }
 
         $Pots = Pot::where('state', 1)
             ->select('*')
             ->get();
-
-        Cache::put('pots', $Pots, 600);
 
         return response()->json([
             'Pots' => $Pots
@@ -89,8 +173,6 @@ class ServiceHandler extends Controller
         $fileName = "pot_" . $latestPot . ".jpg";
         $request->file('image')->move(public_path("/assets/pots/pot_$latestPot"), $fileName);
         Pot::where('id', $latestPot)->update(['imageURL' => url("/assets/pots/pot_$latestPot" . '/' . $fileName)]);
-
-        Cache::forget('pots');
 
         return response()->json([
             'message' => 'New pot created.'
