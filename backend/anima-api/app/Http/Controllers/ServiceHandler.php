@@ -44,7 +44,7 @@ class ServiceHandler extends Controller
         ]);
     }
 
-    public function getCommentsFromPot(Request $request, $potID)
+    public function getCommentsFromPot($potID)
     {
         $dataValidation = Validator::make(['potID' => $potID], [
             'potID' => 'required|integer'
@@ -56,6 +56,14 @@ class ServiceHandler extends Controller
             ], 400);
         }
         $Comments = Comment::where('potID', $potID)->get();
+        return response()->json([
+            "Comments" => $Comments
+        ], 200);
+    }
+
+    public function getCommentsFromUser(Request $request)
+    {
+        $Comments = Comment::where('authorEmail', $request->user()->email)->get();
         return response()->json([
             "Comments" => $Comments
         ], 200);
