@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //Comments
 Route::post('/comment/save', [ServiceHandler::class, 'createComment'])->middleware('auth:sanctum');;
+Route::get('/comments/{potID}', [ServiceHandler::class, 'getCommentsFromPot']);;
 //User account
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

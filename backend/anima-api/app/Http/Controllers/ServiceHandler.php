@@ -20,7 +20,7 @@ class ServiceHandler extends Controller
     {
 
         $dataValidation = Validator::make($request->all(), [
-            'potID' => 'required|integer|max:255|exists:App\Models\Pot,id',
+            'potID' => 'required|integer|exists:App\Models\Pot,id',
             'body' => 'required|string|max:255'
         ]);
 
@@ -42,6 +42,23 @@ class ServiceHandler extends Controller
         return response()->json([
             'message' => 'New comment created.'
         ]);
+    }
+
+    public function getCommentsFromPot(Request $request, $potID)
+    {
+        $dataValidation = Validator::make(['potID' => $potID], [
+            'potID' => 'required|integer'
+        ]);
+        
+        if ($dataValidation->fails()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+        $Comments = Comment::where('potID', $potID)->get();
+        return response()->json([
+            "Comments" => $Comments
+        ], 200);
     }
     // Pots ------------------------------------------------------------------------------------------------------------------------------
     public function getAllPotsFromUser(Request $request)
