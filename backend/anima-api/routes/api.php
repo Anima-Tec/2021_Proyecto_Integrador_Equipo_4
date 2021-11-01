@@ -29,6 +29,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');;
 Route::post('/activate', [AuthController::class, 'accountActivation']);
 //Pots
+Route::post('/pots/update/{potID}', [ServiceHandler::class, 'updatePot'])->middleware('auth:sanctum');;
 Route::post('/pots/save', [ServiceHandler::class, 'createPot'])->middleware('auth:sanctum');;
 Route::get('/pots', [ServiceHandler::class, 'getAllPots']);;
 Route::get('/pots/user', [ServiceHandler::class, 'getAllPotsFromUser'])->middleware('auth:sanctum');;
