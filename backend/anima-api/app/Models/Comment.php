@@ -11,7 +11,7 @@ class Comment extends Model
 
     protected $fillable = [
         'potID',
-        'userID',
+        'authorEmail',
         'body'
     ];
 }

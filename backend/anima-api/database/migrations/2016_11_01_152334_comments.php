@@ -17,9 +17,9 @@ class Comments extends Migration
             $table->id();
             $table->bigInteger('potID')->unsigned();
             $table->foreign('potID')->references('id')->on('pots');
-            $table->bigInteger('userID')->unsigned();
-            $table->foreign('userID')->references('id')->on('users');
-            $table->datetime('body');
+            $table->string('authorEmail');
+            $table->foreign('authorEmail')->references('email')->on('users');
+            $table->string('body');
             $table->timestamps();
         });
     }

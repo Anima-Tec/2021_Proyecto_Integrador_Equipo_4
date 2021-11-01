@@ -19,7 +19,8 @@ use App\Http\Controllers\ServiceHandler;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//Comments
+Route::post('/comment/save', [ServiceHandler::class, 'createComment'])->middleware('auth:sanctum');;
 //User account
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);

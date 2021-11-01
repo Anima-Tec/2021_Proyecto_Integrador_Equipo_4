@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Models\Pot;
 use App\Models\Donation;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Cache;
 use App\Mail\Mailer;
 use Illuminate\Support\Facades\Mail;
@@ -14,6 +15,34 @@ date_default_timezone_set("America/Argentina/Buenos_Aires");
 
 class ServiceHandler extends Controller
 {
+    // Comments ------------------------------------------------------------------------------------------------------------------------------
+    public function createComment(Request $request)
+    {
+
+        $dataValidation = Validator::make($request->all(), [
+            'potID' => 'required|integer|max:255|exists:App\Models\Pot,id',
+            'body' => 'required|string|max:255'
+        ]);
+
+        if ($dataValidation->fails()) {
+            return response()->json([
+                'message' => 'Invalid values were provided, check documentation for validation requirements.',
+            ], 400);
+        }
+
+        $validatedData = $request->only(['potID', 'body']);
+        $user = $request->user();
+
+        Comment::create([
+            'potID' => $validatedData['potID'],
+            'authorEmail' => $user->email,
+            'body' => $validatedData['body']
+        ]);
+
+        return response()->json([
+            'message' => 'New comment created.'
+        ]);
+    }
     // Pots ------------------------------------------------------------------------------------------------------------------------------
     public function getAllPotsFromUser(Request $request)
     {
