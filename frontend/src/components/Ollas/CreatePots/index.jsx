@@ -4,10 +4,6 @@ import {
   LocationOn as LocationOnIcon,
   ArrowUpward as ArrowUpwardIcon,
 } from "@material-ui/icons/";
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
 
 import { useToasts } from "react-toast-notifications";
 
@@ -15,6 +11,7 @@ import Spinner from "../../UI/Spinner";
 import classes from "./CreatePots.module.scss";
 import fetchController from "../../../Networking/fetch-controller";
 import TYPE from "../../../Networking/requestTypes";
+import AutocompleteInput from "../../AutocompleteInput";
 
 const CreatePots = () => {
   const { addToast } = useToasts();
@@ -56,7 +53,6 @@ const CreatePots = () => {
       const token = localStorage.getItem("userIdentifier");
       const fromTime = `${fromTimeFirst}:${fromTimeSecond}`;
       const toTime = `${toTimeFirst}:${toTimeSecond}`;
-      const imgUrl = image;
 
       const response = await fetchController(
         TYPE.ADD_POT,
@@ -66,7 +62,7 @@ const CreatePots = () => {
           potName,
           description,
           latlng: 1,
-          image: imgUrl,
+          image,
           from: fromTime,
           to: toTime,
         },
@@ -91,18 +87,18 @@ const CreatePots = () => {
 
   return (
     <form className={classes["pots-form"]} onSubmit={submitHandler}>
-
-
+      {loading && <Spinner />}
       <div className={classes["input-and-icon"]}>
         <LocationOnIcon />
-        <input
-          className={classes["input-pots-icon"]}
+        <AutocompleteInput 
+           className={classes["input-pots-icon"]}/>
+        {/* <input
           type="text"
           placeholder="Ingrese diección de la olla"
           id="address"
           onChange={updateFormData}
           required
-        />
+        /> */}
       </div>
       <input
         className={classes["input-pots"]}
@@ -122,15 +118,17 @@ const CreatePots = () => {
       />
       <div className={classes["drag-area"]}>
         <ArrowUpwardIcon />
-        <label className={classes["label-img"]} htmlFor="image"><b>Seleccioná</b> una imagen para tu olla</label>
-      <input
-        type="file"
-        onChange={updateFormData}
-        accept="image/*"
-        id="image"
-        hidden
-        required
-      />
+        <label className={classes["label-img"]} htmlFor="image">
+          <b>Seleccioná</b> una imagen para tu olla
+        </label>
+        <input
+          type="file"
+          onChange={updateFormData}
+          accept="image/*"
+          id="image"
+          hidden
+          required
+        />
       </div>
 
       <div className={classes["schedule-and-button"]}>
