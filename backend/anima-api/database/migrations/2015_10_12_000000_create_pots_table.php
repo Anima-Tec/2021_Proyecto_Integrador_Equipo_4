@@ -29,6 +29,8 @@ class CreatePotsTable extends Migration
             $table->tinyInteger('isInNeed')->default(1);
             $table->tinyInteger('state')->default(1);
             $table->string('lat-lng')->default('12.60925 - 9.06714');
+            $table->string('vote_average')->default('0');
+            $table->string('vote_count')->default('0');
             $table->timestamps();
         });
     }
