@@ -7,10 +7,11 @@
   display: flex;
   flex-direction: row;
 
-  .manage-container {
+  .viewMy-container {
     height: 90%;
+    width: 100%;
 
-    .manage-header {
+    .viewMy-header {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -55,6 +56,10 @@
           background-color: $principal-blue;
         }
       }
+    }
+
+    .container-content{
+      width: 100%;
     }
   }
 }

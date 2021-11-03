@@ -5,7 +5,7 @@ import { Search as SearchIcon } from '@material-ui/icons/';
 
 import ViewMyPots from '../../components/ViewMy/ViewMyPots';
 import ViewMyDonations from '../../components/ViewMy/ViewMyDonations';
-import classes from './Control.module.scss';
+import classes from './ViewMy.module.scss';
 
 const Control = () => {
   const [value, setValue] = useState('2');
@@ -16,10 +16,10 @@ const Control = () => {
 
   return (
     <div className={classes.container}>
-      <div className={classes['manage-container']}>
+      <div className={classes['viewMy-container']}>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
-            <div className={classes['manage-header']}>
+            <div className={classes['viewMy-header']}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleChange}>
                   <Tab
@@ -37,13 +37,14 @@ const Control = () => {
                 </TabList>
               </Box>
             </div>
-
+            <div className={classes['container-content']}>
             <TabPanel value='1'>
               <ViewMyPots/>
             </TabPanel>
             <TabPanel value='2'>
               <ViewMyDonations />
             </TabPanel>
+            </div>
           </TabContext>
         </Box>
       </div>
