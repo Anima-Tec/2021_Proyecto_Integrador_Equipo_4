@@ -27,7 +27,7 @@ class VoteHandler extends Controller
         $validatedData = $request->only(['potID', 'value']);
         $user = $request->user();
 
-        if (Vote::where('votedPot', $validatedData['potID'])->where('authorEmail', $user->email)->exists()){
+        if (Vote::where('votedPot', $validatedData['potID'])->where('authorEmail', $user->email)->exists()) {
             Vote::where('votedPot', $validatedData['potID'])->where('authorEmail', $user->email)->delete();
         }
 
@@ -39,7 +39,8 @@ class VoteHandler extends Controller
         $newVoteAvg = Vote::where('votedPot', $validatedData['potID'])->avg('value');
         $totalVotes = Vote::where('votedPot', $validatedData['potID'])->count();
         Pot::where('id', $validatedData['potID'])->update(['vote_average' => $newVoteAvg, 'vote_count' => $totalVotes]);
-
-        Pot::where('id', $validatedData['potID'])->get();
+        return response()->json([
+            'message' => 'New vote created.'
+        ]);
     }
 }
