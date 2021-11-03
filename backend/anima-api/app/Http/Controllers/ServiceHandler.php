@@ -50,7 +50,7 @@ class ServiceHandler extends Controller
         $dataValidation = Validator::make(['potID' => $potID], [
             'potID' => 'required|integer'
         ]);
-        
+
         if ($dataValidation->fails()) {
             return response()->json([
                 'message' => 'Invalid values were provided, check documentation for validation requirements.',
@@ -250,6 +250,30 @@ class ServiceHandler extends Controller
 
                 break;
 
+            case 'potsInNeed':
+
+                $user = $request->user();
+                $pagesLeft = ceil((Pot::where('authorEmail', $user->email)->where('isInNeed', 1)->count() / $limit) - $offset);
+
+                $Pots = Pot::where('authorEmail', $user->email)
+                    ->where('isInNeed', 1)
+                    ->skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                $pagesLeft = $pagesLeft - 1;
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+
+                return response()->json([
+                    'Pots' => $Pots,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
             default:
                 return response()->json([
                     'message' => "Content of type '$contentType' not found."
@@ -309,6 +333,27 @@ class ServiceHandler extends Controller
                 ], 200);
 
                 break;
+
+            case 'potsInNeed':
+
+                $pagesLeft = ceil((Pot::where('state', 1)->where('isInNeed', 1)->count() / $limit) - $offset);
+
+                $Pots = Pot::where('state', 1)->where('isInNeed', 1)->skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+                $pagesLeft = $pagesLeft - 1;
+
+                return response()->json([
+                    'Pots' => $Pots,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
 
             default:
                 return response()->json([
