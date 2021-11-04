@@ -83,6 +83,8 @@ class PotHandler extends Controller
             'openFrom' => 'required|date_format:H:i',
             'to' => 'required|date_format:H:i',
             'address' => 'required|string',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
             'image' => 'required|mimes:jpg,png,jpeg,gif,svg'
         ]);
 
@@ -92,7 +94,7 @@ class PotHandler extends Controller
             ], 400);
         }
 
-        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to', 'address']);
+        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to', 'address', 'lat', 'lng']);
         $user = $request->user();
 
         Pot::create([
@@ -101,7 +103,9 @@ class PotHandler extends Controller
             'desc' => $validatedData['desc'],
             'openFrom' => $validatedData['openFrom'],
             'to' => $validatedData['to'],
-            'address' => $validatedData['address']
+            'address' => $validatedData['address'],
+            'lat' => $validatedData['lat'],
+            'lng' => $validatedData['lng']
         ]);
 
         $latestPot = Pot::where([
