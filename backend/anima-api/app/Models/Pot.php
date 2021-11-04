@@ -15,7 +15,9 @@ class Pot extends Model
         'desc',
         'openFrom',
         'to',
-        'address'
+        'address',
+        'lat',
+        'lng'
     ];
 
 }
