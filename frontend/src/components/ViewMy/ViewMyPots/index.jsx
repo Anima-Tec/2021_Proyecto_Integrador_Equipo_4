@@ -13,18 +13,23 @@ const ViewMyPots = () => {
   const { addToast } = useToasts();
   const [pots, setPots] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [pageCount, setPageCount] = useState(1);
+  const [pageCount, setPageCount] = useState();
   const [currentPage, setcurrentPage] = useState(0);
 
   const getPots = async () => {
     if (localStorage.getItem("userIdentifier")) {
       const token = localStorage.getItem("userIdentifier");
-      const response = await fetchController(TYPE.VIEW_MY_POTS, {
-        currentPage
-      }, { token });
-      setPots(response.data.Pots);
-      setPageCount(response.data.Pots.length / 5);
-
+      const response = await fetchController(
+        TYPE.VIEW_MY_POTS,
+        {
+          offset: currentPage,
+        },
+        { token }
+      );
+      if (response.data.Pots) {
+        setPots(response.data.Pots);
+        setPageCount(response.data.PagesLeft + 1 + currentPage);
+      }
     } else {
       addToast("Debe loguearse para ver sus ollas.", {
         appearance: "error",
@@ -37,13 +42,12 @@ const ViewMyPots = () => {
     getPots();
   }, []);
 
-  const handlePageChange = (selectedObject) => {
-    setcurrentPage(selectedObject.selected);
+  const handlePageChange = (event) => {
+    setcurrentPage(event.selected);
     getPots();
-    setLoading(true);
   };
 
-  return pots.length >= 1 ? (
+  return pots.length ? (
     <>
       {pots.map((pot) => (
         <div className={classes.container}>
@@ -71,28 +75,25 @@ const ViewMyPots = () => {
           </div>
         </div>
       ))}
-
-      {pageCount > 1 && (
       <div className={classes["pagination-container"]}>
         <ReactPaginate
           pageCount={pageCount}
-          pageRangeDisplayed={2}
-          marginPagesDisplayed={0}
+          pageRangeDisplayed={5}
           onPageChange={handlePageChange}
+          id="number"
           breakLabel="..."
           nextLabel=">"
           previousLabel="<"
           renderOnZeroPageCount={null}
           containerClassName={classes["pages-container"]}
-					previousLinkClassName={classes.page}
-					breakClassName={classes.page}
-					nextLinkClassName={classes.page}
-					pageClassName={classes.page}
-					disabledClassNae={classes.disabled}
-					activeClassName={classes.active}
-        />   
+          previousLinkClassName={classes.page}
+          breakClassName={classes.page}
+          nextLinkClassName={classes.page}
+          pageClassName={classes.page}
+          disabledClassNae={classes.disabled}
+          activeClassName={classes.active}
+        />
       </div>
-      )}
     </>
   ) : (
     <NotFound />

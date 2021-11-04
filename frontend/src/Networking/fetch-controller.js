@@ -72,7 +72,7 @@ const fetchController = async (type, data, extraHeaders) => {
       break;
 
     case TYPE.VIEW_MY_POTS:
-      const viewMyPotsUrl = generateUrl(`${ROUTE.VIEW_MY_POTS}`);
+      const viewMyPotsUrl = generateUrl(`${ROUTE.VIEW_MY_POTS}/${data.offset}/5`);
         const viewPotsResponse = await sendRequest(viewMyPotsUrl, METHOD.GET,
         {},
         {Authorization: `Bearer ${extraHeaders.token}`},
