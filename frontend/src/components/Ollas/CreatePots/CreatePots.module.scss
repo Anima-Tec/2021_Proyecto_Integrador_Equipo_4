@@ -38,26 +38,31 @@
     border: none;
   }
 
-  .drag-area{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 4rem;
+  .uploader-container{
     margin-top: 1.2rem;
-    border-radius: 8px;
-    color: $principal-grey;
-    border: 5px dashed $background-inputs;
 
-    .label-img{
-      cursor: pointer;
-    }
-
-    .active{
-      background-color: $principal-grey;
+    .drag-area{
+      flex-direction: column;
+      justify-content: center;
+      width: auto;
+      height: 4rem;
+      border-radius: 8px;
+      color: $black;
+      border: 5px dashed $background-inputs;
+      padding: 10px;
+      
+      .active{
+        background-color: $principal-grey;
+      }
+      
+      .upload-icon{
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
     }
   }
-
+    
   .schedule-and-button {
     display: flex;
     align-items: center;

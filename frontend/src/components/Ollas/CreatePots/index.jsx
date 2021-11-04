@@ -63,7 +63,7 @@ const CreatePots = () => {
       const fromTime = `${fromTimeFirst}:${fromTimeSecond}`;
       const toTime = `${toTimeFirst}:${toTimeSecond}`;
       const cords = await getCords(address);
-      const addresss = address.label
+      const addresss = address.label;
       const response = await fetchController(
         TYPE.ADD_POT,
         {
@@ -76,7 +76,7 @@ const CreatePots = () => {
           to: toTime,
         },
         { token }
-        );
+      );
 
       if (response.status === 200) {
         setLoading(false);
@@ -131,11 +131,28 @@ const CreatePots = () => {
         id="description"
         required
       />
-      <FileUploader
-        classes={classes["drag-area"]}
-        handleChange={handleChange}
-        name="file"
-      />
+      <div className={classes["uploader-container"]}>
+        <FileUploader
+          classes={classes["drag-area"]}
+          handleChange={handleChange}
+          children={
+            <p>
+              <div className={classes["upload-icon"]}>
+                <ArrowUpwardIcon />
+              </div>{" "}
+              {file != null ? (
+                <p>Imagen subida correctamente</p>
+              ) : (
+                <p>
+                  <b>Seleccioná</b> una imagen para tu olla
+                </p>
+              )}
+            </p>
+          }
+          name="file"
+          hoverTitle="Suelta tu archivo aqui"
+        />
+      </div>
       <div className={classes["schedule-and-button"]}>
         <div className={classes.schedule}>
           <div className={classes["start-schedule"]}>
