@@ -69,8 +69,10 @@ const fetchController = async (type, data, extraHeaders) => {
       return addPotResponse;
 
     case TYPE.VIEW_ALL_POTS:
-
+      const viewAllPotsUrl = generateUrl(`${ROUTE.VIEW_ALL_POTS}/${data.offset}/8`);
+      const viewAllResponse = await sendRequest(viewAllPotsUrl, METHOD.GET, {}, {});
       break;
+
     case TYPE.ADD_DONATION:
 
       break;

@@ -4,7 +4,7 @@ const ROUTE = {
   LOGIN: '/login',
   LOG_OUT: '/logout',
   ADD_POT: '/ollas/save',
-  VIEW_ALL_POTS: '/ollas',
+  VIEW_ALL_POTS: '/pots',
   ADD_DONATION: '/donations/save',
   VIEW_DONATIONS: '/donations',
 }

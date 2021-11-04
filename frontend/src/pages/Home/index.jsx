@@ -4,8 +4,11 @@ import { Tab, Box } from '@material-ui/core';
 
 import CrearOllas from '../../components/Ollas/CrearOllas';
 import BuscarOllas from '../../components/Ollas/BuscarOllas';
+import ViewAllPots from '../../components/ViewAllPots';
 import imageHome from '../../assets/images/Image-home.png';
 import classes from './Home.module.scss';
+
+
 
 const Home = () => {
   const [value, setValue] = useState('2');
@@ -15,6 +18,7 @@ const Home = () => {
   };
 
   return (
+    <>
     <div className={classes.container}>
       <div className={classes['home-container']}>
         <h1 className={classes.title}>¿Vos colaborás?</h1>
@@ -50,6 +54,11 @@ const Home = () => {
         <img className={classes['img-home']} src={imageHome} alt='img' />
       </div>
     </div>
+
+  <div className={classes.container2}>
+    <ViewAllPots/>
+  </div>
+  </>
   );
 };
 
