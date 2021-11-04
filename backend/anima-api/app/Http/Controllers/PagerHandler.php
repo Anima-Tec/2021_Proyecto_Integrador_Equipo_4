@@ -33,10 +33,11 @@ class PagerHandler extends Controller
                     ->take($limit)
                     ->get();
 
+                $pagesLeft = $pagesLeft - 1;
+
                 if ($pagesLeft < 0) {
                     $pagesLeft = 0;
                 }
-                $pagesLeft = $pagesLeft - 1;
 
                 return response()->json([
                     'Donations' => $Donations,
@@ -60,6 +61,7 @@ class PagerHandler extends Controller
                 if ($pagesLeft < 0) {
                     $pagesLeft = 0;
                 }
+
 
                 return response()->json([
                     'Pots' => $Pots,
@@ -96,10 +98,11 @@ class PagerHandler extends Controller
                     ->take($limit)
                     ->get();
 
+                $pagesLeft = $pagesLeft - 1;
+
                 if ($pagesLeft < 0) {
                     $pagesLeft = 0;
                 }
-                $pagesLeft = $pagesLeft - 1;
 
                 return response()->json([
                     'Donations' => $Donations,
@@ -116,10 +119,11 @@ class PagerHandler extends Controller
                     ->take($limit)
                     ->get();
 
+                $pagesLeft = $pagesLeft - 1;
+
                 if ($pagesLeft < 0) {
                     $pagesLeft = 0;
                 }
-                $pagesLeft = $pagesLeft - 1;
 
                 return response()->json([
                     'Pots' => $Pots,
