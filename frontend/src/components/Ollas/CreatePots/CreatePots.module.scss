@@ -14,6 +14,12 @@
     background-color: $background-inputs;
     color: $principal-blue;
 
+    :global(.css-yk16xz-control){
+      background-color: $background-inputs;
+      border-style: none;
+      cursor: text
+    }
+
     .input-pots-icon {
       height: 2.25rem;
       background-color: $background-inputs;

@@ -4,70 +4,79 @@ import {
   LocationOn as LocationOnIcon,
   ArrowUpward as ArrowUpwardIcon,
 } from "@material-ui/icons/";
-
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-google-places-autocomplete";
 import { useToasts } from "react-toast-notifications";
+import { FileUploader } from "react-drag-drop-files";
 
 import Spinner from "../../UI/Spinner";
 import classes from "./CreatePots.module.scss";
 import fetchController from "../../../Networking/fetch-controller";
 import TYPE from "../../../Networking/requestTypes";
-import AutocompleteInput from "../../AutocompleteInput";
 
 const CreatePots = () => {
   const { addToast } = useToasts();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    address: "",
     potName: "",
     description: "",
     fromTimeFirst: "",
     fromTimeSecond: "",
     toTimeFirst: "",
     toTimeSecond: "",
-    image: null,
   });
-  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [address, setAddress] = useState(null);
 
   const updateFormData = (event) => {
     const value = event.target.value;
     const inputId = event.target.id;
     setFormData((prevState) => ({ ...prevState, [inputId]: value }));
-    //event.current.length
+  };
+
+  const handleChange = (file) => {
+    setFile(file);
+  };
+
+  const getCords = async (address) => {
+    const results = await geocodeByAddress(address.label);
+    const latlng = await getLatLng(results[0]);
+    return latlng;
   };
 
   const submitHandler = async (event) => {
     event.preventDefault();
     const {
-      address,
       potName,
       description,
       fromTimeFirst,
       fromTimeSecond,
       toTimeFirst,
       toTimeSecond,
-      image,
     } = formData;
 
     if (localStorage.getItem("userIdentifier")) {
       setLoading(true);
-      const email = localStorage.getItem("email");
       const token = localStorage.getItem("userIdentifier");
       const fromTime = `${fromTimeFirst}:${fromTimeSecond}`;
       const toTime = `${toTimeFirst}:${toTimeSecond}`;
-
+      const cords = await getCords(address);
+      const addresss = address.label
       const response = await fetchController(
         TYPE.ADD_POT,
         {
-          email,
-          address,
+          address: addresss,
           potName,
-          description,
-          latlng: 1,
-          image,
+          desc: description,
+          latlng: cords,
+          image: file,
           from: fromTime,
           to: toTime,
         },
         { token }
-      );
+        );
 
       if (response.status === 200) {
         setLoading(false);
@@ -90,15 +99,21 @@ const CreatePots = () => {
       {loading && <Spinner />}
       <div className={classes["input-and-icon"]}>
         <LocationOnIcon />
-        <AutocompleteInput 
-           className={classes["input-pots-icon"]}/>
-        {/* <input
-          type="text"
-          placeholder="Ingrese diección de la olla"
-          id="address"
-          onChange={updateFormData}
-          required
-        /> */}
+        <GooglePlacesAutocomplete
+          autocompletionRequest={{
+            componentRestrictions: {
+              country: ["uy"],
+            },
+          }}
+          selectProps={{
+            className: classes["input-pots-icon"],
+            placeholder: "Ingrese diección de la olla",
+            type: "text",
+            id: "address",
+            onChange: setAddress,
+          }}
+          apiKey="AIzaSyAxT6ALqm5_Mv_t0DSDAO8BBI30ioxdn6I"
+        />
       </div>
       <input
         className={classes["input-pots"]}
@@ -116,21 +131,11 @@ const CreatePots = () => {
         id="description"
         required
       />
-      <div className={classes["drag-area"]}>
-        <ArrowUpwardIcon />
-        <label className={classes["label-img"]} htmlFor="image">
-          <b>Seleccioná</b> una imagen para tu olla
-        </label>
-        <input
-          type="file"
-          onChange={updateFormData}
-          accept="image/*"
-          id="image"
-          hidden
-          required
-        />
-      </div>
-
+      <FileUploader
+        classes={classes["drag-area"]}
+        handleChange={handleChange}
+        name="file"
+      />
       <div className={classes["schedule-and-button"]}>
         <div className={classes.schedule}>
           <div className={classes["start-schedule"]}>
