@@ -5,19 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pot extends Model
+class Vote extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $fillable = [
-        'name',
+        'votedPot',
         'authorEmail',
-        'desc',
-        'openFrom',
-        'to',
-        'address',
-        'lat',
-        'lng'
+        'value'
     ];
-
 }
