@@ -141,10 +141,10 @@ const CreatePots = () => {
                 <ArrowUpwardIcon />
               </div>{" "}
               {file != null ? (
-                <p>Imagen subida correctamente</p>
+                <p className={classes["upload-text"]}>Imagen subida correctamente</p>
               ) : (
-                <p>
-                  <b>Seleccioná</b> una imagen para tu olla
+                <p className={classes["upload-text"]}>
+                  <b>Seleccioná</b> una imagen para tu olla 
                 </p>
               )}
             </p>
