@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4907a60f-5fe8-4d02-81cd-f168ef27af8f",
+		"_postman_id": "b19dbad3-f1c8-4fd6-8e94-94e77a2d5279",
 		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -371,6 +371,68 @@
 						"description": "Returns the pot that matches the provided ID."
 					},
 					"response": []
+				},
+				{
+					"name": "Update a pot",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "6|WWYbwfscsA9iPXSQwqj9dyUWJWTlAdtcyyMzRcoC",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "enctype",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/kevin/Downloads/Image.jpg"
+								},
+								{
+									"key": "name",
+									"value": "nameee",
+									"type": "text"
+								},
+								{
+									"key": "openFrom",
+									"value": "10:30",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/pots/update/<potID>",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"pots",
+								"update",
+								"<potID>"
+							]
+						},
+						"description": "Updates the record that matches the provided ID.\n\nThe attributes that can be modified are: name, desc, openFrom, to, address, isInNeed and state.\n\nYou should only include the attributes that you want to modify in the request's body. If an attribute is present but it has no value (or is invalid), an error message will be returned and no change will be made.\n\nGood request:\n{\n'name': 'newName',\n'desc': 'newDesc'\n}\n\nBad request:\n{\n'name': 'newName',\n'desc': 'newDesc',\n'openFrom': \n}\n\nAnd yes, this should be a PATCH or PUT request, but you can blame PHP itself for that (https://bugs.php.net/bug.php?id=55815)."
+					},
+					"response": []
 				}
 			],
 			"description": "Services related with pots."
@@ -672,6 +734,70 @@
 				}
 			],
 			"description": "Endpoints related to obtaining and creating comments."
+		},
+		{
+			"name": "Votes",
+			"item": [
+				{
+					"name": "Create a vote",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "2|ti0LfX5yYa3VEVWbxiwar7V5Mvz5L5F5i8uzzGKP",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "potID",
+									"value": "<potID>",
+									"description": "The pot which is being voted.",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "<value>",
+									"description": "The numeric value of the vote.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/vote/save",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"vote",
+								"save"
+							]
+						},
+						"description": "Creates a new vote and stores it in the database.\nA vote's value can be any whole number from 1 to 5 (inclusive).\nVote results are appended to each pot."
+					},
+					"response": []
+				}
+			],
+			"description": "Requests related to votes."
 		}
 	]
 }
