@@ -103,7 +103,7 @@ const CreatePots = () => {
             id: "address",
             onChange: setAddress,
           }}
-          apiKey="AIzaSyAxT6ALqm5_Mv_t0DSDAO8BBI30ioxdn6I"
+          apiKey=""
         />
       </div>
       <input
