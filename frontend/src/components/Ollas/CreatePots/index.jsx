@@ -4,65 +4,76 @@ import {
   LocationOn as LocationOnIcon,
   ArrowUpward as ArrowUpwardIcon,
 } from "@material-ui/icons/";
-
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-google-places-autocomplete";
 import { useToasts } from "react-toast-notifications";
+import { FileUploader } from "react-drag-drop-files";
 
 import Spinner from "../../UI/Spinner";
 import classes from "./CreatePots.module.scss";
 import fetchController from "../../../Networking/fetch-controller";
 import TYPE from "../../../Networking/requestTypes";
-import AutocompleteInput from "../../AutocompleteInput";
 
 const CreatePots = () => {
   const { addToast } = useToasts();
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    address: "",
     potName: "",
     description: "",
     fromTimeFirst: "",
     fromTimeSecond: "",
     toTimeFirst: "",
     toTimeSecond: "",
-    image: null,
   });
-  const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [address, setAddress] = useState(null);
 
   const updateFormData = (event) => {
     const value = event.target.value;
     const inputId = event.target.id;
     setFormData((prevState) => ({ ...prevState, [inputId]: value }));
-    //event.current.length
   };
+
+  const handleChange = (file) => {
+    setFile(file);
+  };
+
+  const getCords = async (address) => {
+    const results = await geocodeByAddress(address.label);
+    const latlng = await getLatLng(results[0]);
+    return latlng;
+  };
+
 
   const submitHandler = async (event) => {
     event.preventDefault();
     const {
-      address,
       potName,
       description,
       fromTimeFirst,
       fromTimeSecond,
       toTimeFirst,
       toTimeSecond,
-      image,
     } = formData;
 
     if (localStorage.getItem("userIdentifier")) {
       setLoading(true);
-      const email = localStorage.getItem("email");
       const token = localStorage.getItem("userIdentifier");
       const fromTime = `${fromTimeFirst}:${fromTimeSecond}`;
       const toTime = `${toTimeFirst}:${toTimeSecond}`;
+      const cords = await getCords(address);
+      const addresss = address.label
 
       const response = await fetchController(
         TYPE.ADD_POT,
         {
-          email,
-          address,
+          address: addresss,
           potName,
-          description,
-          latlng: 1,
-          image,
+          desc: description,
+          latlng: cords,
+          image: file,
           from: fromTime,
           to: toTime,
         },
@@ -103,7 +114,7 @@ const CreatePots = () => {
             id: "address",
             onChange: setAddress,
           }}
-          apiKey="" 
+          apiKey="AIzaSyAxT6ALqm5_Mv_t0DSDAO8BBI30ioxdn6I"
         />
       </div>
       <input
@@ -127,18 +138,18 @@ const CreatePots = () => {
           classes={classes["drag-area"]}
           handleChange={handleChange}
           children={
-            <p>
+            <div>
               <div className={classes["upload-icon"]}>
                 <ArrowUpwardIcon />
               </div>{" "}
               {file != null ? (
-                <p>Imagen subida correctamente</p>
+                <p className={classes["upload-text"]}>Imagen subida correctamente</p>
               ) : (
-                <p>
-                  <b>Seleccioná</b> una imagen para tu olla
+                <p className={classes["upload-text"]}>
+                  <b>Seleccioná</b> una imagen para tu olla 
                 </p>
               )}
-            </p>
+            </div>
           }
           name="file"
           hoverTitle="Suelta tu archivo aqui"

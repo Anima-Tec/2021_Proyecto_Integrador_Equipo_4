@@ -1,9 +1,15 @@
-@import '../../../assets/styles/colors.module.scss';
+@import "../../../assets/styles/colors.module.scss";
 
 .pots-form {
   display: flex;
   flex-direction: column;
   padding: 1.5rem;
+
+  :global(.css-yk16xz-control) {
+    background-color: $background-inputs;
+    border-style: none;
+    cursor: text;
+  }
 
   .input-and-icon {
     display: flex;
@@ -32,35 +38,33 @@
     border: none;
   }
 
-  .drag-area{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 4rem;
+  .uploader-container {
     margin-top: 1.2rem;
-    border-radius: 8px;
-    color: $principal-grey;
-    border: 5px dashed $background-inputs;
 
-    .drag-area{
+    .drag-area {
       flex-direction: column;
       justify-content: center;
+      min-width: 13rem;
+      max-width: none;
       width: auto;
       height: 4rem;
       border-radius: 8px;
       color: $black;
       border: 5px dashed $background-inputs;
       padding: 10px;
-      
-      .active{
+
+      .active {
         background-color: $principal-grey;
       }
-      
-      .upload-icon{
+
+      .upload-icon {
         display: flex;
         justify-content: center;
         margin-top: 10px;
+      }
+
+      .upload-text{
+        align-items: center;
       }
     }
   }
@@ -83,7 +87,6 @@
           display: flex;
           flex-direction: row;
           align-items: center;
-          
         }
       }
 
@@ -165,12 +168,11 @@
 
 @media (max-width: 730px) and (min-width: 520px) {
   .pots-form {
-
     .schedule-and-button {
       display: flex;
       flex-direction: column;
       align-items: center;
-      
+
       .add-button {
         margin-top: 1.5rem;
         margin-left: 0;
@@ -181,12 +183,10 @@
 
 @media (max-width: 1024px) and (min-width: 731px) {
   .pots-form {
-
     .schedule-and-button {
       display: flex;
 
       .schedule {
-
         .end-schedule {
           margin-left: 10%;
         }
@@ -197,9 +197,7 @@
 
 @media (max-width: 1920px) and (min-width: 1440px) {
   .pots-form {
-
     .schedule-and-button {
-
       .end-schedule {
         margin-left: 3rem;
       }
@@ -214,9 +212,7 @@
 
 @media (min-width: 1920px) {
   .pots-form {
-
     .schedule-and-button {
-
       .end-schedule {
         margin-left: 5rem;
       }
