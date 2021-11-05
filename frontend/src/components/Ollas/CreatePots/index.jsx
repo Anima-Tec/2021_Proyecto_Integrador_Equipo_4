@@ -89,7 +89,7 @@ const CreatePots = () => {
     <form className={classes["pots-form"]} onSubmit={submitHandler}>
       {loading && <Spinner />}
       <div className={classes["input-and-icon"]}>
-        <LocationOnIcon />
+        <LocationOnIcon/>
         <GooglePlacesAutocomplete
           autocompletionRequest={{
             componentRestrictions: {
@@ -103,7 +103,7 @@ const CreatePots = () => {
             id: "address",
             onChange: setAddress,
           }}
-          apiKey=""
+          apiKey="" 
         />
       </div>
       <input
