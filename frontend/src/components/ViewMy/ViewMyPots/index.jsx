@@ -12,9 +12,8 @@ import TYPE from "../../../Networking/requestTypes";
 const ViewMyPots = () => {
   const { addToast } = useToasts();
   const [pots, setPots] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [pageCount, setPageCount] = useState();
-  const [currentPage, setcurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const getPots = async () => {
     if (localStorage.getItem("userIdentifier")) {
@@ -28,7 +27,8 @@ const ViewMyPots = () => {
       );
       if (response.data.Pots) {
         setPots(response.data.Pots);
-        setPageCount(response.data.PagesLeft + 1 + currentPage);
+        setPageCount(response.data.PagesLeft);
+        console.log(currentPage)
       }
     } else {
       addToast("Debe loguearse para ver sus ollas.", {
@@ -43,7 +43,7 @@ const ViewMyPots = () => {
   }, []);
 
   const handlePageChange = (event) => {
-    setcurrentPage(event.selected);
+    setCurrentPage(event.selected);
     getPots();
   };
 
