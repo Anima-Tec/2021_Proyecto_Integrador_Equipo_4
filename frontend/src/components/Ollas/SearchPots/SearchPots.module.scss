@@ -1,10 +1,11 @@
 @import '../../../assets/styles/colors.module.scss';
 
-.ollas-form {
+.pots-form {
   display: flex;
   flex-direction: row;
   padding: 24px;
   align-items: center;
+
 
   .input-and-icon {
     display: flex;
@@ -16,7 +17,7 @@
     color: $principal-blue;
     width: 70%;
 
-    .input-ollas {
+    .input-pots {
       height: 2.25rem;
       background-color: $background-inputs;
       border: none;
@@ -25,7 +26,7 @@
     }
   }
 
-  .buscar-button {
+  .search-button {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -41,10 +42,19 @@
   }
 }
 
-@media (max-width: 426px) {
-  .ollas-form {
+@media (max-width: 426px) and (min-width: 280px) {
+  .pots-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    padding: 6%;
+
+    .input-and-icon{
+      width: 96%;
+    }
+
+    .search-button {
+      margin-top: 1.5rem;
+      margin-left: 0;
+    }
   }
 }
