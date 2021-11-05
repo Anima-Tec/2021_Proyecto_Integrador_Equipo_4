@@ -63,7 +63,7 @@ const CreatePots = () => {
       const fromTime = `${fromTimeFirst}:${fromTimeSecond}`;
       const toTime = `${toTimeFirst}:${toTimeSecond}`;
       const cords = await getCords(address);
-      const addresss = address.label;
+      const addresss = address.label
       const response = await fetchController(
         TYPE.ADD_POT,
         {
@@ -76,7 +76,7 @@ const CreatePots = () => {
           to: toTime,
         },
         { token }
-      );
+        );
 
       if (response.status === 200) {
         setLoading(false);
