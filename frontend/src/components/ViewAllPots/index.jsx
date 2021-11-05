@@ -26,6 +26,11 @@ const ViewAllPots = () => {
     <>
       {pots.map((pot) => (
         <div className={classes.container}>
+ 
+          <div className={classes["container-img"]}>
+            <img className={classes.img} src={pot.imageURL} alt="img-prueba"/>
+          </div>
+          
           <div className={classes["container-content"]}>
             <h1 className={classes.title}>{pot.name}</h1>
 
@@ -35,18 +40,9 @@ const ViewAllPots = () => {
             {pot.isInNeed === 0 && (
               <button className={classes["state-0"]}>Olla con necesidad</button>
             )}
-
-            <p className={classes.description}>{pot.desc}</p>
-            <p className={classes.time}>
-              Horario: {pot.openFrom} - {pot.to}
-            </p>
-            <button className={classes["edit-button"]}>
-            </button>
           </div>
 
-          <div className={classes["container-img"]}>
-            <img className={classes.img} src={pot.imageURL} alt="img-prueba" />
-          </div>
+         
         </div>
       ))}
       <div className={classes["pagination-container"]}>

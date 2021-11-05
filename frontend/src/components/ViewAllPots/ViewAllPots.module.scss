@@ -1,1 +1,9 @@
 @import '../../assets/styles/colors.module.scss';
+
+.container2 {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-top: 4rem;
+    display: flex;
+    flex-direction: row;
+}
