@@ -12,9 +12,9 @@ import { useToasts } from 'react-toast-notifications';
 import { FileUploader } from 'react-drag-drop-files';
 
 import Spinner from '../../UI/Spinner';
-import classes from './CreatePots.module.scss';
 import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
+import classes from './CreatePots.module.scss';
 
 const CreatePots = () => {
   const { addToast } = useToasts();
@@ -31,9 +31,21 @@ const CreatePots = () => {
   const [address, setAddress] = useState(null);
 
   const updateFormData = (event) => {
-    const value = event.target.value;
     const inputId = event.target.id;
-    setFormData((prevState) => ({ ...prevState, [inputId]: value }));
+    let inputValue;
+    if (
+      inputId === 'fromTimeFirst' ||
+      inputId === 'fromTimeSecond' ||
+      inputId === 'toTimeFirst' ||
+      inputId === 'toTimeSecond'
+    ) {
+      inputValue = event.target.value.replace(/[^\d]/g, '');
+      console.log(inputValue);
+    } else {
+      inputValue = event.target.value;
+    }
+    event.target.value = inputValue;
+    setFormData((prevState) => ({ ...prevState, [inputId]: inputValue }));
   };
 
   const handleChange = (file) => {
@@ -85,6 +97,16 @@ const CreatePots = () => {
           appearance: 'success',
           autoDismiss: '10000',
         });
+        setFormData({
+          potName: '',
+          description: '',
+          fromTimeFirst: '',
+          fromTimeSecond: '',
+          toTimeFirst: '',
+          toTimeSecond: '',
+        });
+        setFile(null);
+        setAddress(null);
       }
     } else {
       setLoading(false);
@@ -113,7 +135,7 @@ const CreatePots = () => {
             id: 'address',
             onChange: setAddress,
           }}
-          apiKey='AIzaSyAxT6ALqm5_Mv_t0DSDAO8BBI30ioxdn6I'
+          apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
         />
       </div>
       <input
@@ -121,6 +143,7 @@ const CreatePots = () => {
         type='text'
         placeholder='Nombre'
         onChange={updateFormData}
+        value={formData.potName}
         id='potName'
         required
       />
@@ -130,6 +153,7 @@ const CreatePots = () => {
         placeholder='Descripción'
         onChange={updateFormData}
         id='description'
+        value={formData.description}
         maxLength='255'
         required
       />
@@ -141,11 +165,9 @@ const CreatePots = () => {
             <div>
               <div className={classes['upload-icon']}>
                 <ArrowUpwardIcon />
-              </div>{' '}
+              </div>
               {file != null ? (
-                <p className={classes['upload-text']}>
-                  Imagen subida correctamente
-                </p>
+                <p className={classes['upload-text']}>{file.name}</p>
               ) : (
                 <p className={classes['upload-text']}>
                   <b>Seleccioná</b> una imagen para tu olla
@@ -165,20 +187,20 @@ const CreatePots = () => {
               <input
                 className={classes['input-schedule']}
                 placeholder='Hora'
-                min='0'
-                max='24'
-                type='number'
+                maxLength='2'
+                type='text'
                 id='fromTimeFirst'
+                value={formData.fromTimeFirst}
                 onChange={updateFormData}
               />
               <span className={classes.separation}> : </span>
               <input
                 className={classes['input-schedule']}
                 placeholder='Minutos'
-                min='0'
-                max='60'
-                type='number'
+                maxLength='2'
+                type='text'
                 id='fromTimeSecond'
+                value={formData.fromTimeSecond}
                 onChange={updateFormData}
                 required
               />
@@ -191,10 +213,10 @@ const CreatePots = () => {
               <input
                 className={classes['input-schedule']}
                 placeholder='Hora'
-                min='0'
-                max='24'
-                type='number'
+                maxLength='2'
+                type='text'
                 id='toTimeFirst'
+                value={formData.toTimeFirst}
                 onChange={updateFormData}
                 required
               />
@@ -202,10 +224,10 @@ const CreatePots = () => {
               <input
                 className={classes['input-schedule']}
                 placeholder='Minutos'
-                min='0'
-                max='60'
-                type='number'
+                maxLength='2'
+                type='text'
                 id='toTimeSecond'
+                value={formData.toTimeSecond}
                 onChange={updateFormData}
                 required
               />
