@@ -1,9 +1,66 @@
-@import '../../assets/styles/colors.module.scss';
+@import "../../assets/styles/colors.module.scss";
 
-.container2 {
-    min-height: 100vh;
-    box-sizing: border-box;
-    padding-top: 4rem;
+.pots-container {
+  height: 100%;
+  width: 100%;
+
+  .pots-header {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
+
+    :global(.MuiTab-wrapper) {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: row;
+      padding: 0;
+    }
+
+    :global(.MuiTab-labelIcon) {
+      min-height: 3rem;
+    }
+
+    .all-pots-tab {
+      margin-left: 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+
+      &:hover {
+        background-color: $principal-blue;
+      }
+
+      &.active {
+        background-color: $principal-blue;
+      }
+    }
+
+    .pots-in-need-tab {
+      color: #bd3131;
+      font-weight: bold;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: $principal-blue;
+      }
+
+      &.active {
+        background-color: $principal-blue;
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .pots-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.5rem 0;
+
+    .donations-tab {
+      margin: 0;
+    }
+  }
 }

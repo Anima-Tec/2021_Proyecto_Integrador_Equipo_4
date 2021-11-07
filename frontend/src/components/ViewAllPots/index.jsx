@@ -1,58 +1,54 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
+import { TabPanel, TabContext, TabList } from "@material-ui/lab";
+import { Tab, Box } from "@material-ui/core";
+import { Search as SearchIcon } from "@material-ui/icons/";
 
+import AllPots from "./AllPots";
+import PotsInNeed from "./PotsInNeed";
 import classes from "./ViewAllPots.module.scss";
-import fetchController from "../../Networking/fetch-controller";
-import TYPE from "../../Networking/requestTypes";
 
 const ViewAllPots = () => {
-  const [pots, setPots] = useState([]);
+  const [value, setValue] = useState("1");
 
-  const getAllPots = async () => {
-      const response = await fetchController(
-        TYPE.VIEW_ALL_POTS,
-        {
-          offset: 0,
-        },
-        {}
-      );
-      setPots(response.data.Pots);
+  const handleChange = (newValue) => {
+    setValue(newValue);
   };
 
-  useEffect(() => {
-    getAllPots();
-  }, []);
-
-  return pots.length ? (
+  return (
     <>
-      {pots.map((pot) => (
-        <div className={classes.container}>
- 
-          <div className={classes["container-img"]}>
-            <img className={classes.img} src={pot.imageURL} alt="img-prueba"/>
-          </div>
-          
-          <div className={classes["container-content"]}>
-            <h1 className={classes.title}>{pot.name}</h1>
+      <div className={classes["pots-container"]}>
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={value}>
+            <div className={classes["pots-header"]}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList onChange={handleChange}>
+                  <Tab
+                    className={classes["all-pots-tab"]}
+                    label="Buscar ollas"
+                    icon={<SearchIcon />}
+                    value="1"
+                  />
+                  <Tab
+                    className={classes["pots-in-need-tab"]}
+                    label="Crear ollas"
+                    icon={<SearchIcon />}
+                    value="2"
+                  />
+                </TabList>
+              </Box>
+            </div>
 
-            {pot.isInNeed === 1 && (
-              <button className={classes["state-1"]}>Olla sin necesidad</button>
-            )}
-            {pot.isInNeed === 0 && (
-              <button className={classes["state-0"]}>Olla con necesidad</button>
-            )}
-          </div>
-
-         
-        </div>
-      ))}
-      <div className={classes["pagination-container"]}>
+            <TabPanel value="1">
+              <AllPots />
+            </TabPanel>
+            <TabPanel value="2">
+              <PotsInNeed />
+            </TabPanel>
+          </TabContext>
+        </Box>
       </div>
     </>
-  ) : (
-      <p>hola</p>
-    // <NotFound />
   );
 };
+
 export default ViewAllPots;
-
-

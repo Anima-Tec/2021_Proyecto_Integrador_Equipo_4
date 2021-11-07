@@ -73,6 +73,11 @@ const fetchController = async (type, data, extraHeaders) => {
       const viewAllResponse = await sendRequest(viewAllPotsUrl, METHOD.GET, {}, {});
       return viewAllResponse;
 
+      // case TYPE.VIEW_ALL_POTS:
+      //   const viewAllPotsUrl = generateUrl(`${ROUTE.VIEW_ALL_POTS}/${data.offset}/8`);
+      //   const viewAllResponse = await sendRequest(viewAllPotsUrl, METHOD.GET, {}, {});
+      //   return viewAllResponse;
+
 
     case TYPE.ADD_DONATION:
 
