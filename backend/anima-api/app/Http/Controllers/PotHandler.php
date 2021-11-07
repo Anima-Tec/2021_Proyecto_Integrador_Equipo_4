@@ -20,6 +20,8 @@ class PotHandler extends Controller
             'openFrom' => 'date_format:H:i',
             'to' => 'date_format:H:i',
             'address' => 'string',
+            'lat' => 'numeric',
+            'lng' => 'numeric',
             'image' => 'mimes:jpg,png,jpeg,gif,svg',
             'isInNeed' => [Rule::in(['1', '0'])],
             'state' => [Rule::in(['1', '0'])]
@@ -31,7 +33,7 @@ class PotHandler extends Controller
             ], 400);
         }
 
-        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to', 'address', 'image', 'isInNeed', 'state']);
+        $validatedData = $request->only(['name', 'desc', 'openFrom', 'to', 'address', 'lat', 'lng', 'image', 'isInNeed', 'state']);
         $user = $request->user();
         if (Pot::where('id', $potID)->doesntExist()) {
             return response()->json([
@@ -39,7 +41,7 @@ class PotHandler extends Controller
             ], 404);
         }
         $oldPot = Pot::where('id', $potID)->get()[0];
-        $newPot = ['name' => $validatedData['name'] ?? $oldPot->name, 'authorEmail' => $user->email, 'desc' => $validatedData['desc'] ?? $oldPot->desc, 'openFrom' => $validatedData['openFrom'] ??  $oldPot->openFrom, 'to' => $validatedData['to'] ?? $oldPot->to, 'address' => $validatedData['address'] ?? $oldPot->address, 'isInNeed' => $validatedData['isInNeed'] ?? $oldPot->isInNeed, 'state' => $validatedData['state'] ?? $oldPot->state];
+        $newPot = ['name' => $validatedData['name'] ?? $oldPot->name, 'authorEmail' => $user->email, 'desc' => $validatedData['desc'] ?? $oldPot->desc, 'openFrom' => $validatedData['openFrom'] ?? $oldPot->openFrom, 'to' => $validatedData['to'] ?? $oldPot->to, 'address' => $validatedData['address'] ?? $oldPot->address, 'lat' => $validatedData['lat'] ?? $oldPot->lat, 'lng' => $validatedData['lng'] ?? $oldPot->lng, 'isInNeed' => $validatedData['isInNeed'] ?? $oldPot->isInNeed, 'state' => $validatedData['state'] ?? $oldPot->state];
         if ($request->hasFile('image')) {
             File::delete(public_path("/assets/pots/pot_$potID/pot_$potID.jpg"));
             $request->file('image')->move(public_path("/assets/pots/pot_$potID"), "pot_$potID.jpg");
