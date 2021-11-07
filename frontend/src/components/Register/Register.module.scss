@@ -1,3 +1,5 @@
+@import '../../assets/styles/colors.module.scss';
+
 :global(.popup-overlay) {
   background: #00000080;
 }
@@ -24,9 +26,10 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background: $principal-blue;
+  font-size: 1.875rem;
   align-items: center;
-  background: #72bbdb;
-  color: #ffffff;
+  color: $white;
   font-weight: bold;
   font-size: 1.875rem;
   height: 4rem;
@@ -62,7 +65,7 @@
     .register-input {
       height: 2.5rem;
       margin: 5px;
-      background-color: #f5f5f5;
+      background-color: $background-inputs;
       border-radius: 8px;
       border: none;
     }
@@ -79,7 +82,7 @@
       cursor: pointer;
       height: 3.438rem;
       margin: 10px;
-      background-color: #72bbdb;
+      background-color: $principal-blue;
       color: #ffffff;
       font-weight: bold;
       font-size: 1.5rem;

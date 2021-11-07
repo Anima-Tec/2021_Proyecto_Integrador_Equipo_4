@@ -3,7 +3,7 @@ const ROUTE = {
   ACTIVATE_ACCOUNT: '/activate',
   LOGIN: '/login',
   LOG_OUT: '/logout',
-  ADD_POT: '/ollas/save',
+  ADD_POT: '/pots/save',
   VIEW_ALL_POTS: '/ollas',
   ADD_DONATION: '/donations/save',
   VIEW_DONATIONS: '/donations',
