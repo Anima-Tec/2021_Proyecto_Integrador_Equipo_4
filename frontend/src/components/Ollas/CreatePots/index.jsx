@@ -40,7 +40,6 @@ const CreatePots = () => {
       inputId === 'toTimeSecond'
     ) {
       inputValue = event.target.value.replace(/[^\d]/g, '');
-      console.log(inputValue);
     } else {
       inputValue = event.target.value;
     }
