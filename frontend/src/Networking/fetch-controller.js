@@ -1,4 +1,3 @@
-import qs from 'qs';
 import axios from 'axios';
 
 import TYPE from './requestTypes';
@@ -14,9 +13,8 @@ const sendRequest = async (url, method, body, extraHeaders) => {
     const axiosR = await axios({
       method,
       url,
-      data: qs.stringify(body),
+      data: body,
       headers: {
-        'content-type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json',
         ...extraHeaders
       }
@@ -54,18 +52,19 @@ const fetchController = async (type, data, extraHeaders) => {
       return loginResponse;
 
     case TYPE.ADD_POT:
+      const formData = new FormData();
+      formData.append('image', data.image)
+      formData.append('address', data.address)
+      formData.append('name', data.potName)
+      formData.append('desc', data.desc)
+      formData.append('lat', data.latlng.lat)
+      formData.append('lng', data.latlng.lng)
+      formData.append('openFrom', data.from)
+      formData.append('to', data.to)
       const addPotUrl = generateUrl(ROUTE.ADD_POT);
-
-      const addPotResponse = await sendRequest(addPotUrl, METHOD.POST, {
-        email: data.email,
-        name: data.name,
-        description: data.description,
-        latitude: data.latitude,
-        longitude: data.longitude,
-        from: data.from,
-        to: data.to,
-      });
-
+      const addPotResponse = await sendRequest(addPotUrl, METHOD.POST, formData,
+        {Authorization: `Bearer ${extraHeaders.token}`, 'Content-Type': 'multipart/form-data'}
+        );
       return addPotResponse;
 
     case TYPE.VIEW_ALL_POTS:

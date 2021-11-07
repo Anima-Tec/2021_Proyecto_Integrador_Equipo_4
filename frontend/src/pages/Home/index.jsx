@@ -1,4 +1,10 @@
 import Ollas from '../../components/Ollas';
+import { useState } from 'react';
+import { Tab, Box } from '@material-ui/core';
+import { TabPanel, TabContext, TabList } from '@material-ui/lab';
+
+import CreatePots from '../../components/Ollas/CreatePots';
+import SearchPots from '../../components/Ollas/SearchPots';
 import imageHome from '../../assets/images/Image-home.png';
 import classes from './Home.module.scss';
 
