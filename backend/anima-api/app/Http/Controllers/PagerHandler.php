@@ -72,16 +72,20 @@ class PagerHandler extends Controller
 
             case 'potsInNeed':
 
-                $pagesLeft = ceil((Pot::where('state', 1)->where('isInNeed', 1)->count() / $limit) - $offset);
+                $user = $request->user();
+                $pagesLeft = ceil((Pot::where('authorEmail', $user->email)->where('isInNeed', 1)->count() / $limit) - $offset);
 
-                $Pots = Pot::where('state', 1)->where('isInNeed', 1)->skip($limit * $offset)
+                $Pots = Pot::where('authorEmail', $user->email)
+                    ->where('isInNeed', 1)
+                    ->skip($limit * $offset)
                     ->take($limit)
                     ->get();
+
+                $pagesLeft = $pagesLeft - 1;
 
                 if ($pagesLeft < 0) {
                     $pagesLeft = 0;
                 }
-                $pagesLeft = $pagesLeft - 1;
 
                 return response()->json([
                     'Pots' => $Pots,
