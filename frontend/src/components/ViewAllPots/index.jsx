@@ -24,13 +24,13 @@ const ViewAllPots = () => {
                 <TabList onChange={handleChange}>
                   <Tab
                     className={classes["all-pots-tab"]}
-                    label="Buscar ollas"
+                    label="Todas"
                     icon={<SearchIcon />}
                     value="1"
                   />
                   <Tab
                     className={classes["pots-in-need-tab"]}
-                    label="Crear ollas"
+                    label="Con necesidad"
                     icon={<SearchIcon />}
                     value="2"
                   />
