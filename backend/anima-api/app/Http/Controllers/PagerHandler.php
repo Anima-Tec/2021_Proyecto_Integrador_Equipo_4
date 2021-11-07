@@ -154,11 +154,9 @@ class PagerHandler extends Controller
 
             case 'potsInNeed':
 
-                $user = $request->user();
-                $pagesLeft = ceil((Pot::where('authorEmail', $user->email)->where('isInNeed', 1)->count() / $limit) - $offset);
+                $pagesLeft = ceil((Pot::where('isInNeed', 1)->count() / $limit) - $offset);
 
-                $Pots = Pot::where('authorEmail', $user->email)
-                    ->where('isInNeed', 1)
+                $Pots = Pot::where('isInNeed', 1)
                     ->skip($limit * $offset)
                     ->take($limit)
                     ->get();
