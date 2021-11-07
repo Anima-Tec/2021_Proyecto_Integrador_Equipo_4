@@ -6,14 +6,14 @@ import {
   Search as SearchIcon,
 } from '@material-ui/icons/';
 
-import CrearOllas from './CrearOllas';
-import BuscarOllas from './BuscarOllas';
+import CreatePots from './CreatePots';
+import SearchPots from './SearchPots';
 import classes from './Ollas.module.scss'
 
 const Ollas = () => {
-  const [value, setValue] = useState('2');
+  const [value, setValue] = useState('1');
 
-  const handleChange = (newValue) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -41,10 +41,10 @@ const Ollas = () => {
           </div>
 
           <TabPanel value='1'>
-            <BuscarOllas />
+            <SearchPots />
           </TabPanel>
           <TabPanel value='2'>
-            <CrearOllas />
+            <CreatePots />
           </TabPanel>
         </TabContext>
       </Box>

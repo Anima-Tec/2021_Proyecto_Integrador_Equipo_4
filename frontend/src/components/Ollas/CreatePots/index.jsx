@@ -17,6 +17,8 @@ import fetchController from "../../../Networking/fetch-controller";
 import TYPE from "../../../Networking/requestTypes";
 
 const CreatePots = () => {
+  console.log(process.env.REACT_APP_API_URL);
+  const apiKey = process.env.GOOGLE_API_KEY
   const { addToast } = useToasts();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -114,7 +116,7 @@ const CreatePots = () => {
             id: "address",
             onChange: setAddress,
           }}
-          apiKey=""
+          apiKey='{apiKey}'
         />
       </div>
       <input
@@ -131,7 +133,7 @@ const CreatePots = () => {
         placeholder="Descripción"
         onChange={updateFormData}
         id="description"
-        maxlength='255'
+        maxLength='255'
         required
       />
       <div className={classes["uploader-container"]}>

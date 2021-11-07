@@ -18,6 +18,7 @@ const ViewMyPots = () => {
   const getPots = async () => {
     if (localStorage.getItem("userIdentifier")) {
       const token = localStorage.getItem("userIdentifier");
+      debugger;
       const response = await fetchController(
         TYPE.VIEW_MY_POTS,
         {
@@ -27,8 +28,8 @@ const ViewMyPots = () => {
       );
       if (response.data.Pots) {
         setPots(response.data.Pots);
-        setPageCount(response.data.PagesLeft);
-        console.log(currentPage)
+        setPageCount(response.data.PagesLeft +1+ currentPage);
+        console.log(currentPage, 'pagina que se le pasa al offset')
       }
     } else {
       addToast("Debe loguearse para ver sus ollas.", {
@@ -44,6 +45,7 @@ const ViewMyPots = () => {
 
   const handlePageChange = (event) => {
     setCurrentPage(event.selected);
+    console.log(event.selected);
     getPots();
   };
 
