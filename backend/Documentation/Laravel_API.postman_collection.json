@@ -430,7 +430,7 @@
 								"<potID>"
 							]
 						},
-						"description": "Updates the record that matches the provided ID.\n\nThe attributes that can be modified are: name, desc, openFrom, to, address, isInNeed and state.\n\nYou should only include the attributes that you want to modify in the request's body. If an attribute is present but it has no value (or is invalid), an error message will be returned and no change will be made.\n\nGood request:\n{\n'name': 'newName',\n'desc': 'newDesc'\n}\n\nBad request:\n{\n'name': 'newName',\n'desc': 'newDesc',\n'openFrom': \n}\n\nAnd yes, this should be a PATCH or PUT request, but you can blame PHP itself for that (https://bugs.php.net/bug.php?id=55815)."
+						"description": "Updates the record that matches the provided ID.\n\nThe attributes that can be modified are: name, desc, openFrom, to, address, lat, lng, isInNeed and state.\n\nYou should only include the attributes that you want to modify in the request's body. If an attribute is present but it has no value (or is invalid), an error message will be returned and no change will be made.\n\nGood request:\n{\n'name': 'newName',\n'desc': 'newDesc'\n}\n\nBad request:\n{\n'name': 'newName',\n'desc': 'newDesc',\n'openFrom': \n}\n\nAnd yes, this should be a PATCH or PUT request, but you can blame PHP itself for that (https://bugs.php.net/bug.php?id=55815)."
 					},
 					"response": []
 				}
