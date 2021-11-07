@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "84703857-3361-488a-86d7-79ab7e9f190f",
+		"_postman_id": "4771a1ef-985b-4acc-8cc8-751574287753",
 		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -566,7 +566,7 @@
 								"<limit>"
 							]
 						},
-						"description": "Returns all content regardless of its author while allowing pagination.\n\nThe 'contentType' param can either be 'donations' or 'pots', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
+						"description": "Returns all content regardless of its author while allowing pagination.\n\nThe 'contentType' param can either be 'donations', 'pots' or 'potsInNeed', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
 					},
 					"response": []
 				},
@@ -609,7 +609,7 @@
 								"<limit>"
 							]
 						},
-						"description": "Returns content created by the current user while allowing pagination.\n\nThe 'contentType' param can either be 'donations' or 'pots', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
+						"description": "Returns content created by the current user while allowing pagination.\n\nThe 'contentType' param can either be 'donations', 'pots' or 'potsInNeed' while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
 					},
 					"response": []
 				}
