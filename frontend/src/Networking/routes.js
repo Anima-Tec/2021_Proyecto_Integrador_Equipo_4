@@ -7,9 +7,15 @@ const ROUTE = {
   VIEW_ALL_POTS: '/ollas',
   ADD_DONATION: '/donations/save',
   VIEW_DONATIONS: '/donations',
-}
+};
 
-const URL = 'http://127.0.0.1:8000/api';
+let URL;
+
+if (window.location.hostname === 'localhost') {
+  URL = 'http://127.0.0.1:8000/api';
+} else {
+  URL = process.env.REACT_APP_API_URL;
+}
 
 const generateUrl = (route) => `${URL}${route}`;
 
