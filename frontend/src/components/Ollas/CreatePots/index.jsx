@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Add as AddIcon,
   LocationOn as LocationOnIcon,
   ArrowUpward as ArrowUpwardIcon,
-} from "@material-ui/icons/";
+} from '@material-ui/icons/';
 import GooglePlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
-} from "react-google-places-autocomplete";
-import { useToasts } from "react-toast-notifications";
-import { FileUploader } from "react-drag-drop-files";
+} from 'react-google-places-autocomplete';
+import { useToasts } from 'react-toast-notifications';
+import { FileUploader } from 'react-drag-drop-files';
 
-import Spinner from "../../UI/Spinner";
-import classes from "./CreatePots.module.scss";
-import fetchController from "../../../Networking/fetch-controller";
-import TYPE from "../../../Networking/requestTypes";
+import Spinner from '../../UI/Spinner';
+import classes from './CreatePots.module.scss';
+import fetchController from '../../../Networking/fetch-controller';
+import TYPE from '../../../Networking/requestTypes';
 
 const CreatePots = () => {
   const { addToast } = useToasts();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    potName: "",
-    description: "",
-    fromTimeFirst: "",
-    fromTimeSecond: "",
-    toTimeFirst: "",
-    toTimeSecond: "",
+    potName: '',
+    description: '',
+    fromTimeFirst: '',
+    fromTimeSecond: '',
+    toTimeFirst: '',
+    toTimeSecond: '',
   });
   const [file, setFile] = useState(null);
   const [address, setAddress] = useState(null);
@@ -46,7 +46,6 @@ const CreatePots = () => {
     return latlng;
   };
 
-
   const submitHandler = async (event) => {
     event.preventDefault();
     const {
@@ -58,13 +57,13 @@ const CreatePots = () => {
       toTimeSecond,
     } = formData;
 
-    if (localStorage.getItem("userIdentifier")) {
+    if (localStorage.getItem('userIdentifier')) {
       setLoading(true);
-      const token = localStorage.getItem("userIdentifier");
+      const token = localStorage.getItem('userIdentifier');
       const fromTime = `${fromTimeFirst}:${fromTimeSecond}`;
       const toTime = `${toTimeFirst}:${toTimeSecond}`;
       const cords = await getCords(address);
-      const addresss = address.label
+      const addresss = address.label;
 
       const response = await fetchController(
         TYPE.ADD_POT,
@@ -82,136 +81,138 @@ const CreatePots = () => {
 
       if (response.status === 200) {
         setLoading(false);
-        addToast("Olla Popular guardada correctamente.", {
-          appearance: "success",
-          autoDismiss: "10000",
+        addToast('Olla Popular guardada correctamente.', {
+          appearance: 'success',
+          autoDismiss: '10000',
         });
       }
     } else {
       setLoading(false);
-      return addToast("Inicie sesión para continuar", {
-        appearance: "error",
-        autoDismiss: "4000",
+      return addToast('Inicie sesión para continuar', {
+        appearance: 'error',
+        autoDismiss: '4000',
       });
     }
   };
 
   return (
-    <form className={classes["pots-form"]} onSubmit={submitHandler}>
+    <form className={classes['pots-form']} onSubmit={submitHandler}>
       {loading && <Spinner />}
-      <div className={classes["input-and-icon"]}>
-        <LocationOnIcon/>
+      <div className={classes['input-and-icon']}>
+        <LocationOnIcon />
         <GooglePlacesAutocomplete
           autocompletionRequest={{
             componentRestrictions: {
-              country: ["uy"],
+              country: ['uy'],
             },
           }}
           selectProps={{
-            className: classes["input-pots-icon"],
-            placeholder: "Ingrese diección de la olla",
-            type: "text",
-            id: "address",
+            className: classes['input-pots-icon'],
+            placeholder: 'Ingrese diección de la olla',
+            type: 'text',
+            id: 'address',
             onChange: setAddress,
           }}
-          apiKey=""
+          apiKey='AIzaSyAxT6ALqm5_Mv_t0DSDAO8BBI30ioxdn6I'
         />
       </div>
       <input
-        className={classes["input-pots"]}
-        type="text"
-        placeholder="Nombre"
+        className={classes['input-pots']}
+        type='text'
+        placeholder='Nombre'
         onChange={updateFormData}
-        id="potName"
+        id='potName'
         required
       />
       <input
-        className={classes["input-pots"]}
-        type="text"
-        placeholder="Descripción"
+        className={classes['input-pots']}
+        type='text'
+        placeholder='Descripción'
         onChange={updateFormData}
-        id="description"
-        maxlength='255'
+        id='description'
+        maxLength='255'
         required
       />
-      <div className={classes["uploader-container"]}>
+      <div className={classes['uploader-container']}>
         <FileUploader
-          classes={classes["drag-area"]}
+          classes={classes['drag-area']}
           handleChange={handleChange}
           children={
             <div>
-              <div className={classes["upload-icon"]}>
+              <div className={classes['upload-icon']}>
                 <ArrowUpwardIcon />
-              </div>{" "}
+              </div>{' '}
               {file != null ? (
-                <p className={classes["upload-text"]}>Imagen subida correctamente</p>
+                <p className={classes['upload-text']}>
+                  Imagen subida correctamente
+                </p>
               ) : (
-                <p className={classes["upload-text"]}>
-                  <b>Seleccioná</b> una imagen para tu olla 
+                <p className={classes['upload-text']}>
+                  <b>Seleccioná</b> una imagen para tu olla
                 </p>
               )}
             </div>
           }
-          name="file"
-          hoverTitle="Suelta tu archivo aqui"
+          name='file'
+          hoverTitle='Suelta tu archivo aqui'
         />
       </div>
-      <div className={classes["schedule-and-button"]}>
+      <div className={classes['schedule-and-button']}>
         <div className={classes.schedule}>
-          <div className={classes["start-schedule"]}>
+          <div className={classes['start-schedule']}>
             <p>Horario de apertura:</p>
-            <div className={classes["start-inputs"]}>
+            <div className={classes['start-inputs']}>
               <input
-                className={classes["input-schedule"]}
-                placeholder="Hora"
-                min="0"
-                max="24"
-                type="number"
-                id="fromTimeFirst"
+                className={classes['input-schedule']}
+                placeholder='Hora'
+                min='0'
+                max='24'
+                type='number'
+                id='fromTimeFirst'
                 onChange={updateFormData}
               />
               <span className={classes.separation}> : </span>
               <input
-                className={classes["input-schedule"]}
-                placeholder="Minutos"
-                min="0"
-                max="60"
-                type="number"
-                id="fromTimeSecond"
+                className={classes['input-schedule']}
+                placeholder='Minutos'
+                min='0'
+                max='60'
+                type='number'
+                id='fromTimeSecond'
                 onChange={updateFormData}
                 required
               />
             </div>
           </div>
 
-          <div className={classes["end-schedule"]}>
+          <div className={classes['end-schedule']}>
             <p>Horario de cierre:</p>
-            <div className={classes["end-inputs"]}>
+            <div className={classes['end-inputs']}>
               <input
-                className={classes["input-schedule"]}
-                placeholder="Hora"
-                min="0"
-                max="24"
-                type="number"
-                id="toTimeFirst"
+                className={classes['input-schedule']}
+                placeholder='Hora'
+                min='0'
+                max='24'
+                type='number'
+                id='toTimeFirst'
                 onChange={updateFormData}
                 required
               />
               <span className={classes.separation}> : </span>
               <input
-                className={classes["input-schedule"]}
-                placeholder="Minutos"
-                min="0"
-                max="60"
-                type="number"
-                id="toTimeSecond"
+                className={classes['input-schedule']}
+                placeholder='Minutos'
+                min='0'
+                max='60'
+                type='number'
+                id='toTimeSecond'
                 onChange={updateFormData}
                 required
               />
             </div>
           </div>
         </div>
-        <button className={classes["add-button"]} type="submit">
+        <button className={classes['add-button']} type='submit'>
           <AddIcon />
           Agregar
         </button>
