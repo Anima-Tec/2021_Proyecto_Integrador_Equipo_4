@@ -3,7 +3,6 @@ import { ArrowForwardIos as ArrowForwardIosIcon } from "@material-ui/icons/";
 import ReactPaginate from "react-paginate";
 import { useToasts } from "react-toast-notifications";
 
-import Spinner from "../../UI/Spinner";
 import classes from "./ViewMyPots.module.scss";
 import NotFound from "./NotFound";
 import fetchController from "../../../Networking/fetch-controller";
@@ -12,24 +11,21 @@ import TYPE from "../../../Networking/requestTypes";
 const ViewMyPots = () => {
   const { addToast } = useToasts();
   const [pots, setPots] = useState([]);
-  const [pageCount, setPageCount] = useState();
-  const [currentPage, setCurrentPage] = useState(0);
+  const [pageCount, setPageCount] = useState(1);
 
-  const getPots = async () => {
+  const getPots = async (page) => {
     if (localStorage.getItem("userIdentifier")) {
       const token = localStorage.getItem("userIdentifier");
-      debugger;
       const response = await fetchController(
         TYPE.VIEW_MY_POTS,
         {
-          offset: currentPage,
+          offset: page,
         },
         { token }
       );
       if (response.data.Pots) {
         setPots(response.data.Pots);
-        setPageCount(response.data.PagesLeft +1+ currentPage);
-        console.log(currentPage, 'pagina que se le pasa al offset')
+        setPageCount(response.data.PagesLeft + 1 + page);
       }
     } else {
       addToast("Debe loguearse para ver sus ollas.", {
@@ -40,26 +36,24 @@ const ViewMyPots = () => {
   };
 
   useEffect(() => {
-    getPots();
+    getPots(0);
   }, []);
 
-  const handlePageChange = (event) => {
-    setCurrentPage(event.selected);
-    console.log(event.selected);
-    getPots();
+  const handlePageClick = (newValue) => {
+    getPots(newValue.selected);
   };
 
   return pots.length ? (
     <>
       {pots.map((pot) => (
-        <div className={classes.container}>
+        <div className={classes.container} key={pot.id}>
           <div className={classes["container-content"]}>
             <h1 className={classes.title}>{pot.name}</h1>
 
-            {pot.isInNeed === 1 && (
+            {pot.isInNeed === 0 && (
               <button className={classes["state-1"]}>Olla sin necesidad</button>
             )}
-            {pot.isInNeed === 0 && (
+            {pot.isInNeed === 1 && (
               <button className={classes["state-0"]}>Olla con necesidad</button>
             )}
 
@@ -78,21 +72,18 @@ const ViewMyPots = () => {
         </div>
       ))}
       <div className={classes["pagination-container"]}>
-        <ReactPaginate
+      <ReactPaginate
           pageCount={pageCount}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageChange}
-          id="number"
-          breakLabel="..."
-          nextLabel=">"
-          previousLabel="<"
-          renderOnZeroPageCount={null}
-          containerClassName={classes["pages-container"]}
-          previousLinkClassName={classes.page}
-          breakClassName={classes.page}
-          nextLinkClassName={classes.page}
+          previousLabel={"←"}
+          nextLabel={"→"}
+          breakLabel={'...'}
+          onPageChange={handlePageClick}
+          containerClassName={classes['pagination-container']}
           pageClassName={classes.page}
-          disabledClassNae={classes.disabled}
+          breakClassName={classes.page}
+          previousClassName={classes.page}
+          nextClassName={classes.page}
+          disabledClassName={classes.disabled}
           activeClassName={classes.active}
         />
       </div>
