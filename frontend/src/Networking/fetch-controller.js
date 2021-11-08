@@ -73,9 +73,9 @@ const fetchController = async (type, data, extraHeaders) => {
     case TYPE.VIEW_ALL_POTS:
       break;
     case TYPE.VIEW_A_POT:
-      const viewPotUrl = generateUrl(ROUTE.VIEW_A_POT);
+      const viewPotUrl = `${generateUrl(ROUTE.VIEW_A_POT)}/${data.id}`;
       const viewPotResponse = await sendRequest(
-        `${viewPotUrl}/${data.id}`,
+        viewPotUrl,
         METHOD.GET,
         {},
         {

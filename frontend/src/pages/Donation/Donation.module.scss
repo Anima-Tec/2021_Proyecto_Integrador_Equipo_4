@@ -8,56 +8,81 @@ input[type='radio'] {
   margin-top: 4rem;
   max-width: 100%;
   padding: 1rem;
-  display: flex;
-  flex-direction: column-reverse;
+
   border-radius: 5px;
 
-  .information {
-    width: 100%;
-    padding: 0.5rem;
-    color: $donation_text-color;
+  .content {
+    display: flex;
+    flex-direction: column-reverse;
+    box-shadow: 0px 0px 4px 7px $activation_box-shadow-color;
+    border-radius: 5px;
 
-    .title {
-      margin: 0.3rem 0 0;
-      font-size: 2.1rem;
-      text-align: center;
-      color: $black;
+    .information {
+      max-width: 100%;
+      padding: 0.5rem;
+      color: $donation_text-color;
 
-      .title-highlight {
-        color: $principal-blue;
+      .title {
+        margin: 0.3rem 0 0;
+        font-size: 2.1rem;
+        text-align: center;
+        color: $black;
+
+        .title-highlight {
+          color: $principal-blue;
+        }
       }
-    }
 
-    .time-direction {
-      display: flex;
-      flex-direction: column;
-      align-content: space-between;
-      justify-content: space-between;
-      height: 3.6rem;
-    }
-
-    .options {
-      margin-top: 1.3rem;
-      width: 10rem;
-      display: flex;
-      justify-content: space-between;
-
-      .option {
+      .time-direction {
         display: flex;
         flex-direction: column;
+        align-content: space-between;
+        justify-content: space-between;
+        height: 3.6rem;
+      }
 
-        .checkbox {
-          margin: 6px 1px;
+      .options {
+        margin-top: 1.3rem;
+        width: 10rem;
+        display: flex;
+        justify-content: space-between;
+
+        .option {
+          display: flex;
+          flex-direction: column;
+
+          .checkbox {
+            margin: 6px 1px;
+          }
         }
       }
     }
-  }
 
-  .image-container {
-    width: 100%;
+    .image-container {
+      max-width: 100%;
+      padding: 1rem;
 
-    .image {
+      .image {
+        width: 100%;
+      }
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
+      height: 3rem;
+      border-style: none;
+      border-radius: 5px;
+      background-color: $principal-blue;
+      color: $white;
+      font-size: 1.5rem;
+      font-weight: 900;
+
+      .icon {
+        size: 4rem;
+      }
     }
   }
 }

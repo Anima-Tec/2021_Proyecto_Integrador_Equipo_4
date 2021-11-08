@@ -1,21 +1,29 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
-import classes from './Donation.module.scss';
-import logo from '../../assets/images/color-palette.png';
+import { KeyboardArrowRight as Arrow } from '@material-ui/icons';
 import fetchController from '../../Networking/fetch-controller';
 import TYPE from '../../Networking/requestTypes';
+import classes from './Donation.module.scss';
 
 const Donation = () => {
   const { potID } = useParams();
-  const [potInfo, setPotInfo] = useState();
+  const [potInfo, setPotInfo] = useState({
+    address: '',
+    desc: '',
+    imageURL: '',
+    openFrom: '',
+    to: '',
+  });
 
-  const getPotInfo = useCallback(async () => {
-    const response = await fetchController(TYPE.VIEW_A_POT, { id: potID });
-    setPotInfo(response.data.Pot[0]);
+  useEffect(() => {
+    const getPotInfo = async () => {
+      const response = await fetchController(TYPE.VIEW_A_POT, { id: potID });
+      console.log(response);
+      setPotInfo(response.data.Pot[0]);
+    };
+
+    getPotInfo();
   }, [potID]);
-  console.log(potInfo);
-  useEffect(() => getPotInfo(), [getPotInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -23,42 +31,48 @@ const Donation = () => {
 
   return (
     <section className={classes.container}>
-      <form onSubmit={submitHandler} className={classes.information}>
-        <h1 className={classes.title}>
-          ¿Quiénes somos y a
-          <span className={classes['title-highlight']}> QUIÉNES</span> ayudamos?
-        </h1>
-        <p>{potInfo.desc}</p>
-        <div className={classes['time-direction']}>
-          <span>
-            horario: {potInfo.openFrom} : {potInfo.to}
-          </span>
-          <span>{potInfo.address}</span>
+      <div className={classes.content}>
+        <form onSubmit={submitHandler} className={classes.information}>
+          <h1 className={classes.title}>
+            ¿Quiénes somos y a
+            <span className={classes['title-highlight']}> QUIÉNES</span>{' '}
+            ayudamos?
+          </h1>
+          <p>{potInfo.desc}</p>
+          <div className={classes['time-direction']}>
+            <span>
+              horario: {potInfo.openFrom} : {potInfo.to}
+            </span>
+            <span>{potInfo.address}</span>
+          </div>
+          <div className={classes.options}>
+            <label className={classes.option} htmlFor='food'>
+              <span>Alimentos</span>
+              <input
+                className={classes.checkbox}
+                type='radio'
+                name='typeOfDonation'
+                id='food'
+              />
+            </label>
+            <label className={classes.option} htmlFor='money'>
+              <span>Dinero</span>
+              <input
+                className={classes.checkbox}
+                type='radio'
+                name='typeOfDonation'
+                id='money'
+              />
+            </label>
+          </div>
+          <button className={classes.button} type='submit'>
+            Donar
+            <Arrow className={classes.icon} />
+          </button>
+        </form>
+        <div className={classes['image-container']}>
+          <img className={classes.image} src={potInfo.imageURL} alt='pot' />
         </div>
-        <div className={classes.options}>
-          <label className={classes.option} htmlFor='food'>
-            <span>Alimentos</span>
-            <input
-              className={classes.checkbox}
-              type='radio'
-              name='typeOfDonation'
-              id='food'
-            />
-          </label>
-          <label className={classes.option} htmlFor='money'>
-            <span>Dinero</span>
-            <input
-              className={classes.checkbox}
-              type='radio'
-              name='typeOfDonation'
-              id='money'
-            />
-          </label>
-        </div>
-        <button type='submit'>Donar</button>
-      </form>
-      <div className={classes['image-container']}>
-        <img className={classes.image} src={potInfo.imageURL} alt='pot' />
       </div>
     </section>
   );
