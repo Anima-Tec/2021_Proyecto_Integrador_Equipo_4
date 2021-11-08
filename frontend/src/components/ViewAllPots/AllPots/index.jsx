@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactPaginate from "react-paginate";
 
 import fetchController from "../../../Networking/fetch-controller";
 import TYPE from "../../../Networking/requestTypes";
@@ -9,55 +10,61 @@ import classes from "./AllPots.module.scss";
 
 const ViewAllPots = () => {
   const [pots, setPots] = useState([]);
+  const [pageCount, setPageCount] = useState(1);
 
-  const getAllPots = async () => {
+  const getAllPots = async (page) => {
     const response = await fetchController(
       TYPE.VIEW_ALL_POTS,
       {
-        offset: 0,
+        offset: page,
       },
       {}
     );
     setPots(response.data.Pots);
+    setPageCount(response.data.PagesLeft + 1 + page);
   };
 
   useEffect(() => {
-    getAllPots();
+    getAllPots(0);
   }, []);
+
+  const handlePageClick = (newValue) => {
+    getAllPots(newValue.selected)
+  };
+
 
   return pots.length ? (
     <>
       <div className={classes.container}>
-        
         <div className={classes["container-cards"]}>
           {pots.map((pot) => (
-            <div className={classes.cards}>
+            <div className={classes.cards} key={pot.id}>
               <div className={classes["container-img"]}>
                 <img className={classes.img} src={pot.imageURL} alt="img" />
-                {pot.isInNeed === 1 && (
-                  <img
-                    className={classes["state-img"]}
-                    src={noNeedPotsImg}
-                    alt=""
-                  />
-                )}
                 {pot.isInNeed === 0 && (
                   <img
                     className={classes["state-img"]}
+                    src={noNeedPotsImg}
+                    alt="noNeed"
+                  />
+                )}
+                {pot.isInNeed === 1 && (
+                  <img
+                    className={classes["state-img"]}
                     src={helpPotsImg}
-                    alt=""
+                    alt="help"
                   />
                 )}
               </div>
 
               <h2 className={classes.name}>{pot.name}</h2>
 
-              {pot.isInNeed === 1 && (
+              {pot.isInNeed === 0 && (
                 <button className={classes["state-1"]}>
                   Olla sin necesidad
                 </button>
               )}
-              {pot.isInNeed === 0 && (
+              {pot.isInNeed === 1 && (
                 <button className={classes["state-0"]}>
                   Olla con necesidad
                 </button>
@@ -66,7 +73,23 @@ const ViewAllPots = () => {
           ))}
         </div>
 
-        <div className={classes["pagination-container"]}></div>
+        <div className={classes["pagination-container2"]}>
+        <ReactPaginate
+          previousLabel={"←"}
+          nextLabel={"→"}
+          breakLabel={'...'}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          onclick={getAllPots}
+          containerClassName={classes['pagination-container']}
+          pageClassName={classes.page}
+          breakClassName={classes.page}
+          previousClassName={classes.page}
+          nextClassName={classes.page}
+          disabledClassName={classes.disabled}
+          activeClassName={classes.active}
+        />
+        </div>
       </div>
     </>
   ) : (
