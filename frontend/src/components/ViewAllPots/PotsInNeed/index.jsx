@@ -36,7 +36,7 @@ const ViewPotsInNeed = () => {
       <div className={classes.container}>
         <div className={classes["container-cards"]}>
           {pots.map((pot) => (
-            <div className={classes.cards} key={pot.id}>
+            <div className={classes.cards} key={pot.id} onClick={console.log()}>
               <div className={classes["container-img"]}>
                 <img className={classes.img} src={pot.imageURL} alt="img" />
                 <img
