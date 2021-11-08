@@ -34,16 +34,14 @@ const Header = () => {
   }, [authToken]);
 
   const logOutHandler = async () => {
-    const response = await fetchController(
+    await fetchController(
       TYPE.LOG_OUT,
       {},
       { token: localStorage.getItem('userIdentifier') }
     );
 
-    if (response.status === 200) {
-      localStorage.removeItem('userIdentifier');
-      setAuthToken(localStorage.getItem('userIdentifier'));
-    }
+    localStorage.removeItem('userIdentifier');
+    setAuthToken(localStorage.getItem('userIdentifier'));
   };
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;

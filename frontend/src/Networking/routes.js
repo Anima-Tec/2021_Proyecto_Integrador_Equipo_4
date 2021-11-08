@@ -5,6 +5,7 @@ const ROUTE = {
   LOG_OUT: '/logout',
   ADD_POT: '/pots/save',
   VIEW_ALL_POTS: '/ollas',
+  VIEW_A_POT: '/pots',
   ADD_DONATION: '/donations/save',
   VIEW_DONATIONS: '/donations',
 };

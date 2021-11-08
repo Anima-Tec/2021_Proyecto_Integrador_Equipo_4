@@ -1,0 +1,63 @@
+@import '../../assets/styles/colors.module.scss';
+
+input[type='radio'] {
+  transform: scale(1.2);
+}
+
+.container {
+  margin-top: 4rem;
+  max-width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column-reverse;
+  border-radius: 5px;
+
+  .information {
+    width: 100%;
+    padding: 0.5rem;
+    color: $donation_text-color;
+
+    .title {
+      margin: 0.3rem 0 0;
+      font-size: 2.1rem;
+      text-align: center;
+      color: $black;
+
+      .title-highlight {
+        color: $principal-blue;
+      }
+    }
+
+    .time-direction {
+      display: flex;
+      flex-direction: column;
+      align-content: space-between;
+      justify-content: space-between;
+      height: 3.6rem;
+    }
+
+    .options {
+      margin-top: 1.3rem;
+      width: 10rem;
+      display: flex;
+      justify-content: space-between;
+
+      .option {
+        display: flex;
+        flex-direction: column;
+
+        .checkbox {
+          margin: 6px 1px;
+        }
+      }
+    }
+  }
+
+  .image-container {
+    width: 100%;
+
+    .image {
+      width: 100%;
+    }
+  }
+}
