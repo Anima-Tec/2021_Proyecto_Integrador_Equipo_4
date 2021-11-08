@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import classes from "./Donaciones.module.scss";
 import Table from "react-bootstrap/Table";
-import Pagination from "../../Paginacion";
 
-const MisDonaciones = () => {
+import classes from "./ViewMyDonations.module.scss";
+
+const ViewMyDonations = () => {
   return (
     <div className={classes["table-container"]}>
       <Table >
@@ -35,10 +35,9 @@ const MisDonaciones = () => {
             <td> Ejemplo </td>
           </tr>
         </tbody>
-        <Pagination></Pagination>
       </Table>
     </div>
   );
 };
 
-export default MisDonaciones;
+export default ViewMyDonations;

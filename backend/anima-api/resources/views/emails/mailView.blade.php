@@ -9,8 +9,8 @@
 <body>
     <h1>Account activation token</h1>
     <div>
-        Token: {{ $token->value }}
-        Expiration: {{ $token->expiration }}
+        Token: {{ $token }}
+        Expiration: {{ $expiration }}
     </div>
 </body>
 </html>

@@ -44,7 +44,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 5.125rem;
+  height: 4rem;
   background-color: $principal-green;
   font-size: 1.875rem;
   color: #ffff;
@@ -95,7 +95,7 @@
     margin-top: 1.875rem;
     margin-bottom: 1.875rem;
     border: none;
-    background-color: #f5f5f5;
+    background-color: $background-inputs;
     border-radius: 0.5rem;
   }
 
