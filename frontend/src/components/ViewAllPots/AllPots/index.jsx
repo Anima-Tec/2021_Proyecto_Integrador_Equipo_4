@@ -20,8 +20,8 @@ const ViewAllPots = () => {
       },
       {}
     );
-    setPots(response.data.Pots);
-    setPageCount(response.data.PagesLeft + 1 + page);
+      setPots(response.data.Pots);
+      setPageCount(response.data.PagesLeft + 1 + page);
   };
 
   useEffect(() => {
@@ -29,9 +29,8 @@ const ViewAllPots = () => {
   }, []);
 
   const handlePageClick = (newValue) => {
-    getAllPots(newValue.selected)
+    getAllPots(newValue.selected);
   };
-
 
   return pots.length ? (
     <>
@@ -73,22 +72,21 @@ const ViewAllPots = () => {
           ))}
         </div>
 
-        <div className={classes["pagination-container2"]}>
-        <ReactPaginate
-          previousLabel={"←"}
-          nextLabel={"→"}
-          breakLabel={'...'}
-          pageCount={pageCount}
-          onPageChange={handlePageClick}
-          onclick={getAllPots}
-          containerClassName={classes['pagination-container']}
-          pageClassName={classes.page}
-          breakClassName={classes.page}
-          previousClassName={classes.page}
-          nextClassName={classes.page}
-          disabledClassName={classes.disabled}
-          activeClassName={classes.active}
-        />
+        <div className={classes["pagination-container"]}>
+          <ReactPaginate
+            pageCount={pageCount}
+            previousLabel={"←"}
+            nextLabel={"→"}
+            breakLabel={"..."}
+            onPageChange={handlePageClick}
+            containerClassName={classes["pagination-container"]}
+            pageClassName={classes.page}
+            breakClassName={classes.page}
+            previousClassName={classes.page}
+            nextClassName={classes.page}
+            disabledClassName={classes.disabled}
+            activeClassName={classes.active}
+          />
         </div>
       </div>
     </>
