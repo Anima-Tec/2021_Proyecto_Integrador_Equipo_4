@@ -5,11 +5,12 @@ import { ToastProvider } from 'react-toast-notifications';
 
 import './index.module.scss';
 import Router from './router';
+import ViewMyDonations from './components/ViewMy/ViewMyDonations/index.jsx'
 
 ReactDOM.render(
   <ToastProvider>
     <BrowserRouter>
-      <Router />
+      <ViewMyDonations />
     </BrowserRouter>
   </ToastProvider>,
   document.getElementById('root')
