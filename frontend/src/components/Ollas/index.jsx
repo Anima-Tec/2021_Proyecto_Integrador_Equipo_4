@@ -28,7 +28,7 @@ const Ollas = () => {
                   className={classes['search-tab']}
                   label='Buscar ollas'
                   icon={<SearchIcon/>}
-                  value="1"
+                  value='1'
                 />
                 <Tab
                   className={classes['add-tab']}

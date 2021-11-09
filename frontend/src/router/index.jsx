@@ -1,5 +1,5 @@
-import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import paths from './paths';
 import Activation from '../pages/Activation';

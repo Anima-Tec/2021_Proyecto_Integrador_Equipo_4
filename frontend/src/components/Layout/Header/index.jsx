@@ -6,6 +6,7 @@ import {
 } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 
 import Register from '../../Register';
 import Login from '../../Login';
@@ -15,6 +16,7 @@ import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
 
 const Header = () => {
+  let history = useHistory();
   const [isLogged, setIsLogged] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
   const [authToken, setAuthToken] = useState(
@@ -47,7 +49,7 @@ const Header = () => {
   };
 
   const ViewPots = () => {
-    window.location.href='/view-my'
+    history.push('/view-my')
   }
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;

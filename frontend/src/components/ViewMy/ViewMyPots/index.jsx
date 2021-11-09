@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { ArrowForwardIos as ArrowForwardIosIcon } from "@material-ui/icons/";
-import ReactPaginate from "react-paginate";
-import { useToasts } from "react-toast-notifications";
+import React, { useState, useEffect } from 'react';
+import { ArrowForwardIos as ArrowForwardIosIcon } from '@material-ui/icons';
+import ReactPaginate from 'react-paginate';
+import { useToasts } from 'react-toast-notifications';
 
-import classes from "./ViewMyPots.module.scss";
-import NotFound from "./NotFound";
-import fetchController from "../../../Networking/fetch-controller";
-import TYPE from "../../../Networking/requestTypes";
+import classes from './ViewMyPots.module.scss';
+import NotFound from './NotFound';
+import fetchController from '../../../Networking/fetch-controller';
+import TYPE from '../../../Networking/requestTypes';
 
 const ViewMyPots = () => {
   const { addToast } = useToasts();
@@ -14,8 +14,8 @@ const ViewMyPots = () => {
   const [pageCount, setPageCount] = useState(1);
 
   const getPots = async (page) => {
-    if (localStorage.getItem("userIdentifier")) {
-      const token = localStorage.getItem("userIdentifier");
+    if (localStorage.getItem('userIdentifier')) {
+      const token = localStorage.getItem('userIdentifier');
       const response = await fetchController(
         TYPE.VIEW_MY_POTS,
         {
@@ -28,9 +28,9 @@ const ViewMyPots = () => {
         setPageCount(response.data.PagesLeft + 1 + page);
       }
     } else {
-      addToast("Debe loguearse para ver sus ollas.", {
-        appearance: "error",
-        autoDismiss: "4000",
+      addToast('Debe loguearse para ver sus ollas.', {
+        appearance: 'error',
+        autoDismiss: '4000',
       });
     }
   };
@@ -47,35 +47,35 @@ const ViewMyPots = () => {
     <>
       {pots.map((pot) => (
         <div className={classes.container} key={pot.id}>
-          <div className={classes["container-content"]}>
+          <div className={classes['container-content']}>
             <h1 className={classes.title}>{pot.name}</h1>
 
             {pot.isInNeed === 0 && (
-              <button className={classes["state-1"]}>Olla sin necesidad</button>
+              <button className={classes['state-1']}>Olla sin necesidad</button>
             )}
             {pot.isInNeed === 1 && (
-              <button className={classes["state-0"]}>Olla con necesidad</button>
+              <button className={classes['state-0']}>Olla con necesidad</button>
             )}
 
             <p className={classes.description}>{pot.desc}</p>
             <p className={classes.time}>
               Horario: {pot.openFrom} - {pot.to}
             </p>
-            <button className={classes["edit-button"]}>
+            <button className={classes['edit-button']}>
               Editar olla popular <ArrowForwardIosIcon />
             </button>
           </div>
 
-          <div className={classes["container-img"]}>
-            <img className={classes.img} src={pot.imageURL} alt="img-prueba" />
+          <div className={classes['container-img']}>
+            <img className={classes.img} src={pot.imageURL} alt='img-prueba' />
           </div>
         </div>
       ))}
-      <div className={classes["pagination-container"]}>
+      <div className={classes['pagination-container']}>
       <ReactPaginate
           pageCount={pageCount}
-          previousLabel={"←"}
-          nextLabel={"→"}
+          previousLabel={'←'}
+          nextLabel={'→'}
           breakLabel={'...'}
           onPageChange={handlePageClick}
           containerClassName={classes['pagination-container']}
