@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { KeyboardArrowRight as Arrow } from '@material-ui/icons';
+
 import fetchController from '../../Networking/fetch-controller';
 import TYPE from '../../Networking/requestTypes';
+
 import classes from './Donation.module.scss';
 
 const Donation = () => {
@@ -18,8 +20,12 @@ const Donation = () => {
   useEffect(() => {
     const getPotInfo = async () => {
       const response = await fetchController(TYPE.VIEW_A_POT, { id: potID });
-      console.log(response);
-      setPotInfo(response.data.Pot[0]);
+
+      const openFromTime = response.data.Pot[0].openFrom;
+      const openFrom = openFromTime.substring(0, openFromTime.length - 3);
+      const toTime = response.data.Pot[0].to;
+      const to = toTime.substring(0, toTime.length - 3);
+      setPotInfo({ ...response.data.Pot[0], openFrom, to });
     };
 
     getPotInfo();
@@ -35,40 +41,42 @@ const Donation = () => {
         <form onSubmit={submitHandler} className={classes.information}>
           <h1 className={classes.title}>
             ¿Quiénes somos y a
-            <span className={classes['title-highlight']}> QUIÉNES</span>{' '}
+            <span className={classes['title-highlight']}> QUIÉNES </span>
             ayudamos?
           </h1>
-          <p>{potInfo.desc}</p>
-          <div className={classes['time-direction']}>
-            <span>
-              horario: {potInfo.openFrom} : {potInfo.to}
-            </span>
-            <span>{potInfo.address}</span>
+          <div className={classes['']}>
+            <p>{potInfo.desc}</p>
+            <div className={classes['time-direction']}>
+              <span>
+                horario: {potInfo.openFrom} : {potInfo.to}
+              </span>
+              <span>{potInfo.address}</span>
+            </div>
+            <div className={classes.options}>
+              <label className={classes.option} htmlFor='food'>
+                <span>Alimentos</span>
+                <input
+                  className={classes.checkbox}
+                  type='radio'
+                  name='typeOfDonation'
+                  id='food'
+                />
+              </label>
+              <label className={classes.option} htmlFor='money'>
+                <span>Dinero</span>
+                <input
+                  className={classes.checkbox}
+                  type='radio'
+                  name='typeOfDonation'
+                  id='money'
+                />
+              </label>
+            </div>
+            <button className={classes.button} type='submit'>
+              Donar
+              <Arrow className={classes.icon} />
+            </button>
           </div>
-          <div className={classes.options}>
-            <label className={classes.option} htmlFor='food'>
-              <span>Alimentos</span>
-              <input
-                className={classes.checkbox}
-                type='radio'
-                name='typeOfDonation'
-                id='food'
-              />
-            </label>
-            <label className={classes.option} htmlFor='money'>
-              <span>Dinero</span>
-              <input
-                className={classes.checkbox}
-                type='radio'
-                name='typeOfDonation'
-                id='money'
-              />
-            </label>
-          </div>
-          <button className={classes.button} type='submit'>
-            Donar
-            <Arrow className={classes.icon} />
-          </button>
         </form>
         <div className={classes['image-container']}>
           <img className={classes.image} src={potInfo.imageURL} alt='pot' />

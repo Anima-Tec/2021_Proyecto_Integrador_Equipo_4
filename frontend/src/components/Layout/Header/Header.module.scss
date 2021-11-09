@@ -1,9 +1,5 @@
 @import '../../../assets/styles/colors.module.scss';
 
-:root {
-  --skyblue: #a6e4ff;
-}
-
 .pointer-no-selectable {
   cursor: pointer;
   user-select: none;
@@ -26,7 +22,7 @@
   min-height: 4rem;
   margin: 0;
   background-color: $white;
-  box-shadow: 0 1px 4px #00000033;
+  box-shadow: 0 1px 4px $header_box-shadow-color;
   border-radius: 0 0 1rem 1rem;
 
   .logo-toggler {
@@ -38,7 +34,7 @@
     margin: 0;
     border-radius: 0 0 1rem 1rem;
 
-    box-shadow: 0 1px 4px #00000033;
+    box-shadow: 0 1px 4px $header_box-shadow-color;
     border-radius: 0 0 1rem 1rem;
   }
 
@@ -129,15 +125,15 @@
         }
 
         &:active {
-          color: var(--skyblue);
+          color: $principal-sky-blue;
           opacity: 0.7;
 
           .view-map__title {
-            color: var(--skyblue);
+            color: $principal-sky-blue;
           }
 
           .map-icon {
-            color: var(--skyblue);
+            color: $principal-sky-blue;
           }
         }
       }
@@ -153,7 +149,7 @@
           display: flex;
           align-items: center;
           border-style: none;
-          background-color: #ffffff;
+          background-color: $white;
           font-size: 1rem;
           font-weight: 800;
           color: $principal-blue;
@@ -161,12 +157,12 @@
 
           &:active {
             cursor: pointer;
-            color: var(--skyblue);
+            color: $principal-sky-blue;
             transform: scale(0.95);
             opacity: 0.7;
 
             .person-icon {
-              color: var(--skyblue);
+              color: $principal-sky-blue;
             }
           }
 
@@ -226,21 +222,20 @@
 
           &:hover {
             cursor: pointer;
-            color: var(--skyblue);
+            color: $principal-sky-blue;
 
             .view-map__title {
-              color: var(--skyblue);
+              color: $principal-sky-blue;
             }
 
             .map-icon {
-              color: var(--skyblue);
+              color: $principal-sky-blue;
             }
           }
         }
 
         .buttons {
           display: flex;
-
           flex-direction: row;
           align-items: center;
           margin: 0;
@@ -248,11 +243,12 @@
           .button {
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 0.5rem 0.8rem 0.5rem 0.8rem;
             border-style: none;
             border-radius: 5px;
-            box-shadow: 0 1px 4px #00000033;
-            background-color: #ffffff;
+            box-shadow: 0 1px 4px $header_box-shadow-color;
+            background-color: $white;
             font-size: 1rem;
             font-weight: 800;
             color: $principal-blue;
@@ -260,21 +256,21 @@
 
             &:active {
               cursor: pointer;
-              color: var(--skyblue);
+              color: $principal-sky-blue;
               transform: scale(0.95);
               opacity: 0.7;
 
               .person-icon {
-                color: var(--skyblue);
+                color: $principal-sky-blue;
               }
             }
 
             .button:hover {
               cursor: pointer;
-              color: var(--skyblue);
+              color: $principal-sky-blue;
 
               .person-icon {
-                color: var(--skyblue);
+                color: $principal-sky-blue;
               }
             }
 
