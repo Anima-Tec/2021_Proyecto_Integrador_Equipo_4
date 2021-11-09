@@ -1,7 +1,7 @@
 @import '../../assets/styles/colors.module.scss';
 
 .ollas-container {
-  background-color: #ffffff;
+  background-color: $white;
   border-radius: 8px;
   width: 100%;
 }
@@ -25,7 +25,7 @@
    }
 
   .search-tab{
-    color: #bd3131;
+    color: $principal-red;
     font-weight: bold;
 
     border-radius: 8px;

@@ -81,7 +81,7 @@
     display: flex;
     justify-content: center;
     padding: 10px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid $background-inputs;
     border-radius: 6px;
     margin-right: 10px;
     cursor: pointer;
@@ -94,7 +94,7 @@
   }
   
   .active {
-    border: 2px solid #000;
+    border: 2px solid $black;
     font-weight: bold;
   }
 }
