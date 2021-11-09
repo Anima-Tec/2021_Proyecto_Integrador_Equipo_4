@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b19dbad3-f1c8-4fd6-8e94-94e77a2d5279",
+		"_postman_id": "4771a1ef-985b-4acc-8cc8-751574287753",
 		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -430,7 +430,7 @@
 								"<potID>"
 							]
 						},
-						"description": "Updates the record that matches the provided ID.\n\nThe attributes that can be modified are: name, desc, openFrom, to, address, isInNeed and state.\n\nYou should only include the attributes that you want to modify in the request's body. If an attribute is present but it has no value (or is invalid), an error message will be returned and no change will be made.\n\nGood request:\n{\n'name': 'newName',\n'desc': 'newDesc'\n}\n\nBad request:\n{\n'name': 'newName',\n'desc': 'newDesc',\n'openFrom': \n}\n\nAnd yes, this should be a PATCH or PUT request, but you can blame PHP itself for that (https://bugs.php.net/bug.php?id=55815)."
+						"description": "Updates the record that matches the provided ID.\n\nThe attributes that can be modified are: name, desc, openFrom, to, address, lat, lng, isInNeed and state.\n\nYou should only include the attributes that you want to modify in the request's body. If an attribute is present but it has no value (or is invalid), an error message will be returned and no change will be made.\n\nGood request:\n{\n'name': 'newName',\n'desc': 'newDesc'\n}\n\nBad request:\n{\n'name': 'newName',\n'desc': 'newDesc',\n'openFrom': \n}\n\nAnd yes, this should be a PATCH or PUT request, but you can blame PHP itself for that (https://bugs.php.net/bug.php?id=55815)."
 					},
 					"response": []
 				}
@@ -566,7 +566,7 @@
 								"<limit>"
 							]
 						},
-						"description": "Returns all content regardless of its author while allowing pagination.\n\nThe 'contentType' param can either be 'donations' or 'pots', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
+						"description": "Returns all content regardless of its author while allowing pagination.\n\nThe 'contentType' param can either be 'donations', 'pots' or 'potsInNeed', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
 					},
 					"response": []
 				},
@@ -609,7 +609,7 @@
 								"<limit>"
 							]
 						},
-						"description": "Returns content created by the current user while allowing pagination.\n\nThe 'contentType' param can either be 'donations' or 'pots', while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
+						"description": "Returns content created by the current user while allowing pagination.\n\nThe 'contentType' param can either be 'donations', 'pots' or 'potsInNeed' while 'offset' and 'limit' should both be integers.\n\nIn each response will be included the amount of pages that there are left (this value is obtained via the offset, limit and amount of content in the database). Once this value reaches 0, it means that there is no more content to be displayed."
 					},
 					"response": []
 				}

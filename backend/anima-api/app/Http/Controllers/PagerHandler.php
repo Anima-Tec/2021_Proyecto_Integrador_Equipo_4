@@ -70,6 +70,30 @@ class PagerHandler extends Controller
 
                 break;
 
+            case 'potsInNeed':
+
+                $user = $request->user();
+                $pagesLeft = ceil((Pot::where('authorEmail', $user->email)->where('isInNeed', 1)->count() / $limit) - $offset);
+
+                $Pots = Pot::where('authorEmail', $user->email)
+                    ->where('isInNeed', 1)
+                    ->skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                $pagesLeft = $pagesLeft - 1;
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+
+                return response()->json([
+                    'Pots' => $Pots,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
             default:
                 return response()->json([
                     'message' => "Content of type '$contentType' not found."
@@ -116,6 +140,28 @@ class PagerHandler extends Controller
                 $pagesLeft = ceil((Pot::where('state', 1)->count() / $limit) - $offset);
 
                 $Pots = Pot::where('state', 1)->skip($limit * $offset)
+                    ->take($limit)
+                    ->get();
+
+                $pagesLeft = $pagesLeft - 1;
+
+                if ($pagesLeft < 0) {
+                    $pagesLeft = 0;
+                }
+
+                return response()->json([
+                    'Pots' => $Pots,
+                    'PagesLeft' => abs($pagesLeft)
+                ], 200);
+
+                break;
+
+            case 'potsInNeed':
+
+                $pagesLeft = ceil((Pot::where('isInNeed', 1)->count() / $limit) - $offset);
+
+                $Pots = Pot::where('isInNeed', 1)
+                    ->skip($limit * $offset)
                     ->take($limit)
                     ->get();
 

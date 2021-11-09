@@ -7,8 +7,8 @@ import ViewMyPots from '../../components/ViewMy/ViewMyPots';
 import ViewMyDonations from '../../components/ViewMy/ViewMyDonations';
 import classes from './ViewMy.module.scss';
 
-const Control = () => {
-  const [value, setValue] = useState('2');
+const ViewMy = () => {
+  const [value, setValue] = useState('1');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -52,4 +52,4 @@ const Control = () => {
   );
 };
 
-export default Control;
+export default ViewMy;
