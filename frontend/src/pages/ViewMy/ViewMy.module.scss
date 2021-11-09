@@ -1,0 +1,84 @@
+@import '../../assets/styles/colors.module.scss';
+
+.container {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: row;
+
+  .viewMy-container {
+    height: 90%;
+    width: 100%;
+
+    .viewMy-header {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      padding-top: 1.5rem;
+      padding-left: 1.5rem;
+
+      :global(.MuiTab-wrapper) {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: row;
+        padding: 0;
+      }
+
+      :global(.MuiTab-labelIcon) {
+       min-height: 3rem; 
+      }
+
+      .pots-tab {
+        color: $principal-red;
+        font-weight: bold;
+        border-radius: 8px;
+
+        &:hover {
+          background-color: $principal-blue;
+        }
+
+        &.active {
+          background-color: $principal-blue;
+        }
+      }
+
+      .donations-tab {
+        margin-left: 1rem;
+        border-radius: 8px;
+        font-weight: bold;
+
+        &:hover {
+          background-color: $principal-blue;
+        }
+
+        &.active {
+          background-color: $principal-blue;
+        }
+      }
+    }
+
+    .container-content{
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+
+    .manage-container {
+
+      .manage-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 1.5rem 0;
+
+        .donations-tab {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
