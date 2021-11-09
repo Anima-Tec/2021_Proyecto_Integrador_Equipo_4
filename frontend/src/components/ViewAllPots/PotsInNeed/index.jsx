@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import ReactPaginate from "react-paginate";
+import React, { useState, useEffect } from 'react';
+import ReactPaginate from 'react-paginate';
 
-import fetchController from "../../../Networking/fetch-controller";
-import TYPE from "../../../Networking/requestTypes";
-import NotFound from "../NotFound";
-import helpPotsImg from "../../../assets/images/imagesCards/HelpPotsImage.png";
-import classes from "./PotsInNeed.module.scss";
+import fetchController from '../../../Networking/fetch-controller';
+import TYPE from '../../../Networking/requestTypes';
+import NotFound from '../NotFound';
+import helpPotsImg from '../../../assets/images/imagesCards/HelpPotsImage.png';
+import classes from './PotsInNeed.module.scss';
 
 const ViewPotsInNeed = () => {
   const [pots, setPots] = useState([]);
@@ -27,40 +27,40 @@ const ViewPotsInNeed = () => {
     getPotsInNeed(0);
   }, []);
 
-  const handlePageClick = (newValue) => {
+  const changePageHandler = (newValue) => {
     getPotsInNeed(newValue.selected);
   };
 
   return pots.length ? (
     <>
       <div className={classes.container}>
-        <div className={classes["container-cards"]}>
+        <div className={classes['container-cards']}>
           {pots.map((pot) => (
             <div className={classes.cards} key={pot.id} onClick={console.log()}>
-              <div className={classes["container-img"]}>
-                <img className={classes.img} src={pot.imageURL} alt="img" />
+              <div className={classes['container-img']}>
+                <img className={classes.img} src={pot.imageURL} alt='img' />
                 <img
-                  className={classes["state-img"]}
+                  className={classes['state-img']}
                   src={helpPotsImg}
-                  alt="help"
+                  alt='help'
                 />
               </div>
 
               <h2 className={classes.name}>{pot.name}</h2>
 
-              <button className={classes["state-0"]}>Olla con necesidad</button>
+              <button className={classes['state-0']}>Olla con necesidad</button>
             </div>
           ))}
         </div>
 
-        <div className={classes["pagination-container"]}>
+        <div className={classes['pagination-container']}>
           <ReactPaginate
             pageCount={pageCount}
-            previousLabel={"←"}
-            nextLabel={"→"}
-            breakLabel={"..."}
-            onPageChange={handlePageClick}
-            containerClassName={classes["pagination-container"]}
+            previousLabel={'←'}
+            nextLabel={'→'}
+            breakLabel={'...'}
+            onPageChange={changePageHandler}
+            containerClassName={classes['pagination-container']}
             pageClassName={classes.page}
             breakClassName={classes.page}
             previousClassName={classes.page}
