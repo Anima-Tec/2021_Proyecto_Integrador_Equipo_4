@@ -108,6 +108,7 @@ const CreatePots = () => {
         setAddress(null);
       } else {
         setLoading(false);
+        localStorage.clear();
         return addToast('Error desconocido', {
           appearance: 'error',
           autoDismiss: '4000',
