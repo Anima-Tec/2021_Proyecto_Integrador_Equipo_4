@@ -77,10 +77,18 @@ const fetchController = async (type, data, extraHeaders) => {
       const viewPotsInNeed = await sendRequest(viewPotsInNeedUrl, METHOD.GET, {}, {});
       return viewPotsInNeed;
 
-
+    case TYPE.VIEW_MY_POTS:
+      const viewMyPotsUrl = generateUrl(`${ROUTE.VIEW_MY_POTS}/${data.offset}/5`);
+        const viewPotsResponse = await sendRequest(viewMyPotsUrl, METHOD.GET,
+        {},
+        {Authorization: `Bearer ${extraHeaders.token}`},
+        );
+        return viewPotsResponse;
+    
     case TYPE.ADD_DONATION:
 
       break;
+
     case TYPE.ACTIVATE_ACCOUNT:
       const activateUrl = generateUrl(ROUTE.ACTIVATE_ACCOUNT);
 
