@@ -52,13 +52,17 @@ const Header = () => {
     history.push('/view-my')
   }
 
+  const goHome = () => {
+    history.push('/')
+  }
+
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
 
   return (
     <header className={classes.header}>
       <ul>
         <div className={classes['logo-toggler']}>
-          <li className={`${classes.logo} ${classes['pointer-no-selectable']}`}>
+          <li className={`${classes.logo} ${classes['pointer-no-selectable']}`} onClick={goHome}>
             <img src={logo} alt='logo' />
             <h1 className={classes.title}>
               <span className={classes['title__first-half']}>brak</span>
