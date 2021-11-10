@@ -143,7 +143,7 @@ class PagerHandler extends Controller
                 }
 
                 return response()->json([
-                    'Donations' => $Donations,
+                    'Donations' => $namedDonations,
                     'PagesLeft' => abs($pagesLeft)
                 ], 200);
 
