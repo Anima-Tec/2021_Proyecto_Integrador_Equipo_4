@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import {
-  Map as MapIcon,
+  Search as SearchIcon,
   Person as PersonIcon,
   PersonAdd as PersonAddIcon,
 } from '@material-ui/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 
 import Register from '../../Register';
 import Login from '../../Login';
@@ -15,6 +16,7 @@ import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
 
 const Header = () => {
+  let history = useHistory();
   const [isLogged, setIsLogged] = useState(false);
   const [isToggled, setIsToggled] = useState(false);
   const [authToken, setAuthToken] = useState(
@@ -43,6 +45,10 @@ const Header = () => {
     localStorage.removeItem('userIdentifier');
     setAuthToken(localStorage.getItem('userIdentifier'));
   };
+
+  const ViewPots = () => {
+    history.push('/view-my')
+  }
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
 
@@ -82,12 +88,13 @@ const Header = () => {
               : classes['nav-content']
           }
         >
-          <li className={classes['view-map']}>
-            <MapIcon className={classes['map-icon']} />
+          <li className={classes['view']}>
+            <SearchIcon className={classes['search-icon']} />
             <h4
-              className={`${classes['view-map__title']} ${classes['pointer-no-selectable']}`}
+              className={`${classes['view__title']} ${classes['pointer-no-selectable']}`}
+              onClick={ViewPots}
             >
-              Ver mapa
+              Mis ollas
             </h4>
           </li>
           <li className={classes.buttons}>

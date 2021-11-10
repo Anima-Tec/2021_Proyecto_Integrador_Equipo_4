@@ -5,13 +5,15 @@ import paths from './paths';
 import Activation from '../pages/Activation';
 import CommonRoute from './CommonRoute';
 import Donation from '../pages/Donation';
+import ViewMy from '../pages/ViewMy';
 import Home from '../pages/Home';
 
 const Router = () => {
   return (
     <Switch>
       <CommonRoute path={paths.HOME} exact component={Home} />
-      <CommonRoute path={paths.DONATE_POT} exact component={Donation} />
+      <CommonRoute path={paths.DONATE_POT} component={Donation} />
+      <CommonRoute path={paths.VIEW_MY} exact component={ViewMy} />
       <Route path={paths.ACTIVATION} exact component={Activation} />
       <Route path={paths.DEFAULT}>
         <Redirect to={paths.HOME} />

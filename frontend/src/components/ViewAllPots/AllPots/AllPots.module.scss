@@ -1,0 +1,43 @@
+@import '../../../assets/styles/colors.module.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .container-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pagination-container {
+    display: flex;
+    justify-content: flex-end;
+
+    .pages-container {
+      display: flex;
+      list-style: none;
+    }
+
+    .page {
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid $background-inputs;
+      border-radius: 6px;
+      margin-right: 10px;
+      cursor: pointer;
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+
+    .disabled {
+      cursor: not-allowed;
+    }
+
+    .active {
+      border: 2px solid $black;
+      font-weight: bold;
+    }
+  }
+}

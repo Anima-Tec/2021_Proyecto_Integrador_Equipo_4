@@ -1,0 +1,96 @@
+@import '../../assets/styles/colors.module.scss';
+
+.ollas-container {
+  background-color: $white;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.header-ollas {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-top: 1.5rem;
+  padding-left: 1.5rem;
+
+  :global(.MuiTab-wrapper) {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    padding-top: 5px;
+  }
+  
+  :global(.MuiTab-labelIcon) {
+    min-height: 3rem; 
+   }
+
+  .search-tab{
+    color: $principal-red;
+    font-weight: bold;
+
+    border-radius: 8px;
+
+    &:hover{
+      background-color: $principal-blue;
+    }
+
+    &.active{
+      background-color: $principal-blue;
+    }
+  }
+
+  .add-tab{
+    margin-left: 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+
+    &:hover{
+      background-color:$principal-blue;
+    }
+
+    &.selection{
+      background: $principal-blue;
+    }
+  }
+}
+
+@media (max-width: 426px) {
+  .ollas-container {
+    width: 100%;
+  }
+
+  .header-ollas {
+    padding-top: 1rem;
+    padding-left: 0;
+    align-items: center;
+    justify-content: center;
+
+    .add-tab{
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 800px) and (min-width: 500px) {
+  .ollas-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1440px) and (min-width: 1024px) {
+  .ollas-container {
+    width: 95%;
+  }
+}
+
+@media (max-width: 1920px) and (min-width: 1440px) {
+  .ollas-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1920px) {
+  .ollas-container {
+    width: 85%;
+  }
+}

@@ -106,17 +106,17 @@
       align-items: center;
       width: 100%;
 
-      .view-map {
+      .view {
         display: flex;
         align-items: center;
         width: 100%;
 
-        .view-map__title {
+        .view__title {
           color: $principal-blue;
           width: 5rem;
         }
 
-        .map-icon {
+        .search-icon {
           margin: 0 0.3rem 0 0.3rem;
           padding: 0;
           height: 1rem;
@@ -216,7 +216,7 @@
         padding-right: 4rem;
         width: auto;
 
-        .view-map {
+        .view {
           margin-right: 2rem;
           width: 8rem;
 
