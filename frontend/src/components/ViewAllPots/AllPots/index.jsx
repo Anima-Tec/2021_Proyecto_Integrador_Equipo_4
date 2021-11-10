@@ -3,9 +3,8 @@ import ReactPaginate from 'react-paginate';
 
 import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
+import Cards from '../Cards'
 import NotFound from '../NotFound';
-import helpPotsImg from '../../../assets/images/imagesCards/HelpPotsImage.png';
-import noNeedPotsImg from '../../../assets/images/imagesCards/NoNeedPotsImage.png';
 import classes from './AllPots.module.scss';
 
 const ViewAllPots = () => {
@@ -37,38 +36,7 @@ const ViewAllPots = () => {
       <div className={classes.container}>
         <div className={classes['container-cards']}>
           {pots.map((pot) => (
-            <div className={classes.cards} key={pot.id} onClick={console.log()}>
-              <div className={classes['container-img']}>
-                <img className={classes.img} src={pot.imageURL} alt='img' />
-                {pot.isInNeed === 0 && (
-                  <img
-                    className={classes['state-img']}
-                    src={noNeedPotsImg}
-                    alt='noNeed'
-                  />
-                )}
-                {pot.isInNeed === 1 && (
-                  <img
-                    className={classes['state-img']}
-                    src={helpPotsImg}
-                    alt='help'
-                  />
-                )}
-              </div>
-
-              <h2 className={classes.name}>{pot.name}</h2>
-
-              {pot.isInNeed === 0 && (
-                <button className={classes['state-1']}>
-                  Olla sin necesidad
-                </button>
-              )}
-              {pot.isInNeed === 1 && (
-                <button className={classes['state-0']}>
-                  Olla con necesidad
-                </button>
-              )}
-            </div>
+            <Cards {...pot} />
           ))}
         </div>
 

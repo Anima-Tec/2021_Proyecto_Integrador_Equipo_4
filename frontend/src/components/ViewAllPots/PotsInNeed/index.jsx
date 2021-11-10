@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
 import NotFound from '../NotFound';
-import helpPotsImg from '../../../assets/images/imagesCards/HelpPotsImage.png';
+import Cards from '../Cards'
 import classes from './PotsInNeed.module.scss';
 
 const ViewPotsInNeed = () => {
@@ -36,20 +36,7 @@ const ViewPotsInNeed = () => {
       <div className={classes.container}>
         <div className={classes['container-cards']}>
           {pots.map((pot) => (
-            <div className={classes.cards} key={pot.id} onClick={console.log()}>
-              <div className={classes['container-img']}>
-                <img className={classes.img} src={pot.imageURL} alt='img' />
-                <img
-                  className={classes['state-img']}
-                  src={helpPotsImg}
-                  alt='help'
-                />
-              </div>
-
-              <h2 className={classes.name}>{pot.name}</h2>
-
-              <button className={classes['state-0']}>Olla con necesidad</button>
-            </div>
+            <Cards {...pot}/>
           ))}
         </div>
 

@@ -106,6 +106,12 @@ const CreatePots = () => {
         });
         setFile(null);
         setAddress(null);
+      } else {
+        setLoading(false);
+        return addToast('Error desconocido', {
+          appearance: 'error',
+          autoDismiss: '4000',
+        });
       }
     } else {
       setLoading(false);
