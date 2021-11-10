@@ -17,6 +17,13 @@ const Donation = () => {
     to: '',
   });
 
+  const [typeOfDonation, setTypeOfDonation] = useState(null);
+
+  const changeTypeOfDonationHandler = (event) => {
+    const id = event.target.id;
+    setTypeOfDonation(id);
+  };
+
   useEffect(() => {
     const getPotInfo = async () => {
       const response = await fetchController(TYPE.VIEW_A_POT, { id: potID });
@@ -33,6 +40,14 @@ const Donation = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    const response = fetchController(TYPE.ADD_DONATION, {
+      potID,
+      donationType: typeOfDonation,
+    });
+
+    if (response.status === 200) {
+      console.log('todo bien');
+    }
   };
 
   return (
@@ -60,6 +75,7 @@ const Donation = () => {
                   type='radio'
                   name='typeOfDonation'
                   id='food'
+                  onClick={changeTypeOfDonationHandler}
                 />
               </label>
               <label className={classes.option} htmlFor='money'>
@@ -69,6 +85,7 @@ const Donation = () => {
                   type='radio'
                   name='typeOfDonation'
                   id='money'
+                  onClick={changeTypeOfDonationHandler}
                 />
               </label>
             </div>
