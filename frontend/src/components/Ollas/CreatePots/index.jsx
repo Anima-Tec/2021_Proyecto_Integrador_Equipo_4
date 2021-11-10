@@ -192,10 +192,6 @@ const CreatePots = () => {
               <input
                 className={classes['input-schedule']}
                 placeholder='Hora'
-                min='0'
-                max='24'
-                type='number'
-                id='fromTimeFirst'
                 maxLength='2'
                 type='text'
                 id='fromTimeFirst'
