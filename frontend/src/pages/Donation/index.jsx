@@ -39,19 +39,19 @@ const Donation = () => {
     <section className={classes.container}>
       <div className={classes.content}>
         <form onSubmit={submitHandler} className={classes.information}>
-          <h1 className={classes.title}>
-            ¿Quiénes somos y a
-            <span className={classes['title-highlight']}> QUIÉNES </span>
-            ayudamos?
-          </h1>
+          <div className={classes['title-container']}>
+            <h1 className={classes.title}>
+              ¿Quiénes somos y a
+              <span className={classes['title-highlight']}> QUIÉNES </span>
+              ayudamos?
+            </h1>
+          </div>
           <div className={classes['form-content']}>
             <p>{potInfo.desc}</p>
-            <div className={classes['time-direction']}>
-              <span>
-                horario: {potInfo.openFrom} : {potInfo.to}
-              </span>
-              <span>{potInfo.address}</span>
-            </div>
+            <span>
+              horario: {potInfo.openFrom} : {potInfo.to}
+            </span>
+            <span>{potInfo.address}</span>
             <div className={classes.options}>
               <label className={classes.option} htmlFor='food'>
                 <span>Alimentos</span>
