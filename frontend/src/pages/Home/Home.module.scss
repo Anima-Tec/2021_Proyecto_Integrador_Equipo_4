@@ -77,6 +77,12 @@
     }
   }
 }
+.container2 {
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+}
 
 @media (max-width: 426px) {
   .container {

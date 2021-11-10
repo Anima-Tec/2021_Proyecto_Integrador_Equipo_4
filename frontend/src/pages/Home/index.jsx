@@ -1,3 +1,4 @@
+import ViewAllPots from '../../components/ViewAllPots';
 import Ollas from '../../components/Ollas';
 import imageHome from '../../assets/images/Image-home.png';
 import classes from './Home.module.scss';
@@ -5,6 +6,7 @@ import classes from './Home.module.scss';
 const Home = () => {
   
   return (
+    <>
     <div className={classes.container}>
       <div className={classes['home-container']}>
         <h1 className={classes.title}>¿Vos colaborás?</h1>
@@ -21,6 +23,11 @@ const Home = () => {
         <img className={classes['img-home']} src={imageHome} alt='img' />
       </div>
     </div>
+
+  <div className={classes.container2}>
+    <ViewAllPots/>
+  </div>
+  </>
   );
 };
 
