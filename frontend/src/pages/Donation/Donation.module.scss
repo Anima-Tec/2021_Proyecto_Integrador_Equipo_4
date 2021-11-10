@@ -33,26 +33,30 @@ input[type='radio'] {
         }
       }
 
-      .time-direction {
-        display: flex;
-        flex-direction: column;
-        align-content: space-between;
-        justify-content: space-between;
-        height: 3.6rem;
-      }
+      .form-content {
+        padding: 0 1rem;
 
-      .options {
-        margin-top: 1.3rem;
-        width: 10rem;
-        display: flex;
-        justify-content: space-between;
-
-        .option {
+        .time-direction {
           display: flex;
           flex-direction: column;
+          align-content: space-between;
+          justify-content: space-between;
+          height: 3.6rem;
+        }
 
-          .checkbox {
-            margin: 6px 1px;
+        .options {
+          margin-top: 1.3rem;
+          width: 10rem;
+          display: flex;
+          justify-content: space-between;
+
+          .option {
+            display: flex;
+            flex-direction: column;
+
+            .checkbox {
+              margin: 6px 1px;
+            }
           }
         }
       }
@@ -88,4 +92,7 @@ input[type='radio'] {
       }
     }
   }
+}
+
+@media (min-width: 425px) {
 }

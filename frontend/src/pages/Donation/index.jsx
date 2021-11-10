@@ -44,7 +44,7 @@ const Donation = () => {
             <span className={classes['title-highlight']}> QUIÉNES </span>
             ayudamos?
           </h1>
-          <div className={classes['']}>
+          <div className={classes['form-content']}>
             <p>{potInfo.desc}</p>
             <div className={classes['time-direction']}>
               <span>
