@@ -35,8 +35,9 @@ class PagerHandler extends Controller
                     ->get();
 
                 foreach ($Donations as $donation) {
-                    $currentPotName = Pot::where('id', $donation->potid)->select('name')->get()[0];
+                    $currentPotName = Pot::where('id', $donation->potid)->select(['name', 'authorEmail'])->get()[0];
                     $donation->potName = $currentPotName->name;
+                    $donation->ownerEmail = $currentPotName->authorEmail;
                     array_push($namedDonations, $donation);
                 }
 
@@ -131,8 +132,9 @@ class PagerHandler extends Controller
                     ->get();
 
                 foreach ($Donations as $donation) {
-                    $currentPotName = Pot::where('id', $donation->potid)->select('name')->get()[0];
+                    $currentPotName = Pot::where('id', $donation->potid)->select(['name', 'authorEmail'])->get()[0];
                     $donation->potName = $currentPotName->name;
+                    $donation->ownerEmail = $currentPotName->authorEmail;
                     array_push($namedDonations, $donation);
                 }
 
