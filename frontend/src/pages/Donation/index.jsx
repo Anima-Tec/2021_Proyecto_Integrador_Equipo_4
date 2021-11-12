@@ -38,13 +38,17 @@ const Donation = () => {
     getPotInfo();
   }, [potID]);
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    const response = fetchController(TYPE.ADD_DONATION, {
-      potID,
-      donationType: typeOfDonation,
-    });
-
+    const response = await fetchController(
+      TYPE.ADD_DONATION,
+      {
+        potId: potID,
+        donationType: typeOfDonation,
+      },
+      { token: localStorage.getItem('userIdentifier') }
+    );
+    console.log(response);
     if (response.status === 200) {
       console.log('todo bien');
     }
@@ -74,7 +78,7 @@ const Donation = () => {
                   className={classes.checkbox}
                   type='radio'
                   name='typeOfDonation'
-                  id='food'
+                  id='Food'
                   onClick={changeTypeOfDonationHandler}
                 />
               </label>
@@ -84,7 +88,7 @@ const Donation = () => {
                   className={classes.checkbox}
                   type='radio'
                   name='typeOfDonation'
-                  id='money'
+                  id='Money'
                   onClick={changeTypeOfDonationHandler}
                 />
               </label>

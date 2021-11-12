@@ -133,8 +133,11 @@ const fetchController = async (type, data, extraHeaders) => {
         donateUrl,
         METHOD.POST,
         { potId: data.potId, donationType: data.donationType },
-        { Authorization: `Bearer ${extraHeaders.token}` }
+        {
+          Authorization: `Bearer ${extraHeaders.token}`,
+        }
       );
+      console.log(data, extraHeaders, donateUrl);
 
       return donateResponse;
 
