@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useHistory } from 'react-router-dom';
 
+import paths from '../../../router/paths';
 import Register from '../../Register';
 import Login from '../../Login';
 import logo from '../../../assets/images/logo.png';
@@ -47,7 +48,11 @@ const Header = () => {
   };
 
   const ViewPots = () => {
-    history.push('/view-my')
+    history.push(paths.VIEW_MY)
+  }
+
+  const goHome = () => {
+    history.push(paths.HOME)
   }
 
   const defaultToggleClasses = `${classes['pointer-no-selectable']} ${classes.toggler}`;
@@ -56,7 +61,7 @@ const Header = () => {
     <header className={classes.header}>
       <ul>
         <div className={classes['logo-toggler']}>
-          <li className={`${classes.logo} ${classes['pointer-no-selectable']}`}>
+          <li className={`${classes.logo} ${classes['pointer-no-selectable']}`} onClick={goHome}>
             <img src={logo} alt='logo' />
             <h1 className={classes.title}>
               <span className={classes['title__first-half']}>brak</span>
