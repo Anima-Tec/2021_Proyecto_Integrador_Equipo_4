@@ -1,7 +1,6 @@
 @import '../../assets/styles/colors.module.scss';
 
 .container {
-  min-height: 100vh;
   box-sizing: border-box;
   padding-top: 3.5rem;
   display: flex;
@@ -77,8 +76,8 @@
     }
   }
 }
+
 .container2 {
-  min-height: 100vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
@@ -146,14 +145,12 @@
 
 @media (max-width: 1099px) and (min-width: 768px) {
   .container {
-
     .img-container {
       display: none;
     }
 
     .home-container {
       width: 90%;
-
     }
   }
 }
@@ -165,26 +162,24 @@
     .img-container {
       margin: 10% auto auto 3%;
 
-      .img-home{
+      .img-home {
         width: 90%;
         height: 90%;
       }
     }
 
-      .pots-container {
-        width: 95%;
-      }
-    
+    .pots-container {
+      width: 95%;
+    }
   }
 }
 
 @media (max-width: 1920px) and (min-width: 1501px) {
   .container {
-
-    .img-container{
+    .img-container {
       margin: 6% auto auto 8%;
 
-      .img-home{
+      .img-home {
         width: 100%;
         height: 100%;
       }
@@ -211,7 +206,6 @@
 
 @media (min-width: 1921px) {
   .container {
-    
     .img-container {
       width: 30rem;
       height: 30rem;

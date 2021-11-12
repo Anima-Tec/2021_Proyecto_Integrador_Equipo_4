@@ -21,4 +21,4 @@ if (window.location.hostname === 'localhost') {
 
 const generateUrl = (route) => `${URL}${route}`;
 
-export { ROUTE, generateUrl};
+export { ROUTE, generateUrl };
