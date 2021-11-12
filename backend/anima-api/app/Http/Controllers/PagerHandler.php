@@ -24,6 +24,7 @@ class PagerHandler extends Controller
         }
         switch ($contentType) {
             case 'donations':
+                $namedDonations = [];
 
                 $user = $request->user();
                 $pagesLeft = ceil((Donation::where('authorEmail', $user->email)->count() / $limit) - $offset);
@@ -33,6 +34,13 @@ class PagerHandler extends Controller
                     ->take($limit)
                     ->get();
 
+                foreach ($Donations as $donation) {
+                    $currentPotName = Pot::where('id', $donation->potid)->select(['name', 'authorEmail'])->get()[0];
+                    $donation->potName = $currentPotName->name;
+                    $donation->ownerEmail = $currentPotName->authorEmail;
+                    array_push($namedDonations, $donation);
+                }
+
                 $pagesLeft = $pagesLeft - 1;
 
                 if ($pagesLeft < 0) {
@@ -40,7 +48,7 @@ class PagerHandler extends Controller
                 }
 
                 return response()->json([
-                    'Donations' => $Donations,
+                    'Donations' => $namedDonations,
                     'PagesLeft' => abs($pagesLeft)
                 ], 200);
 
@@ -115,12 +123,20 @@ class PagerHandler extends Controller
         }
         switch ($contentType) {
             case 'donations':
+                $namedDonations = [];
 
                 $pagesLeft = ceil((Donation::count() / $limit) - $offset);
 
                 $Donations = Donation::skip($limit * $offset)
                     ->take($limit)
                     ->get();
+
+                foreach ($Donations as $donation) {
+                    $currentPotName = Pot::where('id', $donation->potid)->select(['name', 'authorEmail'])->get()[0];
+                    $donation->potName = $currentPotName->name;
+                    $donation->ownerEmail = $currentPotName->authorEmail;
+                    array_push($namedDonations, $donation);
+                }
 
                 $pagesLeft = $pagesLeft - 1;
 
@@ -129,7 +145,7 @@ class PagerHandler extends Controller
                 }
 
                 return response()->json([
-                    'Donations' => $Donations,
+                    'Donations' => $namedDonations,
                     'PagesLeft' => abs($pagesLeft)
                 ], 200);
 
