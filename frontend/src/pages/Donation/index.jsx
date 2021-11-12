@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { KeyboardArrowRight as Arrow } from '@material-ui/icons';
+import { useToasts } from 'react-toast-notifications';
 
 import fetchController from '../../Networking/fetch-controller';
 import TYPE from '../../Networking/requestTypes';
+import Spinner from '../../components/UI/Spinner';
 
 import classes from './Donation.module.scss';
 
 const Donation = () => {
   const { potID } = useParams();
+  const { addToast } = useToasts();
+
   const [potInfo, setPotInfo] = useState({
     address: '',
     desc: '',
@@ -16,8 +20,8 @@ const Donation = () => {
     openFrom: '',
     to: '',
   });
-
   const [typeOfDonation, setTypeOfDonation] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const changeTypeOfDonationHandler = (event) => {
     const id = event.target.id;
@@ -40,70 +44,102 @@ const Donation = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const response = await fetchController(
-      TYPE.ADD_DONATION,
-      {
-        potId: potID,
-        donationType: typeOfDonation,
-      },
-      { token: localStorage.getItem('userIdentifier') }
-    );
-    console.log(response);
-    if (response.status === 200) {
-      console.log('todo bien');
+    setLoading(true);
+
+    if (typeOfDonation) {
+      const response = await fetchController(
+        TYPE.ADD_DONATION,
+        {
+          potId: potID,
+          donationType: typeOfDonation,
+        },
+        { token: localStorage.getItem('userIdentifier') }
+      );
+
+      setLoading(false);
+
+      if (response.status === 200) {
+        return addToast('Donación agregada correctamente.', {
+          appearance: 'success',
+          autoDismiss: '10000',
+        });
+      }
+
+      if (response.status === 401) {
+        return addToast('Inicia sesión para poder donár.', {
+          appearance: 'error',
+          autoDismiss: '10000',
+        });
+      }
+
+      if (response.status) {
+        addToast(`Error: ${response.data.message}`, {
+          appearance: 'error',
+          autoDismiss: '10000',
+        });
+      }
+    } else {
+      setLoading(false);
+      addToast('Seleccione un tipo de donación.', {
+        appearance: 'warning',
+        autoDismiss: '5000',
+      });
     }
   };
 
   return (
-    <section className={classes.container}>
-      <div className={classes.content}>
-        <form onSubmit={submitHandler} className={classes.information}>
-          <div className={classes['title-container']}>
-            <h1 className={classes.title}>
-              ¿Quiénes somos y a
-              <span className={classes['title-highlight']}> QUIÉNES </span>
-              ayudamos?
-            </h1>
-          </div>
-          <div className={classes['form-content']}>
-            <p>{potInfo.desc}</p>
-            <span>
-              horario: {potInfo.openFrom} : {potInfo.to}
-            </span>
-            <span>{potInfo.address}</span>
-            <div className={classes.options}>
-              <label className={classes.option} htmlFor='food'>
-                <span>Alimentos</span>
-                <input
-                  className={classes.checkbox}
-                  type='radio'
-                  name='typeOfDonation'
-                  id='Food'
-                  onClick={changeTypeOfDonationHandler}
-                />
-              </label>
-              <label className={classes.option} htmlFor='money'>
-                <span>Dinero</span>
-                <input
-                  className={classes.checkbox}
-                  type='radio'
-                  name='typeOfDonation'
-                  id='Money'
-                  onClick={changeTypeOfDonationHandler}
-                />
-              </label>
+    <>
+      {loading && <Spinner />}
+      <section className={classes.container}>
+        <div className={classes.content}>
+          <form onSubmit={submitHandler} className={classes.information}>
+            <div className={classes['title-container']}>
+              <h1 className={classes.title}>
+                ¿Quiénes somos y a
+                <span className={classes['title-highlight']}> QUIÉNES </span>
+                ayudamos?
+              </h1>
             </div>
-            <button className={classes.button} type='submit'>
-              Donar
-              <Arrow className={classes.icon} />
-            </button>
+            <div className={classes['form-content']}>
+              <p>{potInfo.desc}</p>
+              <span>
+                horario: {potInfo.openFrom} : {potInfo.to}
+              </span>
+              <span>{potInfo.address}</span>
+              <div className={classes.options}>
+                <label className={classes.option} htmlFor='food'>
+                  <span>Alimentos</span>
+                  <input
+                    className={classes.checkbox}
+                    type='radio'
+                    name='typeOfDonation'
+                    id='Food'
+                    onClick={changeTypeOfDonationHandler}
+                  />
+                </label>
+                <label className={classes.option} htmlFor='money'>
+                  <span>Dinero</span>
+                  <input
+                    className={classes.checkbox}
+                    type='radio'
+                    name='typeOfDonation'
+                    id='Money'
+                    onClick={changeTypeOfDonationHandler}
+                  />
+                </label>
+              </div>
+              <button className={classes.button} type='submit'>
+                Donar
+                <Arrow className={classes.icon} />
+              </button>
+            </div>
+          </form>
+          <div className={classes['image-container']}>
+            <img className={classes.image} src={potInfo.imageURL} alt='pot' />
           </div>
-        </form>
-        <div className={classes['image-container']}>
-          <img className={classes.image} src={potInfo.imageURL} alt='pot' />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

@@ -137,7 +137,6 @@ const fetchController = async (type, data, extraHeaders) => {
           Authorization: `Bearer ${extraHeaders.token}`,
         }
       );
-      console.log(data, extraHeaders, donateUrl);
 
       return donateResponse;
 
