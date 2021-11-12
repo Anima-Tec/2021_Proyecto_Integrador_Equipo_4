@@ -3,6 +3,7 @@ const ROUTE = {
   ACTIVATE_ACCOUNT: '/activate',
   LOGIN: '/login',
   ADD_POT: '/pots/save',
+  VIEW_A_POT: '/pots',
   VIEW_ALL_POTS: '/pots',
   VIEW_POTS_IN_NEED: '/potsInNeed',
   VIEW_MY_POTS: '/auth/pots',
@@ -21,4 +22,4 @@ if (window.location.hostname === 'localhost') {
 
 const generateUrl = (route) => `${URL}${route}`;
 
-export { ROUTE, generateUrl};
+export { ROUTE, generateUrl };

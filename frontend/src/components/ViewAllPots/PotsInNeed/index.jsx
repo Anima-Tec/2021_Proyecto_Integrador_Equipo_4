@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
 import NotFound from '../NotFound';
-import Cards from '../Cards'
+import Cards from '../Cards';
 import classes from './PotsInNeed.module.scss';
 
 const ViewPotsInNeed = () => {
@@ -36,7 +36,7 @@ const ViewPotsInNeed = () => {
       <div className={classes.container}>
         <div className={classes['container-cards']}>
           {pots.map((pot) => (
-            <Cards {...pot}/>
+            <Cards key={pot.id} {...pot} />
           ))}
         </div>
 

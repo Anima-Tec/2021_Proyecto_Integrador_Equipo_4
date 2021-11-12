@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ArrowForwardIos as ArrowForwardIosIcon } from '@material-ui/icons';
 import ReactPaginate from 'react-paginate';
 import { useToasts } from 'react-toast-notifications';
@@ -13,31 +13,34 @@ const ViewMyPots = () => {
   const [pots, setPots] = useState([]);
   const [pageCount, setPageCount] = useState(1);
 
-  const getPots = async (page) => {
-    if (localStorage.getItem('userIdentifier')) {
-      const token = localStorage.getItem('userIdentifier');
-      const response = await fetchController(
-        TYPE.VIEW_MY_POTS,
-        {
-          offset: page,
-        },
-        { token }
-      );
-      if (response.data.Pots) {
-        setPots(response.data.Pots);
-        setPageCount(response.data.PagesLeft + 1 + page);
+  const getPots = useCallback(
+    async (page) => {
+      if (localStorage.getItem('userIdentifier')) {
+        const token = localStorage.getItem('userIdentifier');
+        const response = await fetchController(
+          TYPE.VIEW_MY_POTS,
+          {
+            offset: page,
+          },
+          { token }
+        );
+        if (response.data.Pots) {
+          setPots(response.data.Pots);
+          setPageCount(response.data.PagesLeft + 1 + page);
+        }
+      } else {
+        addToast('Debe loguearse para ver sus ollas.', {
+          appearance: 'error',
+          autoDismiss: '4000',
+        });
       }
-    } else {
-      addToast('Debe loguearse para ver sus ollas.', {
-        appearance: 'error',
-        autoDismiss: '4000',
-      });
-    }
-  };
+    },
+    [addToast]
+  );
 
   useEffect(() => {
     getPots(0);
-  }, []);
+  }, [getPots]);
 
   const handlePageClick = (newValue) => {
     getPots(newValue.selected);
@@ -72,7 +75,7 @@ const ViewMyPots = () => {
         </div>
       ))}
       <div className={classes['pagination-container']}>
-      <ReactPaginate
+        <ReactPaginate
           pageCount={pageCount}
           previousLabel={'←'}
           nextLabel={'→'}
