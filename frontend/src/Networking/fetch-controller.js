@@ -70,18 +70,21 @@ const fetchController = async (type, data, extraHeaders) => {
       );
       return addPotResponse;
 
+    case TYPE.GET_ALL_POTS:
+      const getAllPotsUrl = generateUrl(ROUTE.VIEW_ALL_POTS);
+      const getAllResponse = await sendRequest(getAllPotsUrl, METHOD.GET);
+      return getAllResponse;
+
     case TYPE.VIEW_ALL_POTS:
       const viewAllPotsUrl = generateUrl(
         `${ROUTE.VIEW_ALL_POTS}/${data.offset}/8`
       );
-
       const viewAllResponse = await sendRequest(
         viewAllPotsUrl,
         METHOD.GET,
         {},
         {}
       );
-
       return viewAllResponse;
 
     case TYPE.VIEW_A_POT:
@@ -102,21 +105,18 @@ const fetchController = async (type, data, extraHeaders) => {
       const viewPotsInNeedUrl = generateUrl(
         `${ROUTE.VIEW_POTS_IN_NEED}/${data.offset}/8`
       );
-
       const viewPotsInNeed = await sendRequest(
         viewPotsInNeedUrl,
         METHOD.GET,
         {},
         {}
       );
-
       return viewPotsInNeed;
 
     case TYPE.VIEW_MY_POTS:
       const viewMyPotsUrl = generateUrl(
         `${ROUTE.VIEW_MY_POTS}/${data.offset}/5`
       );
-
       const viewPotsResponse = await sendRequest(
         viewMyPotsUrl,
         METHOD.GET,
