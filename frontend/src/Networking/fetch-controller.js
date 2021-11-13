@@ -87,6 +87,20 @@ const fetchController = async (type, data, extraHeaders) => {
       );
       return viewAllResponse;
 
+    case TYPE.VIEW_A_POT:
+      const viewPotUrl = `${generateUrl(ROUTE.VIEW_A_POT)}/${data.id}`;
+
+      const viewPotResponse = await sendRequest(
+        viewPotUrl,
+        METHOD.GET,
+        {},
+        {
+          'Content-Type': 'multipart/form-data',
+        }
+      );
+
+      return viewPotResponse;
+
     case TYPE.VIEW_POTS_IN_NEED:
       const viewPotsInNeedUrl = generateUrl(
         `${ROUTE.VIEW_POTS_IN_NEED}/${data.offset}/8`
@@ -109,10 +123,22 @@ const fetchController = async (type, data, extraHeaders) => {
         {},
         { Authorization: `Bearer ${extraHeaders.token}` }
       );
+
       return viewPotsResponse;
 
     case TYPE.ADD_DONATION:
-      break;
+      const donateUrl = generateUrl(ROUTE.ADD_DONATION);
+
+      const donateResponse = await sendRequest(
+        donateUrl,
+        METHOD.POST,
+        { potId: data.potId, donationType: data.donationType },
+        {
+          Authorization: `Bearer ${extraHeaders.token}`,
+        }
+      );
+
+      return donateResponse;
 
     case TYPE.ACTIVATE_ACCOUNT:
       const activateUrl = generateUrl(ROUTE.ACTIVATE_ACCOUNT);

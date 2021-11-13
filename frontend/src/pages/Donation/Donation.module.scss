@@ -1,0 +1,128 @@
+@import '../../assets/styles/colors.module.scss';
+
+input[type='radio'] {
+  transform: scale(1.2);
+}
+
+.container {
+  max-width: 100%;
+  padding: 5rem 1rem 1rem;
+  border-radius: 5px;
+
+  .content {
+    display: flex;
+    flex-direction: column-reverse;
+    box-shadow: 0px 0px 10px 7px $activation_box-shadow-color;
+    border-radius: 5px;
+
+    .information {
+      max-width: 100%;
+      padding: 0.5rem;
+      color: $donation_text-color;
+
+      .title {
+        margin: 0;
+        padding-top: 0.3rem;
+        font-size: 2.1rem;
+        text-align: center;
+        color: $black;
+
+        .title-highlight {
+          color: $principal-blue;
+        }
+      }
+
+      .form-content {
+        padding: 0 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .options {
+          margin-top: 1.3rem;
+          width: 10rem;
+          display: flex;
+          justify-content: space-between;
+
+          .option {
+            display: flex;
+            flex-direction: column;
+
+            .checkbox {
+              margin: 6px 1px;
+            }
+          }
+        }
+      }
+    }
+
+    .image-container {
+      max-width: 100%;
+      padding: 1rem;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+
+      .image {
+        width: 100%;
+      }
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 3rem;
+      border-style: none;
+      border-radius: 5px;
+      background-color: $principal-blue;
+      color: $white;
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-top: 1rem;
+
+      .icon {
+        size: 4rem;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    padding: 2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+    .content {
+      flex-direction: row;
+      width: 95%;
+
+      .information {
+        width: 50%;
+
+        .title-container {
+          height: 20%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .form-content {
+          height: 77%;
+        }
+      }
+
+      .image-container {
+        width: 50%;
+        padding: 0;
+
+        .image {
+          border-radius: 0 5px 5px 0;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

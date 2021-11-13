@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ReactPaginate from 'react-paginate';
 
 import fetchController from '../../../Networking/fetch-controller';
@@ -11,7 +11,7 @@ const ViewAllPots = () => {
   const [pots, setPots] = useState([]);
   const [pageCount, setPageCount] = useState(1);
 
-  const getAllPots = async (page) => {
+  const getAllPots = useCallback(async (page) => {
     const response = await fetchController(
       TYPE.VIEW_ALL_POTS,
       {
@@ -21,11 +21,11 @@ const ViewAllPots = () => {
     );
     setPots(response.data.Pots);
     setPageCount(response.data.PagesLeft + 1 + page);
-  };
+  }, []);
 
   useEffect(() => {
     getAllPots(0);
-  }, []);
+  }, [getAllPots]);
 
   const changePageHandler = (newValue) => {
     getAllPots(newValue.selected);
