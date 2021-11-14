@@ -18,6 +18,7 @@ import classes from './CreatePots.module.scss';
 
 const CreatePots = () => {
   const { addToast } = useToasts();
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     potName: '',
@@ -105,7 +106,6 @@ const CreatePots = () => {
           toTimeSecond: '',
         });
         setFile(null);
-        setAddress(null);
       } else {
         setLoading(false);
         localStorage.clear();
@@ -141,7 +141,6 @@ const CreatePots = () => {
             id: 'address',
             onChange: setAddress,
           }}
-          apiKey={process.env.REACT_APP_GOOGLE_API_KEY}
         />
       </div>
       <input
@@ -248,4 +247,5 @@ const CreatePots = () => {
     </form>
   );
 };
+
 export default CreatePots;

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { GoogleMap as Map, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap as Map, Marker } from '@react-google-maps/api';
 import { useToasts } from 'react-toast-notifications';
 
 import fetchController from '../../../../Networking/fetch-controller';
@@ -60,21 +60,15 @@ const GoogleMap = () => {
 
   return (
     <div className={classes['map-container']}>
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-        <Map
-          mapContainerStyle={containerStyle}
-          center={actualLocation}
-          zoom={15}
-        >
-          {pots.map((pot) => (
-            <Marker
-              id={pot.id}
-              key={pot.id}
-              position={{ lat: Number(pot.lat), lng: Number(pot.lng) }}
-            />
-          ))}
-        </Map>
-      </LoadScript>
+      <Map mapContainerStyle={containerStyle} center={actualLocation} zoom={15}>
+        {pots.map((pot) => (
+          <Marker
+            id={pot.id}
+            key={pot.id}
+            position={{ lat: Number(pot.lat), lng: Number(pot.lng) }}
+          />
+        ))}
+      </Map>
     </div>
   );
 };
