@@ -136,7 +136,7 @@ const CreatePots = () => {
           }}
           selectProps={{
             className: classes['input-pots-icon'],
-            placeholder: 'Ingrese diección de la olla',
+            placeholder: 'Ingrese dirección de la olla',
             type: 'text',
             id: 'address',
             onChange: setAddress,

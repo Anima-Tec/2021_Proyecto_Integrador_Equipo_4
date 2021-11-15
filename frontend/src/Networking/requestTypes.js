@@ -10,6 +10,7 @@ const TYPE = {
   VIEW_POTS_IN_NEED: 'POTS_IN_NEED',
   VIEW_MY_POTS: 'VIEW_MY_POTS',
   ADD_DONATION: 'ADD_DONATION',
+  EDIT_POT: 'EDIT_POT',
 };
 
 export default TYPE;

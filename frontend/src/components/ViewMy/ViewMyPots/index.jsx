@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from 'react-router';
 import { ArrowForwardIos as ArrowForwardIosIcon } from '@material-ui/icons';
 import ReactPaginate from 'react-paginate';
 import { useToasts } from 'react-toast-notifications';
@@ -7,9 +8,11 @@ import classes from './ViewMyPots.module.scss';
 import NotFound from './NotFound';
 import fetchController from '../../../Networking/fetch-controller';
 import TYPE from '../../../Networking/requestTypes';
+import paths from '../../../router/paths';
 
 const ViewMyPots = () => {
   const { addToast } = useToasts();
+  const history = useHistory();
   const [pots, setPots] = useState([]);
   const [pageCount, setPageCount] = useState(1);
 
@@ -38,6 +41,11 @@ const ViewMyPots = () => {
     [addToast]
   );
 
+  const goToEditPageHandler = (event) => {
+    const potID = event.target.id;
+    history.push(`${paths.EDIT}/${potID}`);
+  };
+
   useEffect(() => {
     getPots(0);
   }, [getPots]);
@@ -62,9 +70,15 @@ const ViewMyPots = () => {
 
             <p className={classes.description}>{pot.desc}</p>
             <p className={classes.time}>
-              Horario: {pot.openFrom} - {pot.to}
+              Horario: {pot.openFrom.substring(0, pot.openFrom.length - 3)}
+              &nbsp;-&nbsp;
+              {pot.to.substring(0, pot.to.length - 3)}
             </p>
-            <button className={classes['edit-button']}>
+            <button
+              id={pot.id}
+              onClick={goToEditPageHandler}
+              className={classes['edit-button']}
+            >
               Editar olla popular <ArrowForwardIosIcon />
             </button>
           </div>

@@ -140,6 +140,17 @@ const fetchController = async (type, data, extraHeaders) => {
 
       return donateResponse;
 
+    case TYPE.EDIT_POT:
+      const editUrl = generateUrl(ROUTE.EDIT_POT);
+      const body = new FormData();
+
+      const editPotResponse = await sendRequest(editUrl, METHOD.POST, body, {
+        Authorization: `Bearer ${extraHeaders.token}`,
+        'Content-Type': 'multipart/form-data',
+      });
+
+      return editPotResponse;
+
     case TYPE.ACTIVATE_ACCOUNT:
       const activateUrl = generateUrl(ROUTE.ACTIVATE_ACCOUNT);
 
