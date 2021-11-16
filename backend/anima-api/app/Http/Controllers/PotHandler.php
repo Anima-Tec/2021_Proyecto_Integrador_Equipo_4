@@ -40,6 +40,11 @@ class PotHandler extends Controller
                 'message' => 'Pot not found.'
             ], 404);
         }
+        if (Pot::where('id', $potID)->where('authorEmail', $request->user()->email)->doesntExist()) {
+            return response()->json([
+                'message' => 'Pot does not belong to the current user.'
+            ], 403);
+        }
         $oldPot = Pot::where('id', $potID)->get()[0];
         $newPot = ['name' => $validatedData['name'] ?? $oldPot->name, 'authorEmail' => $user->email, 'desc' => $validatedData['desc'] ?? $oldPot->desc, 'openFrom' => $validatedData['openFrom'] ?? $oldPot->openFrom, 'to' => $validatedData['to'] ?? $oldPot->to, 'address' => $validatedData['address'] ?? $oldPot->address, 'lat' => $validatedData['lat'] ?? $oldPot->lat, 'lng' => $validatedData['lng'] ?? $oldPot->lng, 'isInNeed' => $validatedData['isInNeed'] ?? $oldPot->isInNeed, 'state' => $validatedData['state'] ?? $oldPot->state];
         if ($request->hasFile('image')) {

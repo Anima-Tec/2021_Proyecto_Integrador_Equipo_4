@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4771a1ef-985b-4acc-8cc8-751574287753",
+		"_postman_id": "9f34dd66-153e-4180-8c5a-810a34b6ca88",
 		"name": "Laravel_API",
 		"description": "Since the entire backend was refactored, a new documentation file is in order.\n\nKeep in mind that since JWT is now fully functional, you will have to provide a Bearer token along with your requests (register, login and activate do not require it, of course).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -198,7 +198,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "2|C4MnYnP7IeByR9nfDbYY32Te8bPunB4vGsiqzVDB",
+									"value": "9|yTIZADkX1I7d9rpSB3iWgEr8mp5g2atPETxqQl3Q",
 									"type": "string"
 								}
 							]
@@ -242,6 +242,16 @@
 								{
 									"key": "address",
 									"value": "Pot address",
+									"type": "text"
+								},
+								{
+									"key": "lat",
+									"value": "19.21740",
+									"type": "text"
+								},
+								{
+									"key": "lng",
+									"value": "80.66218",
 									"type": "text"
 								}
 							]
@@ -430,7 +440,7 @@
 								"<potID>"
 							]
 						},
-						"description": "Updates the record that matches the provided ID.\n\nThe attributes that can be modified are: name, desc, openFrom, to, address, lat, lng, isInNeed and state.\n\nYou should only include the attributes that you want to modify in the request's body. If an attribute is present but it has no value (or is invalid), an error message will be returned and no change will be made.\n\nGood request:\n{\n'name': 'newName',\n'desc': 'newDesc'\n}\n\nBad request:\n{\n'name': 'newName',\n'desc': 'newDesc',\n'openFrom': \n}\n\nAnd yes, this should be a PATCH or PUT request, but you can blame PHP itself for that (https://bugs.php.net/bug.php?id=55815)."
+						"description": "Updates the record that matches the provided ID. Only pots that were made by the current user can be modified.\n\nThe attributes that can be modified are: name, desc, openFrom, to, address, lat, lng, isInNeed and state.\n\nYou should only include the attributes that you want to modify in the request's body. If an attribute is present but it has no value (or is invalid), an error message will be returned and no change will be made.\n\nGood request:\n{\n'name': 'newName',\n'desc': 'newDesc'\n}\n\nBad request:\n{\n'name': 'newName',\n'desc': 'newDesc',\n'openFrom': \n}\n\nAnd yes, this should be a PATCH or PUT request, but you can blame PHP itself for that (https://bugs.php.net/bug.php?id=55815)."
 					},
 					"response": []
 				}
@@ -494,7 +504,7 @@
 								"save"
 							]
 						},
-						"description": "Creates a new donation and stores in the database."
+						"description": "Creates a new donation and stores in the database. Pot owners can not donate to their own pots."
 					},
 					"response": []
 				},
