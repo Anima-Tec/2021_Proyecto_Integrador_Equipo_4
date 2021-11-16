@@ -7,6 +7,7 @@ const ROUTE = {
   VIEW_ALL_POTS: '/pots',
   VIEW_POTS_IN_NEED: '/potsInNeed',
   VIEW_MY_POTS: '/auth/pots',
+  VIEW_MY_DONATIONS: '/auth/donations',
   LOG_OUT: '/logout',
   ADD_DONATION: '/donations/save',
   VIEW_DONATIONS: '/donations',
