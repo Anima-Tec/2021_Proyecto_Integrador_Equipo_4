@@ -23,7 +23,7 @@
     font-size: 2rem;
     background: $white;
     border-radius: 50%;
-    border: 1px solid #97aba3;
+    border: 1px solid $popup_close-button;
   }
 
   .d-info-container {
@@ -35,7 +35,7 @@
     .d-info-part-one {
       .d-info-tittle {
         h1 {
-          margin: 0%;
+          margin: 0;
         }
 
         .part-text-donation {
