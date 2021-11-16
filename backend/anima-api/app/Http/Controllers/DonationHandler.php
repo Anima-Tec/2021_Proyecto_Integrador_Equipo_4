@@ -45,6 +45,11 @@ class DonationHandler extends Controller
                 'message' => 'Pot not found.'
             ], 404);
         }
+        if (Pot::where('id', $validatedData['potId'])->where('authorEmail', $request->user()->email)->exists()) {
+            return response()->json([
+                'message' => 'The creator of a pot can not donate to his own pots.'
+            ], 403);
+        }
         Donation::create([
             'potId' => $validatedData['potId'],
             'authorEmail' => $user->email,
