@@ -114,35 +114,35 @@ const Donation = () => {
               </span>
               <span>{potInfo.address}</span>
               <div className={classes.options}>
-                <label className={classes.option} htmlFor="food">
+                <label className={classes.option} htmlFor='food'>
                   <span>Alimentos</span>
                   <input
                     className={classes.checkbox}
-                    type="radio"
-                    name="typeOfDonation"
-                    id="Food"
+                    type='radio'
+                    name='typeOfDonation'
+                    id='Food'
                     onClick={changeTypeOfDonationHandler}
                   />
                 </label>
-                <label className={classes.option} htmlFor="money">
+                <label className={classes.option} htmlFor='money'>
                   <span>Dinero</span>
                   <input
                     className={classes.checkbox}
-                    type="radio"
-                    name="typeOfDonation"
-                    id="Money"
+                    type='radio'
+                    name='typeOfDonation'
+                    id='Money'
                     onClick={changeTypeOfDonationHandler}
                   />
                 </label>
               </div>
-              <button className={classes.button} type="submit">
+              <button className={classes.button} type='submit'>
                 Donar
                 <Arrow className={classes.icon} />
               </button>
             </div>
           </form>
           <div className={classes['image-container']}>
-            <img className={classes.image} src={potInfo.imageURL} alt="pot" />
+            <img className={classes.image} src={potInfo.imageURL} alt='pot' />
           </div>
         </div>
       </section>
