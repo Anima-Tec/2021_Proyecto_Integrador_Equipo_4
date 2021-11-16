@@ -6,6 +6,7 @@ import { useToasts } from 'react-toast-notifications';
 import fetchController from '../../Networking/fetch-controller';
 import TYPE from '../../Networking/requestTypes';
 import Spinner from '../../components/UI/Spinner';
+import DonationConfirmation from '../../components/DonationConfirmation';
 
 import classes from './Donation.module.scss';
 
@@ -22,10 +23,15 @@ const Donation = () => {
   });
   const [typeOfDonation, setTypeOfDonation] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const changeTypeOfDonationHandler = (event) => {
     const id = event.target.id;
     setTypeOfDonation(id);
+  };
+
+  const changePopupState = () => {
+    setIsOpen((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -57,8 +63,8 @@ const Donation = () => {
       );
 
       setLoading(false);
-
       if (response.status === 200) {
+        changePopupState();
         return addToast('Donación agregada correctamente.', {
           appearance: 'success',
           autoDismiss: '10000',
@@ -90,6 +96,7 @@ const Donation = () => {
   return (
     <>
       {loading && <Spinner />}
+      <DonationConfirmation {...potInfo} isOpen={isOpen} changePopupState={changePopupState}/>
       <section className={classes.container}>
         <div className={classes.content}>
           <form onSubmit={submitHandler} className={classes.information}>
