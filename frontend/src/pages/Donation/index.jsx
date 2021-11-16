@@ -23,6 +23,7 @@ const Donation = () => {
   });
   const [typeOfDonation, setTypeOfDonation] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const changeTypeOfDonationHandler = (event) => {
     const id = event.target.id;
@@ -60,6 +61,9 @@ const Donation = () => {
       setLoading(false);
 
       if (response.status === 200) {
+        console.log(showModal);
+        console.log("entre");
+        setShowModal(true);
         return addToast('Donación agregada correctamente.',
         {
           appearance: 'success',
@@ -130,11 +134,11 @@ const Donation = () => {
                   />
                 </label>
               </div>
-              <DonationConfirmation {...potInfo}>
-              <button className={classes.button} type='submit'>
-                Donar
-                <Arrow className={classes.icon} />
-              </button>
+              <DonationConfirmation {...potInfo} showModal>
+                <button className={classes.button} type='submit'>
+                  Donar
+                  <Arrow className={classes.icon} />
+                </button>
               </DonationConfirmation>
             </div>
           </form>
