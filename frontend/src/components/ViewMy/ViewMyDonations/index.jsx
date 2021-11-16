@@ -52,28 +52,27 @@ const ViewMyDonations = () => {
         <Table>
           <Thead className={classes['table-head']}>
             <Tr>
-              <Th className={classes['radius_left-top']}> Tipo de donación: </Th>
+              <Th className={classes['radius_left-top']}>
+                {' '}
+                Tipo de donación:{' '}
+              </Th>
               <Th className={classes['space']}></Th>
               <Th> Olla popular:</Th>
               <Th> Fecha:</Th>
               <Th className={classes['radius_right-top']}> Dueño de olla: </Th>
             </Tr>
           </Thead>
-          {donations.map((donation) => (
-            <Tbody className={classes['table-body']} key={donation.id} >
-              <Tr>
-              {donation.donationType === 'Money' &&(
-                <Td>Dinero</Td>
-              )}
-              {donation.donationType === 'Food' &&(
-                <Td>Productos</Td>
-              )}
+          <Tbody className={classes['table-body']} >
+            {donations.map((donation) => (
+              <Tr key={donation.id}>
+                {donation.donationType === 'Money' && <Td>Dinero</Td>}
+                {donation.donationType === 'Food' && <Td>Productos</Td>}
                 <Td>{donation.potName} </Td>
                 <Td>{donation.created_at.slice(0, 10)}</Td>
                 <Td>{donation.ownerEmail}</Td>
               </Tr>
-            </Tbody>
-          ))}
+            ))}
+          </Tbody>
         </Table>
         <div className={classes['pagination-container']}>
           <ReactPaginate
