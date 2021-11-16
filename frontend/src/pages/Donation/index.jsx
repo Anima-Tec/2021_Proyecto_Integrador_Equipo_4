@@ -6,6 +6,7 @@ import { useToasts } from 'react-toast-notifications';
 import fetchController from '../../Networking/fetch-controller';
 import TYPE from '../../Networking/requestTypes';
 import Spinner from '../../components/UI/Spinner';
+import DonationConfirmation from '../../components/DonationConfirmation';
 
 import classes from './Donation.module.scss';
 
@@ -59,7 +60,8 @@ const Donation = () => {
       setLoading(false);
 
       if (response.status === 200) {
-        return addToast('Donación agregada correctamente.', {
+        return addToast('Donación agregada correctamente.',
+        {
           appearance: 'success',
           autoDismiss: '10000',
         });
@@ -128,10 +130,12 @@ const Donation = () => {
                   />
                 </label>
               </div>
+              <DonationConfirmation {...potInfo}>
               <button className={classes.button} type='submit'>
                 Donar
                 <Arrow className={classes.icon} />
               </button>
+              </DonationConfirmation>
             </div>
           </form>
           <div className={classes['image-container']}>
