@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { KeyboardArrowRight as Arrow } from '@material-ui/icons';
 import { useToasts } from 'react-toast-notifications';
@@ -23,11 +23,15 @@ const Donation = () => {
   });
   const [typeOfDonation, setTypeOfDonation] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const changeTypeOfDonationHandler = (event) => {
     const id = event.target.id;
     setTypeOfDonation(id);
+  };
+
+  const changePopupState = () => {
+    setIsOpen((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -59,13 +63,9 @@ const Donation = () => {
       );
 
       setLoading(false);
-
       if (response.status === 200) {
-        console.log(showModal);
-        console.log("entre");
-        setShowModal(true);
-        return addToast('Donación agregada correctamente.',
-        {
+        changePopupState();
+        return addToast('Donación agregada correctamente.', {
           appearance: 'success',
           autoDismiss: '10000',
         });
@@ -96,6 +96,7 @@ const Donation = () => {
   return (
     <>
       {loading && <Spinner />}
+      <DonationConfirmation {...potInfo} isOpen={isOpen} changePopupState={changePopupState}/>
       <section className={classes.container}>
         <div className={classes.content}>
           <form onSubmit={submitHandler} className={classes.information}>
@@ -113,37 +114,35 @@ const Donation = () => {
               </span>
               <span>{potInfo.address}</span>
               <div className={classes.options}>
-                <label className={classes.option} htmlFor='food'>
+                <label className={classes.option} htmlFor="food">
                   <span>Alimentos</span>
                   <input
                     className={classes.checkbox}
-                    type='radio'
-                    name='typeOfDonation'
-                    id='Food'
+                    type="radio"
+                    name="typeOfDonation"
+                    id="Food"
                     onClick={changeTypeOfDonationHandler}
                   />
                 </label>
-                <label className={classes.option} htmlFor='money'>
+                <label className={classes.option} htmlFor="money">
                   <span>Dinero</span>
                   <input
                     className={classes.checkbox}
-                    type='radio'
-                    name='typeOfDonation'
-                    id='Money'
+                    type="radio"
+                    name="typeOfDonation"
+                    id="Money"
                     onClick={changeTypeOfDonationHandler}
                   />
                 </label>
               </div>
-              <DonationConfirmation {...potInfo} showModal>
-                <button className={classes.button} type='submit'>
-                  Donar
-                  <Arrow className={classes.icon} />
-                </button>
-              </DonationConfirmation>
+              <button className={classes.button} type="submit">
+                Donar
+                <Arrow className={classes.icon} />
+              </button>
             </div>
           </form>
           <div className={classes['image-container']}>
-            <img className={classes.image} src={potInfo.imageURL} alt='pot' />
+            <img className={classes.image} src={potInfo.imageURL} alt="pot" />
           </div>
         </div>
       </section>
