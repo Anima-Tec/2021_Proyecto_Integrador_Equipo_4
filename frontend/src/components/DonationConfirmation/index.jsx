@@ -1,8 +1,6 @@
-import { useRef } from 'react';
 import Popup from 'reactjs-popup';
 
 import donationImage from '../../assets/images/ConfirmationDonation.PNG';
-import Donation from '../../pages/Donation';
 import classes from './DonationConfirmation.module.scss';
 
 const DonationConfirmation = ({authorEmail, isOpen, changePopupState}) => {

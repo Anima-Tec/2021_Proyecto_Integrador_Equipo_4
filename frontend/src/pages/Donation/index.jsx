@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { KeyboardArrowRight as Arrow } from '@material-ui/icons';
 import { useToasts } from 'react-toast-notifications';
