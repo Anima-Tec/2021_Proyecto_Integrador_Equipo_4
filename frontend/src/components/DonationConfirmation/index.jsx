@@ -29,7 +29,7 @@ const DonationConfirmation = ({ authorEmail, isOpen, changePopupState }) => {
           </div>
           <div className={classes['d-info-part-two']}>
             <div className={classes['d-info-img']}>
-              <img src={donationImage} alt="Info-logo" />
+              <img src={donationImage} alt='Info-logo'/>
             </div>
           </div>
         </div>
